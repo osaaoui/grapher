@@ -1,0 +1,11 @@
+.jxbox2 {
+  position: relative;
+      overflow: hidden;
+      background-color: #b3cccc!important;
+      border-style: solid;
+      border-width: 1px;
+      border-color: #356AA0;
+      border-radius: 10px;
+      -webkit-border-radius: 10px;
+      -ms-touch-action: none;
+}

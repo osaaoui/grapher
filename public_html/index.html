@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Graph">
+  <meta name="author" content="Marco Antonelli">
+  <meta name="author" content="Étienne Beauchemin-Lachapelle">
+  <meta name="author" content="Omar Saaoui">
+
+  <title>math graph</title>
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+
+  <!-- Style (CSS) -->
+  <link rel="stylesheet" type="text/css" href="css/mine.css">
+
+  <!-- Librarie js  -->
+  <script type="text/javascript" src="JS/jquery.min.js"></script>
+  <script type="text/javascript" src="JS/bootstrap.min.js"></script>
+<script type="text/javascript" src="JS/jsxgraphcore.js"></script>
+
+</head>
+
+<body>
+  <div class="container center-block jxgbox jxbox2"  id="box" style="width:800px; height:600px;">
+  </div>
+  <div class = "containter center-block" style="width:600px; text-align: right;">
+
+      <div class="text-left well">
+
+        <fieldset class="form-group">
+          <label for="equation">Equation :</label>
+          <input type = "text" class="form-control input-lg" id="input" rows="2"></input>
+          <button type="submit" class="btn btn-primary btn pull-right btn-md" id="btnrnd" onClick="trace()">Soummettre</button>
+          <button type="reset" class="btn btn-danger btn pull-right btn-md " id= "eff">Effacer</button>
+      </div>
+
+  </div>
+</body>
+
+  <script type="text/javascript" src="JS/indexScript.js"></script>
