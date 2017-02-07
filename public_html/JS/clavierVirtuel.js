@@ -1,8 +1,10 @@
 $(function(){
     	$("#clavier-virtuel").find("button").click(function () {
-    		alert("Hi");
+    		//alert("Hi");
 		var text = $(this).text();
-		$("input").val(text);
+		alert(text);
+		$("input").val($("input").val()+ text);
+		                
 });
 
 });
