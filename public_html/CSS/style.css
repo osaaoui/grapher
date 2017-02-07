@@ -18,6 +18,10 @@
 .text-left{
 	margin-top: 60px;
 }
+
+
+/*style css pour les siders : voir https://css-tricks.com/styling-cross-browser-compatible-range-inputs-css/ */
+
 input[type=range] {
   -webkit-appearance: none;
   margin: 30px 40px;
