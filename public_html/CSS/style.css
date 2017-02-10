@@ -15,10 +15,38 @@
 	text-align: center;
 }
 
+.clavierbutton {
+  -webkit-border-radius: 0;
+-moz-border-radius: 0;
+border-radius: 0px;
+font-family: Courier New;
+color: #ffffff;
+font-size: 20px;
+background: #3498db;
+padding: 10px 18px 10px 20px;
+text-decoration: none;
+width: 15%;
+}
+
+.clavierbutton:hover {
+  background: #4c84a6;
+  text-decoration: none;
+}
+
 .text-left{
 	margin-top: 60px;
 }
 
+.btn.btn-square {
+  border-radius: 0!important;
+}
+
+#btnrnd {
+	background-color: #e68a00;
+	opacity: 0.8;
+  color: white;
+  text-shadow: black;
+}
 
 /*style css pour les siders : voir https://css-tricks.com/styling-cross-browser-compatible-range-inputs-css/ */
 
@@ -110,5 +138,3 @@ input[type=range]:focus::-ms-fill-lower {
 input[type=range]:focus::-ms-fill-upper {
   background: #367ebd;
 }
-   
- 

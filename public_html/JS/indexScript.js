@@ -37,3 +37,9 @@ function trouverPara(equation){
 	tabPara.push(res.match(/([0-9])+/)); // deuxième element du tableau parametre b de ax+b
 	return tabPara;
 }
+
+function erase () {
+	$('#input').val('');
+	JXG.JSXGraph.freeBoard(board);
+	board = JXG.JSXGraph.initBoard('box', {boundingbox:[-5,8,8,-5], axis:true});
+}
