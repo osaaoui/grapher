@@ -13,8 +13,13 @@ function plot(func, atts){
 
 
 function trace(){
+        var equation = document.getElementById('input').value;//alert(equation);
+	var paraA=trouverPara(equation)[0][0]; //alert(paraA);
+	var paraB=trouverPara(equation)[1][0]; //alert(paraB);
+	var sliderA =board.create('slider',[[4,-3],[6,-3],[Number(paraA)-4,paraA,Number(paraA)+4]],{name:'a'});
+	var sliderB =board.create('slider',[[4,-3.5],[6,-3.5], [Number(paraB)-4, paraB, Number(paraB)+4]], {name:'b'});
 	function f(x) {
-	return eval(document.getElementById('input').value);
+	return sliderA.Value()*x + sliderB.Value();
 	}
 	c= plot(f);
 }
