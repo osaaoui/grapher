@@ -14,8 +14,9 @@ function plot(func, atts){
 
 function trace(){
         var equation = document.getElementById('input').value;//alert(equation);
-	var paraA=trouverPara(equation)[0][0]; //alert(paraA);
-	var paraB=trouverPara(equation)[1][0]; //alert(paraB);
+	var tabPara=trouverPara(equation);
+	var paraA=tabPara[0][0]; //alert(paraA);
+	var paraB=tabPara[1][0]; //alert(paraB);
 	var sliderA =board.create('slider',[[4,-3],[6,-3],[Number(paraA)-4,paraA,Number(paraA)+4]],{name:'a'});
 	var sliderB =board.create('slider',[[4,-3.5],[6,-3.5], [Number(paraB)-4, paraB, Number(paraB)+4]], {name:'b'});
 	function f(x) {
@@ -30,9 +31,15 @@ function clearAll(board){
 }
 
 function trouverPara(equation){
+        var tabPara;
 	var placeX=equation.indexOf("x");
 	var res = equation.substring(0, placeX);
-	var tabPara = [res.match(/([0-9])+/)]; // premier element du tableau parametre a de ax+b
+	if(res.match(/([0-9])+/)){
+	tabPara = [res.match(/([0-9])+/)];// premier element du tableau parametre a de ax+b
+	}else{
+	var tab=[1];
+	tabPara =[tab];
+	}
 	res= equation.substring(placeX,equation.length);
 	tabPara.push(res.match(/([0-9])+/)); // deuxième element du tableau parametre b de ax+b
 	return tabPara;
