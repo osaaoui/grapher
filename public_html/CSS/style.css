@@ -39,13 +39,26 @@ width: 15%;
 
 .btn.btn-square {
   border-radius: 0!important;
+  margin-top: 5px;
+  width: 20%;
+  font-size: 18px;
+
 }
 
 #btnrnd {
-	background-color: #e68a00;
-	opacity: 0.8;
+	background-color: #3071a9;
   color: white;
-  text-shadow: black;
+}
+#input {
+  width: 65%;
+}
+
+#saisie {
+  width: 600px;
+}
+
+.well {
+  width: 110%;
 }
 
 /*style css pour les siders : voir https://css-tricks.com/styling-cross-browser-compatible-range-inputs-css/ */
