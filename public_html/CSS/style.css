@@ -50,7 +50,11 @@ width: 15%;
   color: white;
 }
 #input {
-  width: 65%;
+  width: 60%;
+}
+
+#label {
+  font-size: 18px;
 }
 
 #saisie {
