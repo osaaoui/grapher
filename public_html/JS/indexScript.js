@@ -31,17 +31,18 @@ function clearAll(board){
 }
 
 function trouverPara(equation){
+        equation=equation.replace(/ /g,"");
         var tabPara;
 	var placeX=equation.indexOf("x");
 	var res = equation.substring(0, placeX);
-	if(res.match(/([0-9])+/)){
-	tabPara = [res.match(/([0-9])+/)];// premier element du tableau parametre a de ax+b
+	if(res.match(/(-?[0-9])+/)){
+	tabPara = [res.match(/(-?[0-9])+/)];// premier element du tableau parametre a de ax+b
 	}else{
 	var tab=[1];
 	tabPara =[tab];
 	}
 	res= equation.substring(placeX,equation.length);
-	tabPara.push(res.match(/([0-9])+/)); // deuxième element du tableau parametre b de ax+b
+	tabPara.push(res.match(/(-?[0-9])+/)); // deuxième element du tableau parametre b de ax+b
 	return tabPara;
 }
 
