@@ -70,13 +70,18 @@ width: 15%;
 	
 	
 	stroke-width: 10px;
-	background: #3071a9;
+	background: #ffffff;
 }
 
 }
 #jxgbox_jxgBoard1P36{
 	stroke= #ffffff;
 	
+}
+
+#box_jxgBoard1L47{
+	stroke-width: 10px;
+	background: #3071a9;
 }
 
 
