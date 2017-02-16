@@ -34,7 +34,7 @@ function trace(){
 	/*var tabPara=trouverPara(equation);
 	var paraA=tabPara[0][0]; //alert(paraA);
 	var paraB=tabPara[1][0]; //alert(paraB); */
-	var sliderA =board.create('slider',[[4,-3],[6,-3],[Number(pente)-4,pente,Number(pente)+4]],{name:'a'});
+	var sliderA =board.create('slider',[[4,-3],[6,-3],[pente-4,pente,pente+4]],{name:'a'});
 	var sliderB =board.create('slider',[[4,-3.5],[6,-3.5], [ordonnee -4, ordonnee,ordonnee +4]], {name:'b'});
 	function f(x) {
 	return sliderA.Value()*x + sliderB.Value();
