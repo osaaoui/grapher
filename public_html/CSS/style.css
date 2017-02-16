@@ -65,6 +65,21 @@ width: 15%;
   width: 110%;
 }
 
+
+#box_jxgBoard1L40{
+	
+	
+	stroke-width: 10px;
+	background: #3071a9;
+}
+
+}
+#jxgbox_jxgBoard1P36{
+	stroke= #ffffff;
+	
+}
+
+
 /*style css pour les siders : voir https://css-tricks.com/styling-cross-browser-compatible-range-inputs-css/ */
 
 input[type=range] {
