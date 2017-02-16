@@ -18,6 +18,7 @@ function trace(){
 	var ordonnee;
 	var pente= /[0-9]+x/;
 	var sansX= /[0-9]+/;
+	var penteX= 'x';
 	for (var i=0; i< tok.length; i++){
 		if(tok[i].match(pente)){
 			//alert("parametre a= "+ tok[i]);
@@ -25,6 +26,9 @@ function trace(){
 			
 			//alert("La pente est= " + pente);
 			
+		}else if (tok[i]==penteX){
+			pente= 1;
+			alert("La pente est= " + pente);
 		}else if(!isNaN(tok[i])){
 			ordonnee= tok[i];
 			//alert("ordonnee est: " + ordonnee);
