@@ -13,12 +13,29 @@ function plot(func, atts){
 
 
 function trace(){
-        var equation = document.getElementById('input').value;//alert(equation);
-	var tabPara=trouverPara(equation);
+    var equation = document.getElementById('input').value;//alert(equation);
+    var tok = tokenize(equation);
+	var ordonnee;
+	var pente= /[0-9]+x/;
+	var sansX= /[0-9]+/;
+	for (var i=0; i< tok.length; i++){
+		if(tok[i].match(pente)){
+			//alert("parametre a= "+ tok[i]);
+			pente= tok[i].match(sansX);
+			
+			//alert("La pente est= " + pente);
+			
+		}else if(!isNaN(tok[i])){
+			ordonnee= tok[i];
+			//alert("ordonnee est: " + ordonnee);
+		}
+		
+	}
+	/*var tabPara=trouverPara(equation);
 	var paraA=tabPara[0][0]; //alert(paraA);
-	var paraB=tabPara[1][0]; //alert(paraB);
-	var sliderA =board.create('slider',[[4,-3],[6,-3],[Number(paraA)-4,paraA,Number(paraA)+4]],{name:'a'});
-	var sliderB =board.create('slider',[[4,-3.5],[6,-3.5], [Number(paraB)-4, paraB, Number(paraB)+4]], {name:'b'});
+	var paraB=tabPara[1][0]; //alert(paraB); */
+	var sliderA =board.create('slider',[[4,-3],[6,-3],[Number(pente)-4,pente,Number(pente)+4]],{name:'a'});
+	var sliderB =board.create('slider',[[4,-3.5],[6,-3.5], [ordonnee -4, ordonnee,ordonnee +4]], {name:'b'});
 	function f(x) {
 	return sliderA.Value()*x + sliderB.Value();
 	}
@@ -30,7 +47,17 @@ function clearAll(board){
 	return board;
 }
 
-function trouverPara(equation){
+function tokenize(code) {
+        var results = [];
+        var tokenRegExp = /\s*([A-Za-z]+|[0-9]+x|\S)\s*/g;
+
+        var m;
+        while ((m = tokenRegExp.exec(code)) !== null)
+        results.push(m[1]);
+        return results;
+   }     
+
+/* function trouverPara(equation){
         equation=equation.replace(/ /g,"");
         var tabPara;
 	var placeX=equation.indexOf("x");
@@ -44,7 +71,8 @@ function trouverPara(equation){
 	res= equation.substring(placeX,equation.length);
 	tabPara.push(res.match(/(-?[0-9])+/)); // deuxième element du tableau parametre b de ax+b
 	return tabPara;
-}
+} */
+
 
 function erase () {
 	$('#input').val('');
