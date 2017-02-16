@@ -15,9 +15,9 @@ function plot(func, atts){
 function trace(){
     var equation = document.getElementById('input').value;//alert(equation);
     var pente= parametreA(tokenize(equation));
-    alert("La pente = " + pente);
+    //alert("La pente = " + pente);
     var ordonnee= parametreB(tokenize(equation));
-    alert("Ordonnee = " + ordonnee);
+    //alert("Ordonnee = " + ordonnee);
     
     
 	var sliderA =board.create('slider',[[4,-3],[6,-3],[pente-4,pente,pente+4]],{name:'a'});
@@ -33,8 +33,20 @@ function clearAll(board){
 	return board;
 }
 
+
+/* La fonction tokenize retourne un tableau de chaînes de caractères
+ * elle prend en paramètre une chaine String (l'équation à traiter)
+ * Toutes les fonctions sont déclarées avec const dans un style fonctionnel
+ * pour éviter des effets de bord (side effects). 
+ * On fera appel à la composition de fonctions pour retourner les valeurs
+ */
+
+
 const tokenize= function (code) {
         var results = [];
+        
+        //le regex permet d'isoler le paramètre a: par exemple: 3x + 2 sera 
+        // découpée en ['3x', '+', '2']
         var tokenRegExp = /\s*([A-Za-z]+|[0-9]+x|\S)\s*/g;
 
         var m;
@@ -43,9 +55,12 @@ const tokenize= function (code) {
         return results;
         
 };
+
+/*
+ * fonction qui retourne le paramètre A de l'équation
+ * Param: code   type: String
+ */
     const parametreA = function(code){
-	
-	//var equation = document.getElementById('input').value;//alert(equation);
     var tok = tokenize(code);
 	var paraA;
 	var pente= /[0-9]+x/;
@@ -53,25 +68,36 @@ const tokenize= function (code) {
 	var penteX= 'x';
 	for (var i=0; i< tok.length; i++){
 		if(tok[i].match(pente)){
-			//alert("parametre a= "+ tok[i]);
+			
+			// une fois la pente ax est trouvée, on veut retourner seulement l'entier a
+			// et supprimer le x
 			pente= tok[i].match(sansX);
 			paraA= pente;
-			//alert("La pente est= " + pente);
+	
 			return paraA;
 		
+		// si la pente se présente sous la forme x, c'est-à-dire sans coefficient
+		// visible, on remet 1 comme coeff
 		}else if (tok[i]==penteX){
 			pente= 1;
 			paraA= pente;
 			return paraA;
-			//alert("La pente est= " + pente);
+			
 	}
 	}
 };
 
+/*
+ * fonction qui retourne le paramètre b d'une équation
+ * Param: code type: String
+ */
 const parametreB = function(code){
 	var tok = tokenize(code);
 	var ordonnee;
 	for (var i=0; i< tok.length; i++){
+		
+		// puisque l'équation est divisée en 'ax', '+' ou '-', 'b'
+		// donc le seul élément qui est un nombre est le paramètre 'b'
 		 if(!isNaN(tok[i])){
 			ordonnee= tok[i];
 			return ordonnee;
@@ -80,21 +106,7 @@ const parametreB = function(code){
 		
 };    
 
-/* function trouverPara(equation){
-        equation=equation.replace(/ /g,"");
-        var tabPara;
-	var placeX=equation.indexOf("x");
-	var res = equation.substring(0, placeX);
-	if(res.match(/(-?[0-9])+/)){
-	tabPara = [res.match(/(-?[0-9])+/)];// premier element du tableau parametre a de ax+b
-	}else{
-	var tab=[1];
-	tabPara =[tab];
-	}
-	res= equation.substring(placeX,equation.length);
-	tabPara.push(res.match(/(-?[0-9])+/)); // deuxième element du tableau parametre b de ax+b
-	return tabPara;
-} */
+
 
 
 function erase () {
