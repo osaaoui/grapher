@@ -18,8 +18,8 @@ function trace(){
     //alert("La pente = " + pente);
     var ordonnee= parametreB(tokenize(equation));
     //alert("Ordonnee = " + ordonnee);
-    
-    
+    //var exp = exposant(tokenize(equation)); 
+ 	//alert(exp);   
 	var sliderA =board.create('slider',[[4,-3],[6,-3],[pente-4,pente,pente+4]],{name:'a'});
 	var sliderB =board.create('slider',[[4,-3.5],[6,-3.5], [ordonnee -4, ordonnee,ordonnee +4]], {name:'b'});
 	function f(x) {
@@ -44,8 +44,8 @@ function clearAll(board){
 
 const tokenize= function (code) {
         var results = [];
-        
-        //le regex permet d'isoler le param�tre a: par exemple: 3x + 2 sera 
+        //var text = String.fromCharCode(178);
+        //le regex permet d'isoler le param�tre a: par exemple: 3x, + 2 sera 
         // d�coup�e en ['3x', '+', '2']
         var tokenRegExp = /\s*(-?[0-9]*x|-?[\d]+|\S)\s*/g;
 
@@ -55,6 +55,15 @@ const tokenize= function (code) {
         return results;
         
 }
+
+const exposant = function(code){
+	alert(code);
+	var codeExp = "&#178;";
+	//var ouverture= new RegExp =("x" + codeExp);
+	//var ouverture= /xcodeExp/;
+	//alert(code.match(ouverture));
+	
+};
 
 /*
  * fonction qui retourne le param�tre A de l'�quation
