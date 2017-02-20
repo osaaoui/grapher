@@ -48,10 +48,12 @@ const tokenize= function (code) {
         //le regex permet d'isoler le param�tre a: par exemple: 3x, + 2 sera 
         // d�coup�e en ['3x', '+', '2']
         var tokenRegExp = /\s*(-?[0-9]*x|-?[\d]+|\S)\s*/g;
-
+	
         var m;
         while ((m = tokenRegExp.exec(code)) !== null)
         results.push(m[1]);
+        
+        alert(results);
         return results;
         
 }
@@ -104,8 +106,10 @@ const parametreB = function(code){
 		
 		// puisque l'équation est divisée en 'ax', '+' ou '-', 'b'
 		// donc le seul élément qui est un nombre est le paramètre 'b'
-		 if(tok[i].match(/^-?[^x\+]$/)){
-			ordonnee+= Number(tok[i].match(/^-?[^x\+]$/));
+		 if(tok[i].match(/^-?[^x\+]+$/)){
+		 	alert("La pente "+ tok[i].match(/^-?[^x\+]+$/));
+			ordonnee += Number(tok[i].match(/^-?[^x\+]+$/));
+			
 			}
 	
 	}
