@@ -18,7 +18,7 @@ function trace(){
     //alert("La pente = " + pente);
     var ordonnee= parametreB(tokenize(equation));
     //alert("Ordonnee = " + ordonnee);
-    //var exp = exposant(tokenize(equation)); 
+    var exp = exposant(tokenize(equation)); 
  	//alert(exp);   
 	var sliderA =board.create('slider',[[4,-3],[6,-3],[pente-4,pente,pente+4]],{name:'a'});
 	var sliderB =board.create('slider',[[4,-3.5],[6,-3.5], [ordonnee -4, ordonnee,ordonnee +4]], {name:'b'});
@@ -53,17 +53,17 @@ const tokenize= function (code) {
         while ((m = tokenRegExp.exec(code)) !== null)
         results.push(m[1]);
         
-        alert(results);
+        //alert(results);
         return results;
         
 }
 
 const exposant = function(code){
 	alert(code);
-	var codeExp = "&#178;";
-	//var ouverture= new RegExp =("x" + codeExp);
+	var text = String.fromCharCode(178);
+	var ouverture= new RegExp("x" + text);
 	//var ouverture= /xcodeExp/;
-	//alert(code.match(ouverture));
+	alert(code.match(ouverture));
 	
 };
 
@@ -107,7 +107,7 @@ const parametreB = function(code){
 		// puisque l'équation est divisée en 'ax', '+' ou '-', 'b'
 		// donc le seul élément qui est un nombre est le paramètre 'b'
 		 if(tok[i].match(/^-?[^x\+]+$/)){
-		 	alert("La pente "+ tok[i].match(/^-?[^x\+]+$/));
+		 	//alert("La pente "+ tok[i].match(/^-?[^x\+]+$/));
 			ordonnee += Number(tok[i].match(/^-?[^x\+]+$/));
 			
 			}
