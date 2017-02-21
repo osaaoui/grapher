@@ -22,8 +22,9 @@ function trace(){
  	//alert(exp);   
 	var sliderA =board.create('slider',[[4,-3],[6,-3],[pente-4,pente,pente+4]],{name:'a'});
 	var sliderB =board.create('slider',[[4,-3.5],[6,-3.5], [ordonnee -4, ordonnee,ordonnee +4]], {name:'b'});
+	var sliderC =board.create('slider',[[4,-4],[6,-4],[exp-4,exp,exp+4]],{name:'c'});
 	function f(x) {
-	return sliderA.Value()*x + sliderB.Value();
+	return sliderC.Value()*(x*x)+sliderA.Value()*x + sliderB.Value();
 	}
 	c= plot(f);
 }
@@ -44,27 +45,35 @@ function clearAll(board){
 
 const tokenize= function (code) {
         var results = [];
-        //var text = String.fromCharCode(178);
+        var text = String.fromCharCode(178);
         //le regex permet d'isoler le param�tre a: par exemple: 3x, + 2 sera 
         // d�coup�e en ['3x', '+', '2']
-        var tokenRegExp = /\s*(-?[0-9]*x|-?[\d]+|\S)\s*/g;
-	
+        var tokenRegExp  = new RegExp('\s*(-?[0-9]*x{1}'+text+'?|-?[0-9]+|\S)\s*','g');
         var m;
         while ((m = tokenRegExp.exec(code)) !== null)
         results.push(m[1]);
-        
-        //alert(results);
         return results;
         
 }
 
 const exposant = function(code){
-	alert(code);
+	var tok=code;
+	var exp=0;
 	var text = String.fromCharCode(178);
-	var ouverture= new RegExp("x" + text);
-	//var ouverture= /xcodeExp/;
-	alert(code.match(ouverture));
-	
+	var ouverture= new RegExp('-?[0-9]+x{1}'+text+'$');
+	var sansX= /-?[0-9]+/;
+	var ouvertureX='x'+text;
+	var ouvertureNeg="-x"+text;
+	for(var i=0; i<tok.length;i++){
+		if(tok[i].match(ouverture)){
+			exp+= Number(tok[i].match(sansX));
+			}else if(tok[i]==ouvertureX){
+			exp++;
+			}else if(tok[i]==ouvertureNeg){
+			exp--;
+			}
+		}
+	return exp;
 };
 
 /*
