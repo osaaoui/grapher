@@ -1,5 +1,6 @@
 $(function(){
   $("#clavier-virtuel").find("button").click(function () {
+  	$("input").focus();
     //alert("Hi");
     var text = String.fromCharCode(178);
     var text2;
