@@ -22,11 +22,12 @@ function trace(){
  	//alert(exp);   
  	var p = board.create('point', [1,1], {style:6, name:'p1'});
  	var t = board.create('point', [3,2], {style:6, name:'p2'});
+ 	var k = board.create('point', [4,3], {style:6, name:'p3'});
 	var sliderA =board.create('slider',[[4,-3],[6,-3],[pente-4,pente,pente+4]],{name:'a'});
 	var sliderB =board.create('slider',[[4,-3.5],[6,-3.5], [ordonnee -4, ordonnee,ordonnee +4]], {name:'b'});
 	var sliderC =board.create('slider',[[4,-4],[6,-4],[exp-4,exp,exp+4]],{name:'c'});
 	function f(x) {
-	return sliderC.Value()*(x*x)+ sliderA.Value()*x + sliderB.Value()*p.Y();
+	return k.X(sliderC.Value())*(x*x)+ t.X(sliderA.Value())*x + p.Y(sliderB.Value());
 	
 	
 	}
