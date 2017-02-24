@@ -27,10 +27,13 @@ function trace(){
 	var sliderB =board.create('slider',[[4,-3.5],[6,-3.5], [ordonnee -4, ordonnee,ordonnee +4]], {name:'b'});
 	var sliderC =board.create('slider',[[4,-4],[6,-4],[exp-4,exp,exp+4]],{name:'c'});
 	function f(x) {
-	return k.X(sliderC.Value())*(x*x)+ t.X(sliderA.Value())*x + p.Y(sliderB.Value());
+        return sliderC.Value()*(x*x)+ sliderA.Value()*x + sliderB.Value();
 	
 	
 	}
+        var stringEquation= board.create('text', [4,-2,function(){return 'y= '+sliderC.Value().toFixed(2)
+	+ 'x²' + (sliderA.Value()<0?'':'+')+ sliderA.Value().toFixed(2)
+	+ 'x'+(sliderB.Value()<0?'':'+')+sliderB.Value().toFixed(2)}]);
 	c= plot(f);
 }
 
