@@ -1,7 +1,10 @@
+body {
+   overflow-x: hidden;
+}
+
 #box {
 width: 800px;
 height: 600px;
-
 }
 
 #myDefaultFont {
@@ -15,8 +18,8 @@ height: 600px;
 
 .jxbox2 {
   position: relative;
-      overflow: hidden;
-      background-color: #b3cccc!important;
+      overflow: auto;
+      background-color: #c2d6d6!important;
       border-style: solid;
       border-width: 1px;
       border-color: #356AA0;
@@ -40,7 +43,7 @@ font-size: 20px;
 background: #3498db;
 padding: 10px 18px 10px 20px;
 text-decoration: none;
-width: 15%;
+width: 13%;
 }
 
 .clavierbutton:hover {
@@ -76,10 +79,6 @@ width: 15%;
   width: 600px;
   margin-left: auto;
   margin-right: auto;
-}
-
-.well {
-  width: 110%;
 }
 
 
