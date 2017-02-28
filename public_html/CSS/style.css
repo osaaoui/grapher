@@ -1,3 +1,18 @@
+#box {
+width: 800px;
+height: 600px;
+
+}
+
+#myDefaultFont {
+  color: red!important;
+}
+
+#bottom {
+  background-color: #d9d9d9!important;
+  object-position: center;
+}
+
 .jxbox2 {
   position: relative;
       overflow: hidden;
@@ -59,6 +74,8 @@ width: 15%;
 
 #saisie {
   width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .well {
@@ -67,8 +84,8 @@ width: 15%;
 
 
 #box_jxgBoard1L40{
-	
-	
+
+
 	stroke-width: 10px;
 	background: #ffffff;
 }
@@ -76,7 +93,7 @@ width: 15%;
 }
 #jxgbox_jxgBoard1P36{
 	stroke= #ffffff;
-	
+
 }
 
 #box_jxgBoard1L47{

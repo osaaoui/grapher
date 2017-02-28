@@ -19,6 +19,7 @@
 
 	<!-- Style (CSS) -->
 	<link rel="stylesheet" type="text/css" href="CSS/style.css">
+	<link rel="stylesheet" type="text/css" href="http://jsxgraph.uni-bayreuth.de/distrib/jsxgraph.css">
 
 	<!-- Librarie js  -->
 	<script type="text/javascript" src="JS/jquery.min.js"></script>
@@ -28,8 +29,9 @@
 </head>
 
 <body>
-	<div class="container center-block jxgbox jxbox2"  id="box" style="width:800px; height:600px;"></div>
-	<div class = "containter center-block" style="width:600px; text-align: right;">
+	<div class="row">
+	<div class="container center-block jxgbox jxbox2"  id="box"></div>
+	<div class = "containter center-block col-md-3 col-md-push-4">
 
 		<div class="sliders">
 			<label for="slider"></label>
@@ -37,11 +39,12 @@
 			<input type="range">
 			<input type="range">
 		</div>
-
-<div class="container-fluid">
-		<div class="text-left well">
-
+</div>
+</div>
+<br>
+	<div class="container-fluid" id="bottom">
 			<fieldset class="form-group form-inline" id="saisie">
+				<br>
 				<label for="input" id="label">Equation :</label>
 				<input type = "text" class="form-control input-lg" id="input" rows="2">
 			</input>
@@ -52,16 +55,13 @@
 					&#178;
 				</button>
 				<button id="x2"class= "clavierbutton">
-					x&#178; 
+					x&#178;
 				</button>
 				<button id="y2" class= "clavierbutton">
 					y&#178;
 				</button>
-
-			</div>
-		</fieldset>
-	</div>
-</div>
+			</fieldset>
+		</div>
 </div>
 </body>
 
