@@ -1,11 +1,14 @@
-var board = JXG.JSXGraph.initBoard('box', {boundingbox:[-5,8,8,-5], axis:true});
+
+var board = JXG.JSXGraph.initBoard('box', {boundingbox:[-5,8,8,-5], axis:true, zoomfactor: 1.0,});
+
 function addCurve(board, func, atts){
-	var f= board.create('functiongraph', [func], atts);
+	var f= board.create('functiongraph', [func], atts,{fixed: false});
 	return f;
 }
+
 function plot(func, atts){
 	if(atts==null){
-		return addCurve(board, func, {strokewidth:1});
+		return addCurve(board, func, {strokewidth:2});
 	}else{
 		return addCurve(board, func, atts);
 	}
@@ -19,30 +22,49 @@ function trace(){
     var ordonnee= parametreB(tokenize(equation));
     //alert("Ordonnee = " + ordonnee);
     var exp = exposant(tokenize(equation));
- 	alert(exp);
+
+//
+
+//
 
 if (exp == 0) {
  	var p = board.create('point', [1,(ordonnee+pente)], {style:6, name:'p1'});
  	var t = board.create('point', [(ordonnee/-pente), 0], {style:6, name:'p2'});
-} else {
-	var z = board.create('point', [1,(exp+ordonnee+pente)], {style:6, name:'p1'});
-	var y = board.create('point', [-1,exp+ordonnee+(-1*pente)], {style:6, name:'p2'});
- 	var w = board.create('point', [exp,3], {style:6, name:'p3'});
+	var ligne = board.create('line', [p,t]);
+	slides (pente, ordonnee, exp, p, t);
+} else if (exp != 0 ){
+	var xxx = -pente/(2*exp);
+	var yyy = (exp*(xxx * xxx))+(pente*(xxx))+ordonnee;
+	var z = board.create('point', [xxx, yyy], {style:6, name:'p1'});
+	var m = board.create('point', [0, ordonnee], {style:6, name:'p2'}); //ordonnee = c, donc x= 0 y =c
+	slides (pente, ordonnee, exp);
+	var ligne = board.create('functiongraph', function(x) {
+			var ax = z.X(),
+					ay = z.Y(),
+					bx = m.X(),
+					by = m.Y(),
+					a = (by - ay) / ( (bx - ax) * (bx - ax) );
+	      return a * (x - ax) * (x - ax) + ay;
+				}, {fixed: false});
+	f.addParents([z, m]);
 }
+
+
+}
+
+function slides (pente, ordonnee, exp) {
 	var sliderA =board.create('slider',[[4,-3],[6,-3],[pente-4,pente,pente+4]],{name:'a'});
 	var sliderB =board.create('slider',[[4,-3.5],[6,-3.5], [ordonnee -4, ordonnee,ordonnee +4]], {name:'b'});
 	var sliderC =board.create('slider',[[4,-4],[6,-4],[exp-4,exp,exp+4]],{name:'c'});
 	function f(x) {
-        return sliderC.Value()*(x*x)+ sliderA.Value()*x + sliderB.Value();
-
-
+				return sliderC.Value()*(x*x)+ sliderA.Value()*x + sliderB.Value();
 	}
-        var stringEquation= board.create('text', [4,-2,function(){return 'y= '+sliderC.Value().toFixed(2)
+				var stringEquation= board.create('text', [4,-2,function(){return 'y= '+sliderC.Value().toFixed(2)
 	+ 'x²' + (sliderA.Value()<0?'':'+')+ sliderA.Value().toFixed(2)
 	+ 'x'+(sliderB.Value()<0?'':'+')+sliderB.Value().toFixed(2)}]);
-	c= plot(f);
-}
+	c=plot(f);
 
+}
 
 
 
