@@ -1,6 +1,5 @@
 
-var board = JXG.JSXGraph.initBoard('box', {boundingbox:[-5,8,8,-5], axis:true, zoomfactor: 1.0,});
-
+var board = JXG.JSXGraph.initBoard('box', {boundingbox:[-5,8,8,-5], axis:true, zoomfactor: 0.8});
 function addCurve(board, func, atts){
 	var f= board.create('functiongraph', [func], atts,{fixed: false});
 	return f;
@@ -22,16 +21,16 @@ function trace(){
     var ordonnee= parametreB(tokenize(equation));
     //alert("Ordonnee = " + ordonnee);
     var exp = exposant(tokenize(equation));
-
+var p;
 //
 
 //
 
 if (exp == 0) {
- 	var p = board.create('point', [1,(ordonnee+pente)], {style:6, name:'p1'});
+ 	p = board.create('point', [1,(ordonnee+pente)], {style:6, name:'p1'});
  	var t = board.create('point', [(ordonnee/-pente), 0], {style:6, name:'p2'});
 	var ligne = board.create('line', [p,t]);
-	slides (pente, ordonnee, exp, p, t);
+	slides (pente, ordonnee, exp);
 } else if (exp != 0 ){
 	var xxx = -pente/(2*exp);
 	var yyy = (exp*(xxx * xxx))+(pente*(xxx))+ordonnee;
@@ -49,19 +48,18 @@ if (exp == 0) {
 	f.addParents([z, m]);
 }
 
-
 }
 
 function slides (pente, ordonnee, exp) {
-	var sliderA =board.create('slider',[[4,-3],[6,-3],[pente-4,pente,pente+4]],{name:'a'});
-	var sliderB =board.create('slider',[[4,-3.5],[6,-3.5], [ordonnee -4, ordonnee,ordonnee +4]], {name:'b'});
-	var sliderC =board.create('slider',[[4,-4],[6,-4],[exp-4,exp,exp+4]],{name:'c'});
+	var sliderA =board.create('slider',[[4,-3],[6,-3],[pente-4,pente,pente+4]],{name:'&nbsp&nbsp&nbsp&nbspA'});
+	var sliderB =board.create('slider',[[4,-3.5],[6,-3.5], [ordonnee -4, ordonnee,ordonnee +4]], {name:'&nbsp&nbsp&nbsp&nbspB'});
+	var sliderC =board.create('slider',[[4,-4],[6,-4],[exp-4,exp,exp+4]],{name:'&nbsp&nbsp&nbsp&nbspC'});
 	function f(x) {
 				return sliderC.Value()*(x*x)+ sliderA.Value()*x + sliderB.Value();
 	}
-				var stringEquation= board.create('text', [4,-2,function(){return 'y= '+sliderC.Value().toFixed(2)
+  var stringEquation= board.create('text', [4,-2,function(){return 'y= '+sliderC.Value().toFixed(2)
 	+ 'x²' + (sliderA.Value()<0?'':'+')+ sliderA.Value().toFixed(2)
-	+ 'x'+(sliderB.Value()<0?'':'+')+sliderB.Value().toFixed(2)}]);
+	+ 'x'+(sliderB.Value()<0?'':'+')+sliderB.Value().toFixed(2)}], {fontSize:18});
 	c=plot(f);
 
 }
