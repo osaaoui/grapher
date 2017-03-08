@@ -34,8 +34,9 @@ if (exp == 0) {
 } else if (exp != 0 ){
 	var xxx = -pente/(2*exp);//-b/2a
 	var yyy = (4*exp*ordonnee-(pente*pente))/(4*exp); //(4ac-b²)/4a
+        var zzz= (exp*(xxx+1)*(xxx+1))+(pente*(xxx+1))+ordonnee;// nouveau point de depart pour "p2"
 	var z = board.create('point', [xxx, yyy], {style:6, name:'p1'});// point sommet
-	var m = board.create('point', [0, ordonnee], {style:6, name:'p2'}); //ordonnee = c, donc x= 0 y =c
+	var m = board.create('point', [(xxx+1), zzz], {style:6, name:'p2'}); //le "p2" est placer sur la courbe à 1 de distance par rapport au sommet(ceci évite les conflits 0/0)
 	slides (pente, ordonnee, exp);
 	var ligne = board.create('functiongraph', function(x) {
 			var ax = z.X(),
@@ -47,7 +48,7 @@ if (exp == 0) {
 				}, {fixed: false});
         var stringEquationD= board.create('text', [4,-1,function(){return 'y= '+ ((m.Y() - z.Y()) / ( (m.X() - z.X()) * (m.X() - z.X()) )).toFixed(2)
 	+ 'x² +' + (-2*((m.Y() - z.Y()) / ( (m.X() - z.X()) * (m.X() - z.X()) ))*z.X()).toFixed(2)
-	+ 'x +' + z.Y().toFixed(2)}]);	// affichage fonction avec les points
+	+ 'x +' + ((z.Y()*4*((m.Y() - z.Y()) / ( (m.X() - z.X()) * (m.X() - z.X())))+((-2*((m.Y() - z.Y()) / ( (m.X() - z.X()) * (m.X() - z.X()) ))*z.X())*(-2*((m.Y() - z.Y()) )/ ( (m.X() - z.X()) * (m.X() - z.X()) ))*z.X()))/(4*((m.Y() - z.Y()) / ( (m.X() - z.X()) * (m.X() - z.X()) )))).toFixed(2)}]);	// affichage fonction avec les points
 	f.addParents([z, m]);
 }
 
