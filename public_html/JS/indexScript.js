@@ -32,9 +32,9 @@ if (exp == 0) {
 	var ligne = board.create('line', [p,t]);
 	slides (pente, ordonnee, exp);
 } else if (exp != 0 ){
-	var xxx = -pente/(2*exp);
-	var yyy = (exp*(xxx * xxx))+(pente*(xxx))+ordonnee;
-	var z = board.create('point', [xxx, yyy], {style:6, name:'p1'});
+	var xxx = -pente/(2*exp);//-b/2a
+	var yyy = (4*exp*ordonnee-(pente*pente))/(4*exp); //(4ac-b²)/4a
+	var z = board.create('point', [xxx, yyy], {style:6, name:'p1'});// point sommet
 	var m = board.create('point', [0, ordonnee], {style:6, name:'p2'}); //ordonnee = c, donc x= 0 y =c
 	slides (pente, ordonnee, exp);
 	var ligne = board.create('functiongraph', function(x) {
@@ -45,6 +45,9 @@ if (exp == 0) {
 					a = (by - ay) / ( (bx - ax) * (bx - ax) );
 	      return a * (x - ax) * (x - ax) + ay;
 				}, {fixed: false});
+        var stringEquationD= board.create('text', [4,-1,function(){return 'y= '+ ((m.Y() - z.Y()) / ( (m.X() - z.X()) * (m.X() - z.X()) )).toFixed(2)
+	+ 'x² +' + (-2*((m.Y() - z.Y()) / ( (m.X() - z.X()) * (m.X() - z.X()) ))*z.X()).toFixed(2)
+	+ 'x +' + z.Y().toFixed(2)}]);	// affichage fonction avec les points
 	f.addParents([z, m]);
 }
 
