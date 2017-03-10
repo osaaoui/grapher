@@ -17,7 +17,7 @@ function plot(func, atts){
 function trace(){
     var equation = document.getElementById('input').value;//alert(equation);
     var pente= parametreA(tokenize(equation));
-    alert("La pente = " + pente);
+    //alert("La pente = " + pente);
     var ordonnee= parametreB(tokenize(equation));
     //alert("Ordonnee = " + ordonnee);
     var exp = exposant(tokenize(equation));
@@ -53,10 +53,10 @@ if (exp == 0) {
 }
 
 }
-
+// Rajouter l'option snapWidth:1 pour que la manipulation du slider ne retourne que des entiers (ie. pas de nombres fractionnaires, etc)
 function slides (pente, ordonnee, exp) {
-	var sliderA =board.create('slider',[[4,-3],[6,-3],[pente-4,pente,pente+4]],{name:'&nbsp&nbsp&nbsp&nbspA'});
-	var sliderB =board.create('slider',[[4,-3.5],[6,-3.5], [ordonnee -4, ordonnee,ordonnee +4]], {name:'&nbsp&nbsp&nbsp&nbspB'});
+	var sliderA =board.create('slider',[[4,-3],[6,-3],[pente-4,pente,pente+4]],{name:'&nbsp&nbsp&nbsp&nbspA', snapWidth:1});
+	var sliderB =board.create('slider',[[4,-3.5],[6,-3.5], [ordonnee -4, ordonnee,ordonnee +4]], {name:'&nbsp&nbsp&nbsp&nbspB',snapWidth:1});
 	var sliderC =board.create('slider',[[4,-4],[6,-4],[exp-4,exp,exp+4]],{name:'&nbsp&nbsp&nbsp&nbspC'});
 	function f(x) {
 				return sliderC.Value()*(x*x)+ sliderA.Value()*x + sliderB.Value();
