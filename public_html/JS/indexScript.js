@@ -17,7 +17,7 @@ function plot(func, atts){
 function trace(){
     var equation = document.getElementById('input').value;//alert(equation);
     var pente= parametreA(tokenize(equation));
-    //alert("La pente = " + pente);
+    alert("La pente = " + pente);
     var ordonnee= parametreB(tokenize(equation));
     //alert("Ordonnee = " + ordonnee);
     var exp = exposant(tokenize(equation));
@@ -78,19 +78,19 @@ function clearAll(board){
 }
 
 
-/* La fonction tokenize retourne un tableau de cha�nes de caract�res
- * elle prend en param�tre une chaine String (l'�quation � traiter)
- * Toutes les fonctions sont d�clar�es avec const dans un style fonctionnel
- * pour �viter des effets de bord (side effects).
- * On fera appel � la composition de fonctions pour retourner les valeurs
+/* La fonction tokenize retourne un tableau de chaines de caractères
+ * elle prend en paramètre une chaine String (l'équation à traiter)
+ * Toutes les fonctions sont déclarées avec const dans un style fonctionnel
+ * pour éviter des effets de bord (side effects).
+ * On fera appel à la composition de fonctions pour retourner les valeurs
  */
 
 
 const tokenize= function (code) {
         var results = [];
         var text = String.fromCharCode(178);
-        //le regex permet d'isoler le param�tre a: par exemple: 3x, + 2 sera
-        // d�coup�e en ['3x', '+', '2']
+        //le regex permet d'isoler le paramètre a: par exemple: 3x, + 2 sera
+        // découpée en ['3x', '+', '2']
         var tokenRegExp  = new RegExp('\s*(-?[0-9]*x{1}'+text+'?|-?[0-9]+|\S)\s*','g');
         var m;
         while ((m = tokenRegExp.exec(code)) !== null)
@@ -120,7 +120,7 @@ const exposant = function(code){
 };
 
 /*
- * fonction qui retourne le param�tre A de l'�quation
+ * fonction qui retourne le paramètre A de l'équation
  * Param: code   type: String
  */
     const parametreA = function(code){
@@ -132,10 +132,10 @@ const exposant = function(code){
 	var penteNegX="-x";
 	for (var i=0; i< tok.length; i++){
 		if(tok[i].match(pente)){
-			// une fois la pente ax est trouv�e, on veut retourner seulement l'entier a
+			// une fois la pente ax est trouvée, on veut retourner seulement l'entier a
 			// et supprimer le x
 			laPente+= Number(tok[i].match(sansX));
-		// si la pente se pr�sente sous la forme x, c'est-�-dire sans coefficient
+		// si la pente se présente sous la forme x, c'est-à-dire sans coefficient
 		// visible, on remet 1 comme coeff
 		}else if (tok[i]==penteX){
 			laPente += 1;
@@ -148,7 +148,7 @@ const exposant = function(code){
 };
 
 /*
- * fonction qui retourne le param�tre b d'une �quation
+ * fonction qui retourne le paramètre b d'une équation
  * Param: code type: String
  */
 const parametreB = function(code){
