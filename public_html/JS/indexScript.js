@@ -57,7 +57,7 @@ if (exp == 0) {
 function slides (pente, ordonnee, exp) {
 	var sliderA =board.create('slider',[[4,-3],[6,-3],[pente-4,pente,pente+4]],{name:'&nbsp&nbsp&nbsp&nbspA', snapWidth:1});
 	var sliderB =board.create('slider',[[4,-3.5],[6,-3.5], [ordonnee -4, ordonnee,ordonnee +4]], {name:'&nbsp&nbsp&nbsp&nbspB',snapWidth:1});
-	var sliderC =board.create('slider',[[4,-4],[6,-4],[exp-4,exp,exp+4]],{name:'&nbsp&nbsp&nbsp&nbspC'});
+	var sliderC =board.create('slider',[[4,-4],[6,-4],[exp-4,exp,exp+4]],{name:'&nbsp&nbsp&nbsp&nbspC',snapWidth:1});
 	function f(x) {
 				return sliderC.Value()*(x*x)+ sliderA.Value()*x + sliderB.Value();
 	}
