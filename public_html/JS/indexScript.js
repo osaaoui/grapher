@@ -21,37 +21,9 @@ function trace(){
     var ordonnee= parametreB(tokenize(equation));
     //alert("Ordonnee = " + ordonnee);
     var exp = exposant(tokenize(equation));
-var p;
-//
-
-//
-
-if (exp == 0) {
- 	p = board.create('point', [1,(ordonnee+pente)], {style:6, name:'p1'});
- 	var t = board.create('point', [(ordonnee/-pente), 0], {style:6, name:'p2'});
-	var ligne = board.create('line', [p,t]);
-        affichageEquationLineairePoint(p,t);
-	slides (pente, ordonnee, exp);
-} else if (exp != 0 ){
-	var xxx = -pente/(2*exp);//-b/2a
-	var yyy = (4*exp*ordonnee-(pente*pente))/(4*exp); //(4ac-b²)/4a
-        var zzz= (exp*(xxx+1)*(xxx+1))+(pente*(xxx+1))+ordonnee;// nouveau point de depart pour "p2"
-	var z = board.create('point', [xxx, yyy], {style:6, name:'p1'});// point sommet
-	var m = board.create('point', [(xxx+1), zzz], {style:6, name:'p2'}); //le "p2" est placer sur la courbe à 1 de distance par rapport au sommet(ceci évite les conflits 0/0)
-	slides (pente, ordonnee, exp);
-	var ligne = board.create('functiongraph', function(x) {
-			var ax = z.X(),
-					ay = z.Y(),
-					bx = m.X(),
-					by = m.Y(),
-					a = (by - ay) / ( (bx - ax) * (bx - ax) );
-	      return a * (x - ax) * (x - ax) + ay;
-				}, {fixed: false});
-        affichageEquationQuadratiquePoint(z,m);
-	f.addParents([z, m]);
+  	slides (pente, ordonnee, exp);
 }
 
-}
 // Rajouter l'option snapWidth:1 pour que la manipulation du slider ne retourne que des entiers (ie. pas de nombres fractionnaires, etc)
 function slides (pente, ordonnee, exp) {
 	var sliderA =board.create('slider',[[4,-3],[6,-3],[pente-4,pente,pente+4]],{name:'&nbsp&nbsp&nbsp&nbspA', snapWidth:1});
@@ -64,7 +36,6 @@ function slides (pente, ordonnee, exp) {
 	+ 'x²' + (sliderA.Value()<0?'':'+')+ sliderA.Value().toFixed(2)
 	+ 'x'+(sliderB.Value()<0?'':'+')+sliderB.Value().toFixed(2)}], {fontSize:18});
 	c=plot(f);
-
 }
 
 
@@ -167,40 +138,6 @@ const parametreB = function(code){
 	return ordonnee;
 };
 
-/*
- * fonction qui forme le String formant l'équation linéaire y=ax+b
- * Prend en paramètre 2 points
- * le parametre 'a', correspondant à la pente, est former grâce à l'équation usuelle (y2-y1/x2-x1) (1)
- * le parametre 'b' ce resout de en en isolant le b de l'équation linéraire b=y-ax 
- * Puisque nous devons garder les points pour maintenir le dynamisme de la fonction et puisque a=(y2-y1/x2-x1)
- * nous obtenons  b=y1-(y2-y1/x2-x1)*x1 (2)
- */
- 
- 
- function affichageEquationLineairePoint(p,t){
-	 var stringEquation= board.create('text', [4,-1, function(){return 'y= '+((p.Y()-t.Y())/(p.X()-t.X())).toFixed(2) //(1)
-	 + 'x +' + (p.Y()-(p.X()*((p.Y()-t.Y())/(p.X()-t.X())))).toFixed(2)}])//(2)
- }
- 
- /*
- * fonction qui forme le String formant l'équation quadratique y=ax²+bx+c
- * Prend en paramètre 2 points :
- * Point 1 = sommet de la courbe
- * Point 2 = point quelconque de la courbe 
- * Ici la courbe est obtenue grace à l'equation canonique : y= a(x-h)²+k
- * le parametre 'a', correspondant à l'ouverture , est former grâce à l'equation a=(y2-y1/(x2-x1)²) (1)
- * le parametre 'b' ce resout en isolant b de l'equation  h=-b/2a => b=-2ah =>b=-2*(y2-y1/(x2-x1)²)*h  (2)
- * Le parametre 'c' ce resout en isolant c de l'equation k=4ac-b²/4a=> c=4ak-b²/4a (3)
- * => c=((4*(y2-y1/(x2-x1)²)*k)-(-2*(y2-y1/(x2-x1)²)*h)²)/(4*(y2-y1/(x2-x1)²)) (3 suite) en remplaçant b et a 
- * Sachant que  h et k corresponde au coordonnée du sommet on peu remplacer respectivement h par x1 et k par y1
- * clarification: toutes les équations mises au carré doivent etre ecritent au long (ex: (x1-x2)²=> (x1-x2)*(x1-x2))
-*/
- 
- function affichageEquationQuadratiquePoint (p1,p2){
-	 var stringEquation= board.create('text', [4,-1,function(){return 'y= '+ ((p2.Y() - p1.Y()) / ( (p2.X() - p1.X()) * (p2.X() - p1.X()))).toFixed(2)//(1)
-	+ 'x² +' + (-2*((p2.Y() - p1.Y()) / ( (p2.X() - p1.X()) * (p2.X() - p1.X()) ))*p1.X()).toFixed(2) //(2)
-	+ 'x +' + ((p1.Y()*4*((p2.Y() - p1.Y()) / ( (p2.X() - p1.X()) * (p2.X() - p1.X())))+((-2*((p2.Y() - p1.Y()) / ( (p2.X() - p1.X()) * (p2.X() - p1.X()) ))*p1.X())*(-2*((p2.Y() - p1.Y()) )/ ( (p2.X() - p1.X()) * (p2.X() - p1.X()) ))*p1.X()))/(4*((p2.Y() - p1.Y()) / ( (p2.X() - p1.X()) * (p2.X() - p1.X()) )))).toFixed(2)}]);	// affichage fonction avec les points
- }
 function erase () {
 	$('#input').val('');
 	JXG.JSXGraph.freeBoard(board);

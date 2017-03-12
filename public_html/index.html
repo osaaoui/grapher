@@ -28,43 +28,17 @@
 
 </head>
 
-<body>
-	<div class="row">
-	<div class="container center-block jxgbox jxbox2"  id="box"></div>
-	<div class = "containter center-block col-md-3 col-md-push-4">
-
-		<div class="sliders">
-			<label for="slider"></label>
-			<input type="range" id="domSlidA">
-			<input type="range">
-			<input type="range">
-		</div>
+<body id="debut">
+	<div class="container">
+<h1 align="center">GRAPH POUR L'AFFICHAGE DES ÉQUATIONS</h1>
+<div class="row vertical-divider">
+ <div class="col-md-6">
+	 <h4>Équation avec points</h4>
+	 <a href="graphPoints.html" class="btn btn-default btn-circle btn-xl">Graph points</a></div>
+ <div class="col-md-6">
+	 <h4>Équation avec sliders</h4>
+   <a href="graphSlider.html" class="btn btn-default btn-circle btn-xl">Graph sliders</a>
+ </div>
 </div>
-</div>
-<br>
-	<div class="container-fluid" id="bottom">
-			<fieldset class="form-group form-inline" id="saisie">
-				<br>
-				<label for="input" id="label">Equation :</label>
-				<input type = "text" class="form-control input-lg" id="input" rows="2">
-			</input>
-			<button type="submit" class="btn btn pull-right btn-md btn-square" id="btnrnd" onClick="trace()">Soumettre</button>
-			<button type="reset" class="btn btn-danger btn pull-right btn-md btn-square" id= "eff" onClick="erase()">Effacer</button>
-			<div id="clavier-virtuel">
-				<button id="2" class= "clavierbutton">
-					&#178;
-				</button>
-				<button id="x2"class= "clavierbutton">
-					x&#178;
-				</button>
-				<button id="y2" class= "clavierbutton">
-					y&#178;
-				</button>
-			</fieldset>
-		</div>
 </div>
 </body>
-
-</script>
-<script type="text/javascript" src="JS/indexScript.js"></script>
-<script type="text/javascript" src="JS/clavierVirtuel.js"></script>
