@@ -3,11 +3,20 @@ body {
    background-color: #474E5D!important;
  }
 
+/*body page index*/
 #debut {
   background-color: whitesmoke!important;
-  color: SlateGray!important;
+  color: slateGray!important;
 }
 
+.jumbotron {
+  background-color: slategray!important;
+  color : whitesmoke!important;
+  font-family: sans-serif;
+  padding-left: 20%;
+}
+
+/*button page index*/
 .btn-circle.btn-xl {
   width: auto;
   height: auto;
@@ -19,7 +28,7 @@ body {
   color: white;
 }
 
-
+/*division vertical pas fini*/
 .row.vertical-divider {
   overflow: hidden;
 }
@@ -27,15 +36,10 @@ body {
   text-align: center;
   padding-bottom: 100px;
   margin-bottom: -100px;
-  border-left: 3px solid #F2F7F9;
-  border-right: 3px solid #F2F7F9;
+  border-left: 3px solid #black!important;
+  border-right: 3px solid #black!important;
 }
-.row.vertical-divider div[class^="col-"]:first-child {
-  border-left: none;
-}
-.row.vertical-divider div[class^="col-"]:last-child {
-  border-right: none;
-}
+
 
 #box {
 width: 800px;
