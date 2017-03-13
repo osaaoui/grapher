@@ -25,7 +25,19 @@
 	<script type="text/javascript" src="JS/jquery.min.js"></script>
 	<script type="text/javascript" src="JS/bootstrap.min.js"></script>
 	<script type="text/javascript" src="JS/jsxgraphcore.js"></script>
-
+	<script type="text/javascript">
+$(document).ready(function(){
+    $("a").click(function(){
+       alert("hi");
+       return false;
+    });
+    $(".btn btn-default btn-circle btn-xl").click(function(){
+       alert("hi");
+       $("#box").load("graphPoints.html");
+    
+});
+</script>
+    
 </head>
 
 <body id="debut">
@@ -37,7 +49,8 @@
 <div class="row vertical-divider">
  <div class="col-md-6">
 	 <h4>Équation avec points</h4>
-	 <a href="graphPoints.html" class="btn btn-default btn-circle btn-xl">Graph points </a>
+	 
+	 <a href="graphPoints.html" class="btn btn-default btn-circle btn-xl" id="points">Graph points </a>
  <br>
  <br>
  <div class="col-md-10 col-md-offset-1">
@@ -50,7 +63,7 @@
 
  <div class="col-md-6">
 	 <h4>Équation avec sliders</h4>
-   <a href="graphSlider.html" class="btn btn-default btn-circle btn-xl">Graph sliders</a>
+   <a href="graphSlider.html" class="btn btn-default btn-circle btn-xl" id="sliders">Graph sliders</a>
 	 <br>
 	 <br>
 	 <div class="col-md-10 col-md-offset-1">
@@ -64,4 +77,8 @@
  </div>
 </div>
 </div>
+<div id= "box">
+  
+</div>
+
 </body>
