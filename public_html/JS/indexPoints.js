@@ -12,7 +12,7 @@ function traceAvecP(){
 	var point1;
 	var point2
 
-/*Cette premiere partie est pour un ligne. On trace la ligne en utilisent les duex points
+/*Cette premiere partie est pour une ligne. On trace la ligne en utilisent les duex points
  *La duexieme partie trace une courbe, ou sommet est le sommet de la curbe et p2 est un point
  *qui est situe a +1 de -b/2a (x) et la valeur de y est l'ordonnee.
 */

@@ -1,13 +1,14 @@
 body {
    overflow-x: hidden;
-   background-color: #474E5D!important;
+   background-color: #c5cdd3!important;
+   padding-top: 10px;
  }
 
 /*body page index*/
 #debut {
   background-color: whitesmoke!important;
   color: slateGray!important;
-padding-top: 10px;
+ padding-top: 10px;
 }
 
 /* navbar css */
@@ -99,14 +100,30 @@ height: 600px;
 }
 
 #bottom {
-  background-color: #d9d9d9!important;
+  background-color: #596673!important;
   object-position: center;
+  opacity: 1;
 }
+
+#equationGraph {
+ padding: 10px;
+  font-size: 26px;
+ font-style: italic;
+ font-family: sans-serif;
+ align-items: center;
+}
+
+#boxTextEqu{
+  border-radius: 20px;
+  padding: 10px;
+ background-color: whitesmoke!important;
+}
+
 
 .jxbox2 {
   position: relative;
       overflow: auto;
-      background-color: #c2d6d6!important;
+      background-color: whitesmoke!important;
       border-style: solid;
       border-width: 1px;
       border-color: #356AA0;
@@ -147,7 +164,6 @@ width: 13%;
   margin-top: 5px;
   width: 20%;
   font-size: 18px;
-
 }
 
 #btnrnd {
@@ -170,8 +186,6 @@ width: 13%;
 
 
 #box_jxgBoard1L40{
-
-
 	stroke-width: 10px;
 	background: #ffffff;
 }
