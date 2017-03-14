@@ -20,7 +20,15 @@ function traceAvecP(){
 		point1 = board.create('point', [1,(ordonnee+pente)], {style:6, name:'p1'});
 		point2 = board.create('point', [(ordonnee/-pente), 0], {style:6, name:'p2'});
 		var ligne = board.create('line', [point1,point2]);
+		// Code pour représenter la pente de l'équation linéaire sous forme de triangle 
+		// se déplaçant le long de la ligne
+		
+		var glisseur= board.create('glider', [0, 0, ligne]),
+		triangle= board.create('slopetriangle', [ligne, glisseur]);
+		
 		affichageEquationLineairePoint(point1,point2);
+		// créer le triangle de la pente:
+		
 	} else if (exp != 0 ){
 		var hPoint = -pente/(2*exp);//-b/2a
 		var yPoint = (4*exp*ordonnee-(pente*pente))/(4*exp); //(4ac-b²)/4a
