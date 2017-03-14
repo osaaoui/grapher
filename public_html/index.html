@@ -14,6 +14,8 @@
 
 	<title>math graph</title>
 
+  <!-- Icon -->
+	<link rel="icon" href="IMAGES/parabola.png">
 	<!-- Bootstrap -->
 	<link rel="stylesheet" type="text/css" href="CSS/bootstrap.min.css">
 
@@ -34,13 +36,36 @@ $(document).ready(function(){
     $(".btn btn-default btn-circle btn-xl").click(function(){
        alert("hi");
        $("#box").load("graphPoints.html");
-    
+
 });
 </script>
-    
+
 </head>
 
 <body id="debut">
+<div id="custom-bootstrap-menu" class="navbar navbar-default " role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-menubuilder"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse navbar-menubuilder">
+            <ul class="nav navbar-nav navbar-left">
+                <li><a href="index.html">Home</a>
+                </li>
+                <li><a href="graphSlider.html">Slider</a>
+                </li>
+                <li><a href="graphPoints.html">Points</a>
+                </li>
+                <li><a href="/about-us">Credits</a>
+                </li>
+                <li><a href="#" target="_blank">wiki</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
 	<div class="jumbotron">
 <h1 align="left">GRAPH POUR ÉQUATIONS</h1>
 <h4 align="left">Un outil mathematique pour étudiants de secondaire 4 et 5</h4>
@@ -48,9 +73,9 @@ $(document).ready(function(){
 	<div class="container">
 <div class="row vertical-divider">
  <div class="col-md-6">
-	 <h4>Équation avec points</h4>
-	 
-	 <a href="graphPoints.html" class="btn btn-default btn-circle btn-xl" id="points">Graph points </a>
+	 <h3>Équation avec points</h3>
+
+	 <a href="graphPoints.html" class="btn btn-default btn-circle btn-xl" id="btnPoints">Graph points </a>
  <br>
  <br>
  <div class="col-md-10 col-md-offset-1">
@@ -62,8 +87,8 @@ $(document).ready(function(){
 </div>
 
  <div class="col-md-6">
-	 <h4>Équation avec sliders</h4>
-   <a href="graphSlider.html" class="btn btn-default btn-circle btn-xl" id="sliders">Graph sliders</a>
+	 <h3>Équation avec sliders</h3>
+   <a href="graphSlider.html" class="btn btn-default btn-circle btn-xl" id="btnSliders">Graph sliders</a>
 	 <br>
 	 <br>
 	 <div class="col-md-10 col-md-offset-1">
@@ -78,7 +103,7 @@ $(document).ready(function(){
 </div>
 </div>
 <div id= "box">
-  
+
 </div>
 
 </body>
