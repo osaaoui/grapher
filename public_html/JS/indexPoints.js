@@ -28,7 +28,9 @@ function traceAvecP(){
 		triangle= board.create('slopetriangle', [ligne, glisseur]);
 		
 		affichageEquationLineairePoint(point1,point2);
-		// créer le triangle de la pente:
+		document.getElementById("equationGraph").innerHTML= " Équation linéaire: y = ax + b";
+		//afficherEquationExt(point1,point2);
+	
 		
 	} else if (exp != 0 ){
 		var hPoint = -pente/(2*exp);//-b/2a
@@ -36,7 +38,8 @@ function traceAvecP(){
 		var depP2= (exp*(hPoint+1)*(hPoint+1))+(pente*(hPoint+1))+ordonnee;// nouveau point de depart pour "p2"
 		var sommet = board.create('point', [hPoint, yPoint], {style:6, name:'p1'});// point sommet
 		var p2 = board.create('point', [(hPoint+1), depP2], {style:6, name:'p2'}); //le "p2" est placer sur la courbe à 1 de distance par rapport au sommet(ceci évite les conflits 0/0)
-
+		var text = String.fromCharCode(178);
+		document.getElementById("equationGraph").innerHTML= " Équation quadratique: y = ax"+text+ " + bx + c";
 		var ligne = board.create('functiongraph', function(x) {
 			var ax = sommet.X(),
 			    ay = sommet.Y(),
@@ -47,6 +50,8 @@ function traceAvecP(){
 		}, {fixed: false});
 		affichageEquationQuadratiquePoint(sommet,p2);
 		f.addParents([sommet, p2]);
+				
+
 	}
 }
 
@@ -147,6 +152,19 @@ const parametreB = function(code){
 	return ordonnee;
 };
 
+
+//function afficherEquationExt(p, t){
+ 
+//	return affichageEquationLineairePoint(point1, point2);
+//}
+
+//document.getElementById("equationGraph").innerHTML = afficherEquationExt(point1, point2);
+
+
+
+
+
+
 /*
 * fonction qui forme le String formant l'équation linéaire y=ax+b
 * Prend en paramètre 2 points
@@ -160,7 +178,12 @@ const parametreB = function(code){
 function affichageEquationLineairePoint(p,t){
 	var stringEquation= board.create('text', [4,-1, function(){return 'y= '+((p.Y()-t.Y())/(p.X()-t.X())).toFixed(2) //(1)
 	+ 'x +' + (p.Y()-(p.X()*((p.Y()-t.Y())/(p.X()-t.X())))).toFixed(2)}])//(2)
-}
+	
+	
+	
+};
+
+
 
 /*
 * fonction qui forme le String formant l'équation quadratique y=ax²+bx+c
