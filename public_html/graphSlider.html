@@ -23,15 +23,19 @@
 	<!-- Style (CSS) -->
 	<link rel="stylesheet" type="text/css" href="CSS/style.css">
 	<link rel="stylesheet" type="text/css" href="http://jsxgraph.uni-bayreuth.de/distrib/jsxgraph.css">
+	<link rel="Stylesheet" type="text/css" href="http://jsxgraph.uni-bayreuth.de/distrib/css/ui-lightness/jquery-ui-1.7.2.custom.css"/>
 
 	<!-- Librarie js  -->
 	<script type="text/javascript" src="JS/jquery.min.js"></script>
 	<script type="text/javascript" src="JS/bootstrap.min.js"></script>
 	<script type="text/javascript" src="JS/jsxgraphcore.js"></script>
-
+  <script type="text/javascript" src="JS/bootstrap-slider.js"></script>
+	<script type="text/javascript" src="JS/jsxgraphcore.js"></script>
+<script type="text/javascript" src="http://jsxgraph.uni-bayreuth.de/distrib/jquery.min.js"></script>
+<script type="text/javascript" src="http://jsxgraph.uni-bayreuth.de/distrib/jquery-ui.min.js"></script>
 </head>
 
-<body>
+<body onload="myFunction()">
 	<div id="custom-bootstrap-menu" class="navbar navbar-default " role="navigation">
 	    <div class="container-fluid">
 	        <div class="navbar-header">
@@ -57,13 +61,35 @@
 
 	<div class="row">
 	<div class="container center-block jxgbox jxbox2"  id="box"></div>
+
 	<div class = "containter center-block col-md-3 col-md-push-4">
 
-		<div class="sliders">
+
+		<style type="text/css">
+				#slider-frame > div.sliders { padding: 10px !important; };
+			</style>
+
+		<div class="sliders" style="margin:5px">
+		  <p>
+		    <label for="a">a:</label>
+		    <input type="text" id="a" style="border:0; color:#f6931f; font-weight:bold;" />
+				<br>
+		    <label for="b">b:</label>
+		    <input type="text" id="b" style="border:0; color:#f6931f; font-weight:bold;" />
+				<br>
+		    <label for="c">c:</label>
+		    <input type="text" id="c" style="border:0; color:#f6931f; font-weight:bold;" />
+		  </p>
+
+		  <div id="sliderA1" style="width:300px;margin:10px;"></div>
+		  <div id="sliderB1" style="width:300px;margin:10px;"></div>
+		  <div id="sliderC1" style="width:300px;margin:10px;"></div>
+
+				<!-- slider omar
 			<label for="slider"></label>
 			<input type="range" id="domSlidA">
 			<input type="range">
-			<input type="range">
+			<input type="range">	-->
 		</div>
 </div>
 </div>
