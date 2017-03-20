@@ -29,6 +29,7 @@ function trace(){
 	pente= parametreA(tokenize(equation));
 	ordonnee= parametreB(tokenize(equation));
 	exp = exposant(tokenize(equation));
+        zoomPlan(exp,pente ,ordonnee );
 	slides (pente, ordonnee, exp);
 }
 
@@ -46,7 +47,33 @@ function slides (pente, ordonnee, exp) {
 	c=plot(f);
 	myFunction();
 }
-
+// ajustement le zoom du plan cartésien selon l'équation entré y=ax²+bx+c ou y=bx+c
+function zoomPlan(a,b,c){
+	if(a!=0){ // equation quadratique
+		var xDroit=8;
+		var xGauche=-5;
+		var yHaut=8;
+		var yBas=-5;
+		var cote=10;
+		var sommetX=-b/(2*a);
+		var sommetY=((4*a*c)-(b*b))/(4*a);
+		//alert( sommetX +" "+sommetY );
+		if (sommetX>8){
+			 cote=sommetX*5;//on ajuste le plan cartesien par un facteur de 5 (subjectif)
+			 
+		}else if(sommetX<-5){
+			 cote=sommetX*5;
+		}
+		if (sommetY>8){
+			cote=sommetY*5;
+		}else if(sommetY<-5){
+			cote=sommetY*5;
+		}
+		
+		board.setBoundingBox([-cote,cote,cote,-cote]);
+		
+		}
+	}	
 
 function myFunction() {
 var valSliderA = sliderC.Value();
