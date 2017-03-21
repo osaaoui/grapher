@@ -1,4 +1,7 @@
 var board = JXG.JSXGraph.initBoard('box', {boundingbox:[-5,8,8,-5], axis:true, zoomfactor: 0.8});
+var ordonnee;
+var pente;
+var p1, p2, p3;
 function addCurve(board, func, atts){
 	var f= board.create('functiongraph', [func], atts,{fixed: false});
 	return f;
@@ -6,8 +9,8 @@ function addCurve(board, func, atts){
 
 function traceAvecP(){
 	var equation = document.getElementById('input').value;//alert(equation);
-	var pente= parametreA(tokenize(equation));
-	var ordonnee= parametreB(tokenize(equation));
+	pente= parametreA(tokenize(equation));
+	ordonnee= parametreB(tokenize(equation));
 	var exp = exposant(tokenize(equation));
 	var point1;
 	var point2
@@ -57,6 +60,35 @@ function traceAvecP(){
 
 	}
 }
+
+//animerPente();
+function animerPente(){
+	return animerVertical();
+}
+
+		
+
+//function animerPente(){
+//	animerVertical();
+//}
+animerVertical= function (){
+	p1= board.create('point', [0, (ordonnee+pente)], {style:6, name:'a', trace:true});
+		p2= board.create('point', [1, (ordonnee+pente)], {style:6, name:'b', trace:true});
+		p3= board.create('point', [0, (ordonnee+0)], {style:6, name:'o', trace:true});
+
+	    
+	return p3.moveTo([0,(ordonnee+pente)], 1500, {callback: animerHorizontal}); 
+	
+};
+animerHorizontal= function(){
+	p1= board.create('point', [0, (ordonnee+pente)], {style:6, name:'a', trace:true});
+		p2= board.create('point', [1, (ordonnee+pente)], {style:6, name:'b', trace:true});
+		p3= board.create('point', [0, (ordonnee+0)], {style:6, name:'o', trace:true});
+
+	return p1.moveTo([1, 5], 1500);
+};
+
+
 
 function clearAll(board){
 	JXG.JSXGraph.freeBoard(board);
