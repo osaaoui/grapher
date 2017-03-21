@@ -23,9 +23,12 @@ function traceAvecP(){
 		
 		// Code pour représenter la pente de l'équation linéaire sous forme de triangle 
 		// se déplaçant le long de la ligne
-		
-		var glisseur= board.create('glider', [0, 0, ligne]),
-		triangle= board.create('slopetriangle', [ligne, glisseur]);
+/*   
+ suppression du glider qui ne fait que créer un point de plus sur la courbe. Il peut porter à confusion.
+ On attache le triangle à l'un des deux points définis en haut, ce qui rend le triangle plus visible.
+ */		
+		//var glisseur= board.create('glider', [0, 0, ligne]),
+		triangle= board.create('slopetriangle', [ligne, point1]);
 		
 		affichageEquationLineairePoint(point1,point2);
 		document.getElementById("equationGraph").innerHTML= " Équation linéaire: y = ax + b";
