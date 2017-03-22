@@ -252,6 +252,12 @@ function affichageEquationQuadratiquePoint (p1,p2){
 	/ ( (p2.X() - p1.X()) * (p2.X() - p1.X()) ))*p1.X())) / (4*((p2.Y() - p1.Y()) /
 	( (p2.X() - p1.X()) * (p2.X() - p1.X()) )))).toFixed(2)}]);	// affichage fonction avec les points
 }
+
+function resetGraph(){
+	JXG.JSXGraph.freeBoard(board);
+	board = JXG.JSXGraph.initBoard('box', {boundingbox:[-5,8,8,-5], axis:true, zoomfactor: 0.8});
+	traceAvecP();
+}
 function erase () {
 	$('#input').val('');
 	JXG.JSXGraph.freeBoard(board);
