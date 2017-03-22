@@ -24,18 +24,18 @@ function traceAvecP(){
 		point2 = board.create('point', [(ordonnee/-pente), 0], {style:6, name:'p2'});
 		var ligne = board.create('line', [point1,point2]);
 		
-		// Code pour représenter la pente de l'équation linéaire sous forme de triangle 
-		// se déplaçant le long de la ligne
-/*   
- suppression du glider qui ne fait que créer un point de plus sur la courbe. Il peut porter à confusion.
- On attache le triangle à l'un des deux points définis en haut, ce qui rend le triangle plus visible.
- */		
-		//var glisseur= board.create('glider', [0, 0, ligne]),
+		
+/*
+ * Code pour représenter la pente de l'équation linéaire sous forme de triangle 
+ * se déplaçant le long de la ligne.
+ * suppression du glider qui ne fait que créer un point de plus sur la courbe. Il peut porter à confusion.
+ *  On attache le triangle à l'un des deux points définis en haut, ce qui rend le triangle plus visible.
+ */   	
 		triangle= board.create('slopetriangle', [ligne, point1]);
 		
 		affichageEquationLineairePoint(point1,point2);
 		document.getElementById("equationGraph").innerHTML= " Équation linéaire: y = ax + b";
-		//afficherEquationExt(point1,point2);
+		
 	
 		
 	} else if (exp != 0 ){
@@ -61,31 +61,40 @@ function traceAvecP(){
 	}
 }
 
-//animerPente();
+/* La fonction animerPente appelle la fonction animerVariationEnY qui, à son tour, fait appel à la fonction animerVariationEnX
+ * Le tout pour animer la pente d'une équation linéaire. 
+ */
+
 function animerPente(){
-	return animerVertical();
+	return animerVariationEnY();
 }
 
-		
-
-//function animerPente(){
-//	animerVertical();
-//}
-animerVertical= function (){
+/* animerVariationEnY: l'animation prend comme point de départ l'ordonnée à l'origine
+ *  et s'arrêtera au point formé par l'ordonnée+pente
+ */ 
+ 
+animerVariationEnY= function (){
 	p1= board.create('point', [0, (ordonnee+pente)], {style:6, name:'a', trace:true});
 		p2= board.create('point', [1, (ordonnee+pente)], {style:6, name:'b', trace:true});
 		p3= board.create('point', [0, (ordonnee+0)], {style:6, name:'o', trace:true});
-
-	    
-	return p3.moveTo([0,(ordonnee+pente)], 1500, {callback: animerHorizontal}); 
+	return p3.moveTo([0,(ordonnee+pente)], 1500, {callback: animerVariationEnX}); 
 	
 };
-animerHorizontal= function(){
-	p1= board.create('point', [0, (ordonnee+pente)], {style:6, name:'a', trace:true});
+
+/* animerVariationEnX: Pour le moment le point de départ de la variation en X est 1
+ * car dans l'équation 3x+2 par exemple, 3x <=> 3/1x. Il faudra tenir compte bien sûr de cas
+ * lorsque la pente est fractionnaire.
+ * l'animation s'arrêtera ici à la valeur de ordonnée+pente
+ */
+
+ 
+ 
+animerVariationEnX= function(){
+	    p1= board.create('point', [0, (ordonnee+pente)], {style:6, name:'a', trace:true});
 		p2= board.create('point', [1, (ordonnee+pente)], {style:6, name:'b', trace:true});
 		p3= board.create('point', [0, (ordonnee+0)], {style:6, name:'o', trace:true});
 
-	return p1.moveTo([1, 5], 1500);
+	return p1.moveTo([1, (ordonnee+pente)], 1500);
 };
 
 
