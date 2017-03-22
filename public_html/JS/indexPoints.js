@@ -34,7 +34,7 @@ function traceAvecP(){
 		triangle= board.create('slopetriangle', [ligne, point1]);
 		
 		affichageEquationLineairePoint(point1,point2);
-		document.getElementById("equationGraph").innerHTML= " Équation linéaire: y = ax + b";
+		document.getElementById("equationGraph").innerHTML= " Équation linéaire: y = " + pente + "x" + " + " + ordonnee;
 		
 	
 		
@@ -223,7 +223,8 @@ function affichageEquationLineairePoint(p,t){
 	var stringEquation= board.create('text', [4,-1, function(){return 'y= '+((p.Y()-t.Y())/(p.X()-t.X())).toFixed(2) //(1)
 	+ 'x +' + (p.Y()-(p.X()*((p.Y()-t.Y())/(p.X()-t.X())))).toFixed(2)}])//(2)
 	
-	
+	//var j= JSON.stringify(stringEquation);
+	//alert (j);
 	
 };
 
