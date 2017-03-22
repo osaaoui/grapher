@@ -82,7 +82,7 @@ function zoomPlan(a,b,c){
 	}else{
                 var zeroX=-c/b;
 		var zeroY=c;
-		if((zeroX > 8 ||zeroX<-5) || (zeroY>8 || zeroY<-5)){ //des points zero sont hors du plan
+		if((zeroX > 8 ||zeroX<-5) && (zeroY>8 || zeroY<-5)){ //des points zero sont hors du plan
 			if(zeroX> 8){
 			xPos=zeroX*1.5; xNeg=-zeroX;
 			}
