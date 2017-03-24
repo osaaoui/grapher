@@ -77,6 +77,9 @@ animerVariationEnY= function (){
 	    p1= board.create('point', [0, (ordonnee+pente)], {style:6, name:'a', trace:true,color: 'green', strokeWidth:0.1});
 		p2= board.create('point', [1, (ordonnee+pente)], {style:6, name:'b', trace:true,color: 'green',strokeWidth:0.1});
 		p3= board.create('point', [0, (ordonnee+0)], {style:6, name:'o', trace:true,color: 'green',strokeWidth:0.1});
+		
+		// Le code qui suit va créer la bulle avec du texte. Tout le travail est fait par l'option cssClass: 'mytext' qui est définie dans le fichier css'
+		// Pour simuler le mouvement, on attache la bulle au point p3 avec l'option "anchor:p3"
 		var bullePente= board.create('text', [-2, 0, "La pente est égale à: "+ pente + ".00"], {anchor: p3,strokeColor: "#fff", cssClass:'mytext'});
 	return p3.moveTo([0,(ordonnee+pente)], 2500, {callback: animerVariationEnX}); 
 	
