@@ -74,9 +74,9 @@ function animerPente(){
  */ 
  
 animerVariationEnY= function (){
-	    p1= board.create('point', [0, (ordonnee+pente)], {style:6, name:'a', trace:true,color: 'green'});
-		p2= board.create('point', [1, (ordonnee+pente)], {style:6, name:'b', trace:true,color: 'green'});
-		p3= board.create('point', [0, (ordonnee+0)], {style:6, name:'o', trace:true,color: 'green'});
+	    p1= board.create('point', [0, (ordonnee+pente)], {style:6, name:'a', trace:true,color: 'green', strokeWidth:0.1});
+		p2= board.create('point', [1, (ordonnee+pente)], {style:6, name:'b', trace:true,color: 'green',strokeWidth:0.1});
+		p3= board.create('point', [0, (ordonnee+0)], {style:6, name:'o', trace:true,color: 'green',strokeWidth:0.1});
 		var bullePente= board.create('text', [-2, 0, "La pente est égale à: "+ pente + ".00"], {anchor: p3,strokeColor: "#fff", cssClass:'mytext'});
 	return p3.moveTo([0,(ordonnee+pente)], 2500, {callback: animerVariationEnX}); 
 	
@@ -91,9 +91,9 @@ animerVariationEnY= function (){
  
  
 animerVariationEnX= function(){
-	    p1= board.create('point', [0, (ordonnee+pente)], {style:6, name:'a', trace:true,color: 'green'});
-		p2= board.create('point', [1, (ordonnee+pente)], {style:6, name:'b', trace:true,color: 'green'});
-		p3= board.create('point', [0, (ordonnee+0)], {style:6, name:'o', trace:true,color: 'green'});
+	    p1= board.create('point', [0, (ordonnee+pente)], {style:6, name:'a', trace:true,color: 'green',strokeWidth:0.1});
+		p2= board.create('point', [1, (ordonnee+pente)], {style:6, name:'b', trace:true,color: 'green',strokeWidth:0.1});
+		p3= board.create('point', [0, (ordonnee+0)], {style:6, name:'o', trace:true,color: 'green',strokeWidth:0.1});
 
 	return p1.moveTo([1, (ordonnee+pente)], 2500);
 };
