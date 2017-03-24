@@ -26,6 +26,7 @@ function plot(func, atts){
 
 function trace(){
 	var equation = document.getElementById('input').value;//alert(equation);
+        equation=equation.replace(/,/g,'.'); // rempalce les "," par "."
 	pente= parametreA(tokenize(equation));
 	ordonnee= parametreB(tokenize(equation));
 	exp = exposant(tokenize(equation));
