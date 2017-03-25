@@ -300,7 +300,7 @@ function valCaractere(equation){
 
 function valRepetition(equation){
 	var mauvaiseEquation=false;
-	var evaluation = /xx|x²x²|x[0-9]+|[0-9]+\.[0-9]+\./.test(equation);
+	var evaluation = /xx|x²x²|x[0-9]+|x²[0-9]+|[0-9]+\.[0-9]+\./.test(equation);
 	if(evaluation){
 		alert("nous avons detecté une anomalie dans l'équation il y a repetition ");
 		mauvaiseEquation=true;
