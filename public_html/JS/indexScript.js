@@ -27,11 +27,16 @@ function plot(func, atts){
 function trace(){
 	var equation = document.getElementById('input').value;//alert(equation);
         equation=equation.replace(/,/g,'.'); // rempalce les "," par "."
-	pente= parametreA(tokenize(equation));
-	ordonnee= parametreB(tokenize(equation));
-	exp = exposant(tokenize(equation));
-        zoomPlan(exp,pente ,ordonnee );
-	slides (pente, ordonnee, exp);
+        
+	if(validation(equation)){
+            pente= parametreA(tokenize(equation));
+            ordonnee= parametreB(tokenize(equation));
+            exp = exposant(tokenize(equation));
+            zoomPlan(exp,pente ,ordonnee );
+            slides (pente, ordonnee, exp);
+	}else{
+		erase();
+	}
 }
 
 // Rajouter l'option snapWidth:1 pour que la manipulation du slider ne retourne que des entiers (ie. pas de nombres fractionnaires, etc)
@@ -258,6 +263,50 @@ const parametreB = function(code){
 	}
 	return ordonnee;
 };
+
+function validation(equation){
+	var valide= true;
+	if(
+	valLimit(equation) ||
+	valCaractere(equation) ||
+	valRepetition(equation)
+	){
+		
+		valide=false;
+	}
+	return valide;
+}
+
+function valLimit(equation){
+	var mauvaiseEquation=false;
+	var evaluation= /[\*\/\(\)]+/.test(equation);
+	if (evaluation){
+	 alert("le logiciel ne prend pour le moment pas en compte les symbole '*' et '/'");
+	 mauvaiseEquation=true;
+	}
+	return mauvaiseEquation;
+}
+ 
+function valCaractere(equation){
+	var mauvaiseEquation=false;
+	var evaluation = /[^²x\+\-0-9,.]/.test(equation);
+	if(evaluation){
+		alert("l'équation ne doit contenir que des caracteres accepté (voir la liste dans le wiki)");
+		mauvaiseEquation=true;
+	}
+	return mauvaiseEquation;
+}
+
+
+function valRepetition(equation){
+	var mauvaiseEquation=false;
+	var evaluation = /xx|x²x²|x[0-9]+|[0-9]+\.[0-9]+\./.test(equation);
+	if(evaluation){
+		alert("nous avons detecté une anomalie dans l'équation il y a repetition ");
+		mauvaiseEquation=true;
+	}
+	return mauvaiseEquation;
+}
 
 function erase () {
 	$('#input').val('');
