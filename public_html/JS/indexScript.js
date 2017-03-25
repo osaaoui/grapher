@@ -104,8 +104,8 @@ function zoomPlan(a,b,c){
 		 yNeg=-c*0.5;
 		}
 		if(c<-5){
-		 yPos=c*0.5;
-		 yNeg=-c*1.5;	
+		 yPos=-c*0.5;
+		 yNeg=c*1.5;		
 		}
 		board.setBoundingBox([xNeg,yPos,xPos,yNeg]);
 	}
