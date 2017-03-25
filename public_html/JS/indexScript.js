@@ -50,7 +50,7 @@ function slides (pente, ordonnee, exp) {
 }
 // ajustement le zoom du plan cartésien selon l'équation entré y=ax²+bx+c ou y=bx+c
 function zoomPlan(a,b,c){
-                var xPos=8;
+        var xPos=8;
 		var xNeg=-5;
 		var yPos=8;
 		var yNeg=-5;
@@ -80,10 +80,10 @@ function zoomPlan(a,b,c){
 			board.setBoundingBox([xNeg,yPos,xPos,yNeg]);
 		
 		}
-	}else{
+	}else if(b!=0){ // equation linaire
                 var zeroX=-c/b;
-		var zeroY=c;
-		if((zeroX > 8 ||zeroX<-5) && (zeroY>8 || zeroY<-5)){ //des points zero sont hors du plan
+			var zeroY=c;
+			if((zeroX > 8 ||zeroX<-5) && (zeroY>8 || zeroY<-5)){ //des points zero sont hors du plan
 			if(zeroX> 8){
 			xPos=zeroX*1.5; xNeg=-zeroX;
 			}
@@ -98,7 +98,18 @@ function zoomPlan(a,b,c){
                         }
 			board.setBoundingBox([xNeg,yPos,xPos,yNeg]);
                 }
-	} 
+	}else{ // equation plane
+		if(c>8){
+		 yPos=c*1.5;
+		 yNeg=-c*0.5;
+		}
+		if(c<-5){
+		 yPos=c*0.5;
+		 yNeg=-c*1.5;	
+		}
+		board.setBoundingBox([xNeg,yPos,xPos,yNeg]);
+	}
+	
 }	
 
 function myFunction() {
