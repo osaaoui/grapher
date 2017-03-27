@@ -74,16 +74,20 @@ function animerPente(){
  */ 
  
 animerVariationEnY= function (){
-	    p1= board.create('point', [0, (ordonnee+pente)], {style:6, name:'a', trace:true,color: 'green', strokeWidth:0.1});
+	   board.options.text.useMathJax = true;
+	    p1= board.create('point', [0, (ordonnee+pente)], {style:6, name:'a', trace:true,color: 'green',strokeWidth:0.1});
 		p2= board.create('point', [1, (ordonnee+pente)], {style:6, name:'b', trace:true,color: 'green',strokeWidth:0.1});
 		p3= board.create('point', [0, (ordonnee+0)], {style:6, name:'o', trace:true,color: 'green',strokeWidth:0.1});
 		
-		// Le code qui suit va créer la bulle avec du texte. Tout le travail est fait par l'option cssClass: 'mytext' qui est définie dans le fichier css'
-		// Pour simuler le mouvement, on attache la bulle au point p3 avec l'option "anchor:p3"
-		var bullePente= board.create('text', [-2, 0, "La pente est égale à: "+ pente + ".00"], {anchor: p3,strokeColor: "#fff", cssClass:'mytext'});
-	return p3.moveTo([0,(ordonnee+pente)], 2500, {callback: animerVariationEnX}); 
-	
-};
+		// afficher la bulle d'information en utilisation la librairie MathJax pour afficher les fractions
+		var bullePente= board.create('text',[-2, 0,'$\\\\dfrac {variation sur Y}{Variation sur X} $'],
+		{anchor: p3,strokeColor: "#fff", cssClass:'mytext'});
+		// function() {
+        //return '$$ \frac ab $$';}],
+		 
+			return p3.moveTo([0,(ordonnee+pente)], 2500, {callback: animerVariationEnX}); 
+		};
+		  
 
 /* animerVariationEnX: Pour le moment le point de départ de la variation en X est 1
  * car dans l'équation 3x+2 par exemple, 3x <=> 3/1x. Il faudra tenir compte bien sûr de cas
