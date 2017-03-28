@@ -83,14 +83,16 @@ function animerPente(){
  */ 
  
 animerVariationEnY= function (){
-	   board.options.text.useMathJax = true;
+	   //board.options.text.useMathJax = true;
 	    p1= board.create('point', [0, (ordonnee+pente)], {style:6, name:'a', trace:true,color: 'green',strokeWidth:0.1});
 		p2= board.create('point', [1, (ordonnee+pente)], {style:6, name:'b', trace:true,color: 'green',strokeWidth:0.1});
 		p3= board.create('point', [0, (ordonnee+0)], {style:6, name:'o', trace:true,color: 'green',strokeWidth:0.1});
 		
 		// afficher la bulle d'information en utilisation la librairie MathJax pour afficher les fractions
-		var bullePente= board.create('text',[-2, 0,'$\\\\dfrac {variation sur Y}{Variation sur X} $'],
+		var bullePente= board.create('text', [-2, 0, " La pente = " + pente],
 		{anchor: p3,strokeColor: "#fff", cssClass:'mytext'});
+		//var bullePente= board.create('text',[-2, 0,'$\\\\dfrac {variation sur Y}{Variation sur X} $'],
+		//{anchor: p3,strokeColor: "#fff", cssClass:'mytext'});
    
            //return p3.moveTo([0,(ordonnee+pente)], 2500, {callback: animerVariationEnX}); 
 			return p3.moveTo([p3.X(), p1.Y()], 2500, {callback: animerVariationEnX}); 
@@ -252,6 +254,19 @@ function affichageEquationQuadratiquePoint (p1,p2){
 	/ ( (p2.X() - p1.X()) * (p2.X() - p1.X()) ))*p1.X())*(-2*((p2.Y() - p1.Y()) )
 	/ ( (p2.X() - p1.X()) * (p2.X() - p1.X()) ))*p1.X())) / (4*((p2.Y() - p1.Y()) /
 	( (p2.X() - p1.X()) * (p2.X() - p1.X()) )))).toFixed(2)}]);	// affichage fonction avec les points
+	
+	
+	// affichage dynamique de l'équation quadratique dans le DOM
+	board.on('update', function(){
+		document.getElementById('equationGraph').innerHTML= 'y= '+ ((p2.Y() - p1.Y()) / ( (p2.X() - p1.X()) * (p2.X() - p1.X()))).toFixed(2)//(1)
+	+ 'x² +' + (-2*((p2.Y() - p1.Y()) / ( (p2.X() - p1.X()) * (p2.X() - p1.X()) ))*p1.X()).toFixed(2) //(2)
+	+ 'x +' + ((p1.Y()*4*((p2.Y() - p1.Y()) / ( (p2.X() - p1.X()) * (p2.X() - p1.X())))+((-2*((p2.Y() - p1.Y())
+	/ ( (p2.X() - p1.X()) * (p2.X() - p1.X()) ))*p1.X())*(-2*((p2.Y() - p1.Y()) )
+	/ ( (p2.X() - p1.X()) * (p2.X() - p1.X()) ))*p1.X())) / (4*((p2.Y() - p1.Y()) /
+	( (p2.X() - p1.X()) * (p2.X() - p1.X()) )))).toFixed(2);	//
+        
+	
+	});
 }
 
 function resetGraph(){
