@@ -100,6 +100,15 @@ function axeDeSymetrie(){
 		//{anchor: pointHaut,strokeColor: "#fff", cssClass:'mytext'});
 }
 
+function afficherLesZeros(){
+ var discriminant= Math.sqrt(pente*pente - (4 * exp * ordonnee));
+ var premierZero= ((- pente + discriminant)/2*exp).toFixed(2);
+ var deuxiemeZero= ((- pente - discriminant)/2*exp).toFixed(2);
+  var zero1 = board.create('point', [premierZero,0], {style:6, name: premierZero, fixed:true});
+  var zero2 = board.create('point', [deuxiemeZero,0], {style:6, name:deuxiemeZero, fixed:true});
+	
+}
+
 
 
 /* La fonction animerPente appelle la fonction animerVariationEnY qui, à son tour, fait appel à la fonction animerVariationEnX
