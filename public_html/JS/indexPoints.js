@@ -1,3 +1,4 @@
+
 var board = JXG.JSXGraph.initBoard('box', {boundingbox:[-5,8,8,-5], axis:true, zoomfactor: 0.8});
 var ordonnee;
 var pente;
@@ -90,13 +91,8 @@ animerVariationEnY= function (){
 		// afficher la bulle d'information en utilisation la librairie MathJax pour afficher les fractions
 		var bullePente= board.create('text',[-2, 0,'$\\\\dfrac {variation sur Y}{Variation sur X} $'],
 		{anchor: p3,strokeColor: "#fff", cssClass:'mytext'});
-		// function() {
-        //return '$$ \frac ab $$';}],
-        alert(p3.X());
-        alert(p3.Y());
-        
-		 
-			//return p3.moveTo([0,(ordonnee+pente)], 2500, {callback: animerVariationEnX}); 
+   
+           //return p3.moveTo([0,(ordonnee+pente)], 2500, {callback: animerVariationEnX}); 
 			return p3.moveTo([p3.X(), p1.Y()], 2500, {callback: animerVariationEnX}); 
 			
 		};
@@ -218,18 +214,6 @@ const parametreB = function(code){
 };
 
 
-//function afficherEquationExt(p, t){
- 
-//	return affichageEquationLineairePoint(point1, point2);
-//}
-
-//document.getElementById("equationGraph").innerHTML = afficherEquationExt(point1, point2);
-
-
-
-
-
-
 /*
 * fonction qui forme le String formant l'équation linéaire y=ax+b
 * Prend en paramètre 2 points
@@ -243,10 +227,6 @@ const parametreB = function(code){
 function affichageEquationLineairePoint(p,t){
 	var stringEquation= board.create('text', [4,-1, function(){return 'y= '+((p.Y()-t.Y())/(p.X()-t.X())).toFixed(2) //(1)
 	+ 'x +' + (p.Y()-(p.X()*((p.Y()-t.Y())/(p.X()-t.X())))).toFixed(2)}])//(2)
-	
-	//var j= JSON.stringify(stringEquation);
-	//alert (j);
-	
 };
 
 
