@@ -64,11 +64,20 @@ function traceAvecP(){
 			    return a * (x - ax) * (x - ax) + ay;
 		}, {fixed: false});
 		affichageEquationQuadratiquePoint(sommet,p2);
-		f.addParents([sommet, p2]);
+		ligne.addParents([sommet, p2]);
 				
 
 	}
 }
+
+// Fonction qui affiche l'ordonnée à l'origine d'une équation quadratique:
+
+function afficherOrdonnee(){
+	ord = board.create('point', [0,(ordonnee)], {style:6, name:'', fixed:true});
+	var bulleOrdonnee= board.create('text', [-2, 0, "ordonnee= " + ordonnee],
+		{anchor: ord,strokeColor: "#fff", cssClass:'mytext'});
+}
+
 
 /* La fonction animerPente appelle la fonction animerVariationEnY qui, à son tour, fait appel à la fonction animerVariationEnX
  * Le tout pour animer la pente d'une équation linéaire. 
