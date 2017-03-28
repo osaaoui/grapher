@@ -92,8 +92,13 @@ animerVariationEnY= function (){
 		{anchor: p3,strokeColor: "#fff", cssClass:'mytext'});
 		// function() {
         //return '$$ \frac ab $$';}],
+        alert(p3.X());
+        alert(p3.Y());
+        
 		 
-			return p3.moveTo([0,(ordonnee+pente)], 2500, {callback: animerVariationEnX}); 
+			//return p3.moveTo([0,(ordonnee+pente)], 2500, {callback: animerVariationEnX}); 
+			return p3.moveTo([p3.X(), p1.Y()], 2500, {callback: animerVariationEnX}); 
+			
 		};
 		  
 
