@@ -3,6 +3,7 @@ var board = JXG.JSXGraph.initBoard('box', {boundingbox:[-5,8,8,-5], axis:true, z
 var ordonnee;
 var pente;
 var p1, p2, p3;
+var exp;
 function addCurve(board, func, atts){
 	var f= board.create('functiongraph', [func], atts,{fixed: false});
 	return f;
@@ -12,7 +13,7 @@ function traceAvecP(){
 	var equation = document.getElementById('input').value;//alert(equation);
 	pente= parametreA(tokenize(equation));
 	ordonnee= parametreB(tokenize(equation));
-	var exp = exposant(tokenize(equation));
+	exp = exposant(tokenize(equation));
 	var point1;
 	var point2
 
@@ -70,13 +71,35 @@ function traceAvecP(){
 	}
 }
 
-// Fonction qui affiche l'ordonnée à l'origine d'une équation quadratique:
+// Fonction qui affiche l'ordonnée à l'origine d'une équation quadratique. 
+// L'affichage est placée dans une bulle
 
 function afficherOrdonnee(){
 	ord = board.create('point', [0,(ordonnee)], {style:6, name:'', fixed:true});
 	var bulleOrdonnee= board.create('text', [-2, 0, "ordonnee= " + ordonnee],
 		{anchor: ord,strokeColor: "#fff", cssClass:'mytext'});
 }
+
+
+
+
+// Fonction pour afficher l'axe de symétrie.
+// Pour le moment on se contentera d'afficher l'équation de l'axe x= ...   à côté du point et sans bulle
+// une fois qu'on a trouvé un affichage approprié de la bulle, on remettra le code qui est commenté ci-bas
+function axeDeSymetrie(){
+	var x = -pente/(2*exp);//-b/2a
+	var y = (4*exp*ordonnee-(pente*pente))/(4*exp); //(4ac-b²)/4a
+	pointBas= board.create('point', [x, (y-6)], {style:6, name:"x= " + x.toFixed(2)});// point sommet
+	pointHaut= board.create('point', [x, (y +10)], {style:6, name:"x= " + x.toFixed(2)});// point sommet
+	var li2 = board.create('line',[pointBas,pointHaut], 
+    {straightFirst:false, straightLast:false, strokeWidth:2, dash:2});
+    
+    //var bulleAxeBas= board.create('text', [-2, 0, "x= " + x.toFixed(2) ],
+		//{anchor: pointBas,strokeColor: "#fff", cssClass:'mytext'});
+	//var bulleAxeHaut= board.create('text', [-2, 0, "x= " + x.toFixed(2) ],
+		//{anchor: pointHaut,strokeColor: "#fff", cssClass:'mytext'});
+}
+
 
 
 /* La fonction animerPente appelle la fonction animerVariationEnY qui, à son tour, fait appel à la fonction animerVariationEnX
