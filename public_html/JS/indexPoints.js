@@ -25,6 +25,14 @@ function traceAvecP(){
 		var ligne = board.create('line', [point1,point2]);
 		
 		
+		// affichage dynamique de l'équation	
+	     board.on('update', function(){
+		 document.getElementById('equationGraph').innerHTML= "y= "+((point1.Y()-point2.Y())/(point1.X()-point2.X())).toFixed(2)
+		+ 'x +' + (point1.Y()-(point1.X()*((point1.Y()-point2.Y())/(point1.X()-point2.X())))).toFixed(2);
+		});
+		
+		
+		
 /*
  * Code pour représenter la pente de l'équation linéaire sous forme de triangle 
  * se déplaçant le long de la ligne.
