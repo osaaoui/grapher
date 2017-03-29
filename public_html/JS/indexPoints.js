@@ -101,12 +101,19 @@ function axeDeSymetrie(){
 }
 
 function afficherLesZeros(){
- var discriminant= Math.sqrt(pente*pente - (4 * exp * ordonnee));
- var premierZero= ((- pente + discriminant)/2*exp).toFixed(2);
- var deuxiemeZero= ((- pente - discriminant)/2*exp).toFixed(2);
+
+ var ord = board.create('point', [0,(ordonnee)], {style:6, name:'', fixed:true});
+ var discriminant= pente*pente - (4 * exp * ordonnee);
+ var valDiscriminant= Math.sqrt(discriminant);
+ if (discriminant >= 0){
+ var premierZero= ((- pente + valDiscriminant)/2*exp).toFixed(2);
+ var deuxiemeZero= ((- pente - valDiscriminant)/2*exp).toFixed(2);
   var zero1 = board.create('point', [premierZero,0], {style:6, name: premierZero, fixed:true});
   var zero2 = board.create('point', [deuxiemeZero,0], {style:6, name:deuxiemeZero, fixed:true});
-	
+ } else if(discriminant < 0){  
+ 	var bulleAucuneSolution= board.create('text', [-2, 0, "L'équation n'a aucune solution"],
+		{anchor: ord,strokeColor: "#fff", cssClass:'mytext'});    //  équation test: x²- 3x+4
+ }
 }
 
 
