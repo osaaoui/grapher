@@ -131,6 +131,7 @@ function animerPente(){
  */ 
  
 animerVariationEnY= function (){
+	   if(exp ==0){
 	   //board.options.text.useMathJax = true;
 	    p1= board.create('point', [0, (ordonnee+pente)], {style:6, name:'a', trace:true,color: 'green',strokeWidth:0.1});
 		p2= board.create('point', [1, (ordonnee+pente)], {style:6, name:'b', trace:true,color: 'green',strokeWidth:0.1});
@@ -141,10 +142,14 @@ animerVariationEnY= function (){
 		{anchor: p3,strokeColor: "#fff", cssClass:'mytext'});
 		//var bullePente= board.create('text',[-2, 0,'$\\\\dfrac {variation sur Y}{Variation sur X} $'],
 		//{anchor: p3,strokeColor: "#fff", cssClass:'mytext'});
-   
-           //return p3.moveTo([0,(ordonnee+pente)], 2500, {callback: animerVariationEnX}); 
+		// function() {0
+        //return '$$ \frac ab $$';}],
+		 
 			return p3.moveTo([p3.X(), p1.Y()], 2500, {callback: animerVariationEnX}); 
-			
+		}else if (exp != 0 ){
+			var bullePente= board.create('text', [-2, 0, "Équation quadratique: aucune pente"],
+		    {anchor: p3,strokeColor: "#fff", cssClass:'mytext'});
+		   }
 		};
 		  
 
