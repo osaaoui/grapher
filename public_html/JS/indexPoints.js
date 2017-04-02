@@ -1,4 +1,3 @@
-
 var board = JXG.JSXGraph.initBoard('box', {boundingbox:[-5,8,8,-5], axis:true, zoomfactor: 0.8});
 var ordonnee;
 var pente;
@@ -25,29 +24,29 @@ function traceAvecP(){
 		point1 = board.create('point', [1,(ordonnee+pente)], {style:6, name:'p1'});
 		point2 = board.create('point', [(ordonnee/-pente), 0], {style:6, name:'p2'});
 		var ligne = board.create('line', [point1,point2]);
-		
-		
-		// affichage dynamique de l'équation	
+
+
+		// affichage dynamique de l'équation
 	     board.on('update', function(){
 		 document.getElementById('equationGraph').innerHTML= "y= "+((point1.Y()-point2.Y())/(point1.X()-point2.X())).toFixed(2)
 		+ 'x +' + (point1.Y()-(point1.X()*((point1.Y()-point2.Y())/(point1.X()-point2.X())))).toFixed(2);
 		});
-		
-		
-		
+
+
+
 /*
- * Code pour représenter la pente de l'équation linéaire sous forme de triangle 
+ * Code pour représenter la pente de l'équation linéaire sous forme de triangle
  * se déplaçant le long de la ligne.
  * suppression du glider qui ne fait que créer un point de plus sur la courbe. Il peut porter à confusion.
  *  On attache le triangle à l'un des deux points définis en haut, ce qui rend le triangle plus visible.
- */   	
+ */
 		//triangle= board.create('slopetriangle', [ligne, point1]);
-		
+
 		affichageEquationLineairePoint(point1,point2);
 		document.getElementById("equationGraph").innerHTML= " Équation linéaire: y = " + pente + "x" + " + " + ordonnee;
-		
-	
-		
+
+
+
 	} else if (exp != 0 ){
 		var hPoint = -pente/(2*exp);//-b/2a
 		var yPoint = (4*exp*ordonnee-(pente*pente))/(4*exp); //(4ac-b²)/4a
@@ -66,12 +65,12 @@ function traceAvecP(){
 		}, {fixed: false});
 		affichageEquationQuadratiquePoint(sommet,p2);
 		ligne.addParents([sommet, p2]);
-				
+
 
 	}
 }
 
-// Fonction qui affiche l'ordonnée à l'origine d'une équation quadratique. 
+// Fonction qui affiche l'ordonnée à l'origine d'une équation quadratique.
 // L'affichage est placée dans une bulle
 
 function afficherOrdonnee(){
@@ -91,9 +90,9 @@ function axeDeSymetrie(){
 	var y = (4*exp*ordonnee-(pente*pente))/(4*exp); //(4ac-b²)/4a
 	pointBas= board.create('point', [x, (y-6)], {style:6, name:"x= " + x.toFixed(2)});// point sommet
 	pointHaut= board.create('point', [x, (y +10)], {style:6, name:"x= " + x.toFixed(2)});// point sommet
-	var li2 = board.create('line',[pointBas,pointHaut], 
+	var li2 = board.create('line',[pointBas,pointHaut],
     {straightFirst:false, straightLast:false, strokeWidth:2, dash:2});
-    
+
     //var bulleAxeBas= board.create('text', [-2, 0, "x= " + x.toFixed(2) ],
 		//{anchor: pointBas,strokeColor: "#fff", cssClass:'mytext'});
 	//var bulleAxeHaut= board.create('text', [-2, 0, "x= " + x.toFixed(2) ],
@@ -110,7 +109,7 @@ function afficherLesZeros(){
  var deuxiemeZero= ((- pente - valDiscriminant)/2*exp).toFixed(2);
   var zero1 = board.create('point', [premierZero,0], {style:6, name: premierZero, fixed:true});
   var zero2 = board.create('point', [deuxiemeZero,0], {style:6, name:deuxiemeZero, fixed:true});
- } else if(discriminant < 0){  
+ } else if(discriminant < 0){
  	var bulleAucuneSolution= board.create('text', [-2, 0, "L'équation n'a aucune solution"],
 		{anchor: ord,strokeColor: "#fff", cssClass:'mytext'});    //  équation test: x²- 3x+4
  }
@@ -119,7 +118,7 @@ function afficherLesZeros(){
 
 
 /* La fonction animerPente appelle la fonction animerVariationEnY qui, à son tour, fait appel à la fonction animerVariationEnX
- * Le tout pour animer la pente d'une équation linéaire. 
+ * Le tout pour animer la pente d'une équation linéaire.
  */
 
 function animerPente(){
@@ -128,15 +127,15 @@ function animerPente(){
 
 /* animerVariationEnY: l'animation prend comme point de départ l'ordonnée à l'origine
  *  et s'arrêtera au point formé par l'ordonnée+pente
- */ 
- 
+ */
+
 animerVariationEnY= function (){
 	   if(exp ==0){
 	   //board.options.text.useMathJax = true;
 	    p1= board.create('point', [0, (ordonnee+pente)], {style:6, name:'a', trace:true,color: 'green',strokeWidth:0.1});
 		p2= board.create('point', [1, (ordonnee+pente)], {style:6, name:'b', trace:true,color: 'green',strokeWidth:0.1});
 		p3= board.create('point', [0, (ordonnee+0)], {style:6, name:'o', trace:true,color: 'green',strokeWidth:0.1});
-		
+
 		// afficher la bulle d'information en utilisation la librairie MathJax pour afficher les fractions
 		var bullePente= board.create('text', [-2, 0, " La pente = " + pente],
 		{anchor: p3,strokeColor: "#fff", cssClass:'mytext'});
@@ -144,14 +143,14 @@ animerVariationEnY= function (){
 		//{anchor: p3,strokeColor: "#fff", cssClass:'mytext'});
 		// function() {0
         //return '$$ \frac ab $$';}],
-		 
-			return p3.moveTo([p3.X(), p1.Y()], 2500, {callback: animerVariationEnX}); 
+
+			return p3.moveTo([p3.X(), p1.Y()], 2500, {callback: animerVariationEnX});
 		}else if (exp != 0 ){
 			var bullePente= board.create('text', [-2, 0, "Équation quadratique: aucune pente"],
 		    {anchor: p3,strokeColor: "#fff", cssClass:'mytext'});
 		   }
 		};
-		  
+
 
 /* animerVariationEnX: Pour le moment le point de départ de la variation en X est 1
  * car dans l'équation 3x+2 par exemple, 3x <=> 3/1x. Il faudra tenir compte bien sûr de cas
@@ -159,8 +158,8 @@ animerVariationEnY= function (){
  * l'animation s'arrêtera ici à la valeur de ordonnée+pente
  */
 
- 
- 
+
+
 animerVariationEnX= function(){
 	    p1= board.create('point', [0, (ordonnee+pente)], {style:6, name:'a', trace:true,color: 'green',strokeWidth:0.1});
 		p2= board.create('point', [1, (ordonnee+pente)], {style:6, name:'b', trace:true,color: 'green',strokeWidth:0.1});
@@ -307,8 +306,8 @@ function affichageEquationQuadratiquePoint (p1,p2){
 	/ ( (p2.X() - p1.X()) * (p2.X() - p1.X()) ))*p1.X())*(-2*((p2.Y() - p1.Y()) )
 	/ ( (p2.X() - p1.X()) * (p2.X() - p1.X()) ))*p1.X())) / (4*((p2.Y() - p1.Y()) /
 	( (p2.X() - p1.X()) * (p2.X() - p1.X()) )))).toFixed(2)}]);	// affichage fonction avec les points
-	
-	
+
+
 	// affichage dynamique de l'équation quadratique dans le DOM
 	board.on('update', function(){
 		document.getElementById('equationGraph').innerHTML= 'y= '+ ((p2.Y() - p1.Y()) / ( (p2.X() - p1.X()) * (p2.X() - p1.X()))).toFixed(2)//(1)
@@ -317,8 +316,8 @@ function affichageEquationQuadratiquePoint (p1,p2){
 	/ ( (p2.X() - p1.X()) * (p2.X() - p1.X()) ))*p1.X())*(-2*((p2.Y() - p1.Y()) )
 	/ ( (p2.X() - p1.X()) * (p2.X() - p1.X()) ))*p1.X())) / (4*((p2.Y() - p1.Y()) /
 	( (p2.X() - p1.X()) * (p2.X() - p1.X()) )))).toFixed(2);	//
-        
-	
+
+
 	});
 }
 
