@@ -1,4 +1,4 @@
-var board = JXG.JSXGraph.initBoard('box', {boundingbox:[-5,8,8,-5], axis:true, zoomfactor: 0.8});
+var board = JXG.JSXGraph.initBoard('box', {boundingbox:[-5,8,8,-5], axis:true, zoomfactor: 0.8, showCopyright: false});
 var ordonnee;
 var pente;
 var p1, p2, p3;
@@ -16,7 +16,7 @@ function traceAvecP(){
 	var point1;
 	var point2
 
-/*Cette premiere partie est pour une ligne. On trace la ligne en utilisent les duex points
+/*Cette premiere partie est pour une ligne. On trace la ligne en utilisent les deux points
  *La duexieme partie trace une courbe, ou sommet est le sommet de la curbe et p2 est un point
  *qui est situe a +1 de -b/2a (x) et la valeur de y est l'ordonnee.
 */
@@ -172,7 +172,7 @@ animerVariationEnX= function(){
 
 function clearAll(board){
 	JXG.JSXGraph.freeBoard(board);
-	board = JXG.JSXGraph.initBoard('box', {boundingbox:[-5,8,8,-5], axis:true});
+	board = JXG.JSXGraph.initBoard('box', {boundingbox:[-5,8,8,-5], axis:true, showCopyright: false});
 	return board;
 }
 
@@ -323,11 +323,12 @@ function affichageEquationQuadratiquePoint (p1,p2){
 
 function resetGraph(){
 	JXG.JSXGraph.freeBoard(board);
-	board = JXG.JSXGraph.initBoard('box', {boundingbox:[-5,8,8,-5], axis:true, zoomfactor: 0.8});
+	board = JXG.JSXGraph.initBoard('box', {boundingbox:[-5,8,8,-5], axis:true, zoomfactor: 0.8, showCopyright: false});
 	traceAvecP();
 }
+
 function erase () {
 	$('#input').val('');
 	JXG.JSXGraph.freeBoard(board);
-	board = JXG.JSXGraph.initBoard('box', {boundingbox:[-5,8,8,-5], axis:true, zoomfactor: 0.8});
+	board = JXG.JSXGraph.initBoard('box', {boundingbox:[-5,8,8,-5], axis:true, zoomfactor: 0.8, showCopyright: false});
 }

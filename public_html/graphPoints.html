@@ -64,46 +64,55 @@
 	<div class="row">
 		<div class="container col-lg-2">
 			<div class="btn-group-vertical" role="group" id="btnGroup">
-			<button type="button" class="btn btn-pente btn-lg round" id="btnpente" onClick="animerPente()">Pente</button>
-			<button type="button" class="btn btn-pente btn-lg" id="btnresetter" onClick="resetGraph()">Reset</button>
-			<button type="button" class="btn btn-pente btn-lg" id="btnAfficOrd" onClick="afficherOrdonnee()">Ordonnee</button>
-			<button type="button" class="btn btn-pente btn-lg" id="btnAxeStm" onClick="axeDeSymetrie()">Axe symétrie </button>
-			<button type="button" class="btn btn-pente btn-lg" id="btnAfficZero" onClick="afficherLesZeros()">Les zéros </button>
-		  </div>
+				<button type="button" class="btn btn-pente btn-lg" id="btnpente" onClick="animerPente()">Pente</button>
+				<button type="button" class="btn btn-pente btn-lg" id="btnresetter" onClick="resetGraph()">Reset</button>
+				<button type="button" class="btn btn-pente btn-lg" id="btnAfficOrd" onClick="afficherOrdonnee()">Ordonnee</button>
+				<button type="button" class="btn btn-pente btn-lg" id="btnAxeStm" onClick="axeDeSymetrie()">Axe symétrie </button>
+				<button type="button" class="btn btn-pente btn-lg" id="btnAfficZero" onClick="afficherLesZeros()">Les zéros </button>
+			</div>
 		</div>
 		<div class="container col-lg-7" id="containerJxBox">
 			<div class="jxgbox jxbox2" id="box"></div>
 		</div>
-		<div class="col-lg-2" id="textPourJxBox">
+		<div class="container col-lg-2" id="textPourJxBox">
+		<div id="textPeda">
+			<p>
 			some text here
+		</p>
+		</div>
 		</div>
 		<br>
-<div class = "containter center-block col-md-4 col-md-push-4" id="boxTextEqu">
-	<p id="equationGraph"><span>Y = </span><span id="ax"></span><span>ax&#178 + </span><span id="bx"></span><span>bx + </span><span id ="cx">c</span></p>
+		<div class = "containter center-block col-md-4 col-md-push-3" id="boxTextEqu">
+			<p id="equationGraph"><span>Y = </span><span id="ax"></span><span>ax&#178 + </span><span id="bx"></span><span>bx + </span><span id ="cx">c</span></p>
+		</div>
+	</div>
+	<br>
+	<div class="container-fluid" id="bottom">
+		<div class="container col-lg-7 col-lg-push-1">
+		<fieldset class="form-group form-inline" id="saisie">
+			<br>
+			<label for="input" id="label">Equation :</label>
+			<input type = "text" class="form-control input-lg" id="input" rows="2">
+		</input>
+		<div id="clavier-virtuel">
+			<button id="2" class= "clavierbutton">
+				&#178;
+			</button>
+			<button id="x2"class= "clavierbutton">
+				x&#178;
+			</button>
+			<button id="y2" class= "clavierbutton">
+				y&#178;
+			</button>
+		</fieldset>
+	</div>
+	<br>
+<div class="btn-group btn-group-lg" role="group">
+<button type="submit" class="btn btn-saisie btn-lg inline" id="btnrnd" onClick="traceAvecP()">Soumettre</button>
+<button type="reset" class="btn btn-saisie btn-lg inline" id= "eff" onClick="erase()">Effacer</button>
+</div>
 </div>
 	</div>
-<br>
-<div class="container-fluid" id="bottom">
-	<fieldset class="form-group form-inline" id="saisie">
-		<br>
-		<label for="input" id="label">Equation :</label>
-		<input type = "text" class="form-control input-lg" id="input" rows="2">
-	</input>
-	<button type="submit" class="btn btn pull-right btn-md btn-square" id="btnrnd" onClick="traceAvecP()">Soumettre</button>
-	<button type="reset" class="btn btn-danger btn pull-right btn-md btn-square" id= "eff" onClick="erase()">Effacer</button>
-	<div id="clavier-virtuel">
-		<button id="2" class= "clavierbutton">
-			&#178;
-		</button>
-		<button id="x2"class= "clavierbutton">
-			x&#178;
-		</button>
-		<button id="y2" class= "clavierbutton">
-			y&#178;
-		</button>
-	</fieldset>
-</div>
-</div>
 </body>
 <script type="text/javascript" src="JS/indexPoints.js"></script>
 <script type="text/javascript" src="JS/clavierVirtuel.js"></script>
