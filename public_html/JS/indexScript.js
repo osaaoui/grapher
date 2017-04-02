@@ -1,5 +1,5 @@
 
-var board = JXG.JSXGraph.initBoard('box', {boundingbox:[-5,8,8,-5], axis:true, zoomfactor: 0.8});
+var board = JXG.JSXGraph.initBoard('box', {boundingbox:[-5,8,8,-5], axis:true, zoomfactor: 0.8, showCopyright: false});
 var sliderA;
 var sliderB;
 var sliderC;
@@ -27,7 +27,7 @@ function plot(func, atts){
 function trace(){
 	var equation = document.getElementById('input').value;//alert(equation);
         equation=equation.replace(/,/g,'.'); // rempalce les "," par "."
-        
+
 	if(validation(equation)){
             pente= parametreA(tokenize(equation));
             ordonnee= parametreB(tokenize(equation));
@@ -41,18 +41,22 @@ function trace(){
 
 // Rajouter l'option snapWidth:1 pour que la manipulation du slider ne retourne que des entiers (ie. pas de nombres fractionnaires, etc)
 function slides (pente, ordonnee, exp) {
-	sliderA =board.create('slider',[[4,-3],[6,-3],[pente-4,pente,pente+4]],{name:'&nbsp&nbsp&nbsp&nbspA'});
-	sliderB =board.create('slider',[[4,-3.5],[6,-3.5], [ordonnee -4, ordonnee,ordonnee +4]], {name:'&nbsp&nbsp&nbsp&nbspB'});
-	sliderC =board.create('slider',[[4,-4],[6,-4],[exp-4,exp,exp+4]],{name:'&nbsp&nbsp&nbsp&nbspC'});
+	sliderA =board.create('slider',[[4,-3],[6,-3],[pente-4,pente,pente+4]],{name:'a', visible:false});
+	sliderA.visible(false);
+	sliderB =board.create('slider',[[4,-3.5],[6,-3.5], [ordonnee -4, ordonnee,ordonnee +4]],{visible:false});
+	sliderB.visible(false);
+	sliderC =board.create('slider',[[4,-4],[6,-4],[exp-4,exp,exp+4]],{visible:false});
+	sliderC.visible(false);
 	function f(x) {
 		return sliderC.Value()*(x*x)+ sliderA.Value()*x + sliderB.Value();
 	}
 	var stringEquation= board.create('text', [4,-2,function(){return 'y= '+sliderC.Value().toFixed(2)
 	+ 'x²' + (sliderA.Value()<0?'':'+')+ sliderA.Value().toFixed(2)
-	+ 'x'+(sliderB.Value()<0?'':'+')+sliderB.Value().toFixed(2)}], {fontSize:18});
+	+ 'x'+(sliderB.Value()<0?'':'+')+sliderB.Value().toFixed(2)}], {fontSize:18, visible:false});
 	c=plot(f);
 	myFunction();
 }
+
 // ajustement le zoom du plan cartésien selon l'équation entré y=ax²+bx+c ou y=bx+c
 function zoomPlan(a,b,c){
         var xPos=8;
@@ -60,10 +64,10 @@ function zoomPlan(a,b,c){
 		var yPos=8;
 		var yNeg=-5;
 	if(a!=0){ // equation quadratique
-		
+
 		var sommetX=-b/(2*a);
 		var sommetY=((4*a*c)-(b*b))/(4*a);
-		
+
 		if ((sommetX>8 ||sommetX<-5)||(sommetY>8||sommetY<-5)){ // le sommet est hors du plan
 		//alert( sommetX +" "+sommetY );
 			if(sommetX>8){ //si le sommet situer plus a droite que le plan de base
@@ -81,9 +85,9 @@ function zoomPlan(a,b,c){
 			if(sommetX==0 || sommetY==0){ // si le sommet est sur l'une des ligne du plan cartésien
 			xNeg=yNeg;
 			xPos=yPos
-			}	
+			}
 			board.setBoundingBox([xNeg,yPos,xPos,yNeg]);
-		
+
 		}
 	}else if(b!=0){ // equation linaire
                 var zeroX=-c/b;
@@ -102,7 +106,7 @@ function zoomPlan(a,b,c){
 			xNeg=zeroX*1.5; xPos=-zeroX;
                         }
 			board.setBoundingBox([xNeg,yPos,xPos,yNeg]);
-                }
+              }
 	}else{ // equation plane
 		if(c>8){
 		 yPos=c*1.5;
@@ -110,12 +114,11 @@ function zoomPlan(a,b,c){
 		}
 		if(c<-5){
 		 yPos=-c*0.5;
-		 yNeg=c*1.5;		
+		 yNeg=c*1.5;
 		}
 		board.setBoundingBox([xNeg,yPos,xPos,yNeg]);
 	}
-	
-}	
+}
 
 function myFunction() {
 var valSliderA = sliderC.Value();
@@ -124,54 +127,43 @@ var valSliderC = sliderB.Value();
 	$("#sliderA1").slider({
 		orientation: "horizontal",range: "min",min: valSliderA - 4,max: valSliderA + 4,value: valSliderA,
 		slide: function(event, ui) {
-			$("#a").val(ui.value);
+			$("#aSlideInput").val(ui.value);
 			a = ui.value;
 			sliderC.setValue(a);
 			board.updateQuality = board.BOARD_QUALITY_HIGH;
 			board.update();
 		}
 	});
-
-
-	$("#a").val($("#sliderA1").slider("value"));
-
+	$("#aSlideInput").val($("#sliderA1").slider("value"));
 	$("#sliderB1").slider({
 		orientation: "horizontal",range: "min",min: valSliderB - 4,max: valSliderB + 4,value: valSliderB,
 		slide: function(event, ui) {
-			$("#b").val(ui.value);
+			$("#bSlideInput").val(ui.value);
 			b = ui.value;
 			sliderA.setValue(b);
 			board.updateQuality = board.BOARD_QUALITY_HIGH;
 			board.update();
 		}
 	});
-
-	$("#b").val($("#sliderB1").slider("value"));
-
+	$("#bSlideInput").val($("#sliderB1").slider("value"));
 	$("#sliderC1").slider({
 		orientation: "horizontal",range: "min",min: valSliderC-4,max: valSliderC+4,value: valSliderC,
 		slide: function(event, ui) {
-			$("#c").val(ui.value);
+			$("#cSlideInput").val(ui.value);
 			c = ui.value;
 			sliderB.setValue(c);
 			board.updateQuality = board.BOARD_QUALITY_HIGH;
 			board.update();
 		}
 	});
-	$("#c").val($("#sliderC1").slider("value"));
+	$("#cSlideInput").val($("#sliderC1").slider("value"));
 };
-
-
-
-
-
 
 function clearAll(board){
 	JXG.JSXGraph.freeBoard(board);
-	board = JXG.JSXGraph.initBoard('box', {boundingbox:[-5,8,8,-5], axis:true});
+	board = JXG.JSXGraph.initBoard('box', {boundingbox:[-5,8,8,-5], axis:true, zoomfactor: 0.8, showCopyright: false});
 	return board;
 }
-
 
 /* La fonction tokenize retourne un tableau de chaines de caractères
 * elle prend en paramètre une chaine String (l'équation à traiter)
@@ -179,8 +171,6 @@ function clearAll(board){
 * pour éviter des effets de bord (side effects).
 * On fera appel à la composition de fonctions pour retourner les valeurs
 */
-
-
 const tokenize= function (code) {
 	var results = [];
 	var text = String.fromCharCode(178);
@@ -203,9 +193,9 @@ const exposant = function(code){
 	var ouvertureX='x'+text;
 	var ouvertureNeg="-x"+text;
 	for(var i=0; i<tok.length;i++){
-	
+
 		if(tok[i].match(ouverture)){;
-									
+
 			exp+= Number(tok[i].match(sansX)[0]);
 		}else if(tok[i]==ouvertureX){
 			exp++;
@@ -255,11 +245,8 @@ const parametreB = function(code){
 		// puisque l'équation est divisée en 'ax', '+' ou '-', 'b'
 		// donc le seul élément qui est un nombre est le paramètre 'b'
 		if(tok[i].match(/^-?[^x\+]+$/)){
-			
 			ordonnee += Number(tok[i].match(/^-?[^x\+]+$/));
-
 		}
-
 	}
 	return ordonnee;
 };
@@ -271,7 +258,7 @@ function validation(equation){
 	valCaractere(equation) ||
 	valRepetition(equation)
 	){
-		
+
 		valide=false;
 	}
 	return valide;
@@ -286,7 +273,7 @@ function valLimit(equation){
 	}
 	return mauvaiseEquation;
 }
- 
+
 function valCaractere(equation){
 	var mauvaiseEquation=false;
 	var evaluation = /[^²x\+\-0-9,.]/.test(equation);
@@ -308,8 +295,10 @@ function valRepetition(equation){
 	return mauvaiseEquation;
 }
 
+/*La function recharge la page avec location.reload() aprés avoir mis la table a 0*/
 function erase () {
 	$('#input').val('');
 	JXG.JSXGraph.freeBoard(board);
-	board = JXG.JSXGraph.initBoard('box', {boundingbox:[-5,8,8,-5], axis:true});
+	board = JXG.JSXGraph.initBoard('box', {boundingbox:[-5,8,8,-5], axis:true, zoomfactor: 0.8, showCopyright: false});
+	location.reload();
 }

@@ -316,8 +316,6 @@ function affichageEquationQuadratiquePoint (p1,p2){
 	/ ( (p2.X() - p1.X()) * (p2.X() - p1.X()) ))*p1.X())*(-2*((p2.Y() - p1.Y()) )
 	/ ( (p2.X() - p1.X()) * (p2.X() - p1.X()) ))*p1.X())) / (4*((p2.Y() - p1.Y()) /
 	( (p2.X() - p1.X()) * (p2.X() - p1.X()) )))).toFixed(2);	//
-
-
 	});
 }
 
@@ -327,8 +325,10 @@ function resetGraph(){
 	traceAvecP();
 }
 
+/*La function recharge la page avec location.reload() aprés avoir mis la table a 0*/
 function erase () {
 	$('#input').val('');
 	JXG.JSXGraph.freeBoard(board);
 	board = JXG.JSXGraph.initBoard('box', {boundingbox:[-5,8,8,-5], axis:true, zoomfactor: 0.8, showCopyright: false});
+	location.reload();
 }

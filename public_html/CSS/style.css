@@ -213,11 +213,12 @@ height: 600px;
 -moz-border-radius: 0;
 border-radius: 0px;
 font-family: Courier New;
-color: #ffffff;
-font-size: 20px;
-background: #3498db;
+color: #adb7c1;
+text-shadow: 0px -1px 0px rgba(0,0,0,.4)!important;
+font-size: 30px;
+font-weight: bold;
+background: #8a929a;
 padding: 10px 18px 10px 20px;
-text-decoration: none;
 width: 13%;
 }
 
@@ -289,6 +290,15 @@ fieldset[disabled] .btn-pente.active {
 .btn-pente .badge {
   color: #47515b;
   background-color: #ffffff;
+}
+
+/*Buttons graphPoints fin*/
+
+/*Sliders*/
+#aSlideInput,#bSlideInput,#cSlideInput {
+  border: 0!important;
+  color: #c41111!important;
+  font-weight: bold;
 }
 
 #box_jxgBoard1L40{
