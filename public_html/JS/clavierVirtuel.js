@@ -1,3 +1,4 @@
+/*Function pour la saisie de la clavier virtuelle.*/
 $(function(){
   $("#clavier-virtuel").find("button").click(function () {
   	$("input").focus();
@@ -17,5 +18,4 @@ $(function(){
     var res = inputText.concat(text);
     document.getElementById("input").value = res;
   });
-
 });
