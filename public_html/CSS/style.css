@@ -129,6 +129,7 @@ height: 600px;
 
 #textPeda {
   background-color: whitesmoke!important;
+  width: 90%;
     height: 600px;
     border-radius: 10px;
     border-color: slategray!important;
@@ -138,6 +139,7 @@ height: 600px;
 
 #textPedaCurs {
   background-color: whitesmoke!important;
+  width: 90%;
     height: 600px;
     border-radius: 10px;
     border-color: slategray!important;
