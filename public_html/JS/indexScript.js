@@ -32,19 +32,23 @@ function plot(func, atts){
 *et il y a l'extraction des trois variables.
 */
 function trace(){
-	var equation = document.getElementById('input').value;
-	equation = equation.replace(/,/g,'.'); // rempalce les "," par "."
-
-	if(validation(equation)){
-		pente= parametreA(tokenize(equation));
-		ordonnee= parametreB(tokenize(equation));
-		exp = exposant(tokenize(equation));
-		zoomPlan(exp,pente ,ordonnee );
-		slides (pente, ordonnee, exp);
+	var equation = document.getElementById('input').value;//alert(equation);
+        equation=equation.replace(/,/g,'.'); // rempalce les "," par "."
+		var erreur=validation(equation);
+	if(erreur<0){
+            pente= parametreA(tokenize(equation));
+            ordonnee= parametreB(tokenize(equation));
+            exp = exposant(tokenize(equation));
+            zoomPlan(exp,pente ,ordonnee );
+            slides (pente, ordonnee, exp);
 	}else{
-		erase();
+		var input=document.getElementById('input');
+		input.selectionStart = erreur;
+		input.selectionEnd=++erreur;
+		input.focus();
 	}
 }
+
 
 /*La fonction crée les curseurs et les cache, afin qu'ils puissent être utilisés avec des curseurs DOM.
  *Ensuite, une équation dynamique est créée et cachée.
@@ -265,49 +269,41 @@ const parametreB = function(code){
 };
 
 function validation(equation){
-	var valide= true;
-	if(
-		valLimit(equation) ||
-		valCaractere(equation) ||
-		valRepetition(equation)
-	){
-
-		valide=false;
+	var valide= -1; // on présume aucune erreur
+	var test;
+	
+	if((test=valLimit(equation))>=0 ||
+	(test=valCaractere(equation))>=0|| 
+	(test=valRepetition(equation))>=0){
+		valide=test;
 	}
 	return valide;
 }
 
 function valLimit(equation){
-	var mauvaiseEquation=false;
-	var evaluation= /[\*\/\(\)]+/.test(equation);
-	if (evaluation){
-		alert("le logiciel ne prend pour le moment pas en compte les symbole '*' et '/'");
-		mauvaiseEquation=true;
+	var evaluation= equation.search(/[\*\/\(\)]+/);
+	if (evaluation>=0){
+	 alert("le logiciel ne prend pour le moment pas en compte les symbole '*' et '/'");
 	}
-	return mauvaiseEquation;
+	return evaluation;
 }
 
 function valCaractere(equation){
-	var mauvaiseEquation=false;
-	var evaluation = /[^²x\+\-0-9,.]/.test(equation);
-	if(evaluation){
+	var evaluation = equation.search(/[^²x\+\-0-9,.]/);
+	if(evaluation>=0){
 		alert("l'équation ne doit contenir que des caracteres accepté (voir la liste dans le wiki)");
-		mauvaiseEquation=true;
 	}
-	return mauvaiseEquation;
+	return evaluation;
 }
 
 
 function valRepetition(equation){
-	var mauvaiseEquation=false;
-	var evaluation = /xx|x²x²|x[0-9]+|x²[0-9]+|[0-9]+\.[0-9]+\./.test(equation);
-	if(evaluation){
+	var evaluation = equation.search(/xx|x²x²|x[0-9]+|x²[0-9]+|[0-9]+\.[0-9]+\./);
+	if(evaluation>=0){
 		alert("nous avons detecté une anomalie dans l'équation il y a repetition ");
-		mauvaiseEquation=true;
 	}
-	return mauvaiseEquation;
+	return evaluation;
 }
-
 /*La function recharge la page avec location.reload() aprés avoir mis la table à 0.*/
 function erase () {
 	$('#input').val('');
