@@ -267,7 +267,9 @@ const parametreB = function(code){
 	}
 	return ordonnee;
 };
-
+// methode qui valide l'équation entre en 'input' 
+//return -1 si aucune erreur detecter lors des tests
+//return la position de la premiere erreur sinon.
 function validation(equation){
 	var valide= -1; // on présume aucune erreur
 	var test;
@@ -279,7 +281,8 @@ function validation(equation){
 	}
 	return valide;
 }
-
+// permet la detection de caractère qui ne sont ' pas encore prie en compte par le logiciel .
+// notamment '*' et '/'
 function valLimit(equation){
 	var evaluation= equation.search(/[\*\/\(\)]+/);
 	if (evaluation>=0){
@@ -287,7 +290,7 @@ function valLimit(equation){
 	}
 	return evaluation;
 }
-
+// permet la detection de caractère non valide
 function valCaractere(equation){
 	var evaluation = equation.search(/[^²x\+\-0-9,.]/);
 	if(evaluation>=0){
@@ -296,9 +299,13 @@ function valCaractere(equation){
 	return evaluation;
 }
 
-
+// detecte quelque anomalie d'écriture non prie en compte par le logiciel
+// plusieur variables consécutives sans operateur  (ex: 2xx)
+// nombre apres la variable (ex:x73)
+// un nombre avec plusieur plus de un '.' (ex:23.43.68)
+// un nombre sans chiffre avant la virgule (ex:.75)
 function valRepetition(equation){
-	var evaluation = equation.search(/xx|x²x²|x[0-9]+|x²[0-9]+|[0-9]+\.[0-9]+\./);
+	var evaluation = equation.search(/xx|x²x²|x[0-9]+|x²[0-9]+|[0-9]+\.[0-9]+\.|[^0-9]\.[0-9]+|^\./);
 	if(evaluation>=0){
 		alert("nous avons detecté une anomalie dans l'équation il y a repetition ");
 	}
