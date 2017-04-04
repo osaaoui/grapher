@@ -40,7 +40,7 @@ function trace(){
             ordonnee= parametreB(tokenize(equation));
             exp = exposant(tokenize(equation));
             zoomPlan(exp,pente ,ordonnee );
-            slides (pente, ordonnee, exp);
+            slidesGenerique (pente, ordonnee, exp);
 	}else{
 		var input=document.getElementById('input');
 		input.selectionStart = erreur;
@@ -53,7 +53,7 @@ function trace(){
 /*La fonction crée les curseurs et les cache, afin qu'ils puissent être utilisés avec des curseurs DOM.
  *Ensuite, une équation dynamique est créée et cachée.
 */
-function slides (pente, ordonnee, exp) {
+function slidesGenerique (pente, ordonnee, exp) {
 	sliderA =board.create('slider',[[4,-3],[6,-3],[pente-4,pente,pente+4]],{name:'a', visible:false});
 	sliderA.visible(false);
 	sliderB =board.create('slider',[[4,-3.5],[6,-3.5], [ordonnee -4, ordonnee,ordonnee +4]],{visible:false});
@@ -70,6 +70,21 @@ function slides (pente, ordonnee, exp) {
 	sliderFunction();
 }
 
+function slidesCanonique (a, h,k){
+	sliderA =board.create('slider',[[4,-3],[6,-3],[a-4,a,a+4]],{name:'a', visible:true});
+	sliderA.visible(true);
+	sliderB =board.create('slider',[[4,-3.5],[6,-3.5], [h -4, h,h+4]],{visible:true});
+	sliderB.visible(true);
+	sliderC =board.create('slider',[[4,-4],[6,-4],[k-4,k,k+4]],{visible:true});
+	sliderC.visible(true);
+	function f(x){
+		return sliderA.Value()*Math.pow(x-Number(sliderB.Value()),2)+sliderC.Value();
+		}
+	var stringEquation= board.create('text', [4,-2,function(){return 'y= '+sliderA.Value().toFixed(2)
+	+ '(x' + (sliderB.Value()<0?'+':'-')+Math.abs(sliderB.Value().toFixed(2))+ ')²'+(sliderC.Value()<0?'':'+')+sliderC.Value().toFixed(2)}],{fontSize:18, visible:true});
+	
+		c=plot(f);
+}
 /*Fonction appelée au chargement de la page.
  *La fonction crée des curseurs HTML et affiche les bonnes valeurs dans ax, bx et c.
  *Les curseurs sont ancrés sur les curseurs JSXGraph.
@@ -311,6 +326,14 @@ function valRepetition(equation){
 	}
 	return evaluation;
 }
+function changementCanonique(){
+		//effacerGenerique();
+		JXG.JSXGraph.freeBoard(board);
+		board = JXG.JSXGraph.initBoard('box', {boundingbox:[-5,8,8,-5], axis:true, zoomfactor: 0.8, showCopyright: false});
+		h=-pente/2*exp;
+		k=((4*exp*ordonnee)-(pente*pente))/(4*exp);
+		slidesCanonique (exp, h,k);
+	}
 /*La function recharge la page avec location.reload() aprés avoir mis la table à 0.*/
 function erase () {
 	$('#input').val('');
