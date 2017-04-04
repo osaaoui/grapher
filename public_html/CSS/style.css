@@ -136,6 +136,15 @@ height: 600px;
     border-style: double;
 }
 
+#textPedaCurs {
+  background-color: whitesmoke!important;
+    height: 600px;
+    border-radius: 10px;
+    border-color: slategray!important;
+    border-width: thick;
+    border-style: double;
+}
+
 /*Zone saisie*/
 #bottom {
   background-color: #596673!important;

@@ -76,8 +76,12 @@ function traceAvecP(){
 function afficherOrdonnee(){
 	ord = board.create('point', [0,(ordonnee)], {style:6, name:'', fixed:true});
 	var bulleOrdonnee= board.create('text', [-2, 0, "ordonnee= " + ordonnee],
-		{anchor: ord,strokeColor: "#fff", cssClass:'mytext'});
-}
+		{anchor: ord,strokeColor: "#fff", cssClass:'mytext', visible:true});
+		bulleOrdonnee.on('move', function () {             //function pour cacher le bulles avec un event.
+           bulleOrdonnee.setAttribute({visible:false});
+					 ord.setAttribute({visible:false});
+    });
+ }
 
 
 
