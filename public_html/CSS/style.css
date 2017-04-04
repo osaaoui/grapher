@@ -307,8 +307,11 @@ fieldset[disabled] .btn-pente.active {
 
 /*Sliders*/
 #aSlideInput,#bSlideInput,#cSlideInput {
-  border: 0!important;
   color: #c41111!important;
+  font-weight: bold;
+}
+
+#slidera,#sliderc,#sliderb {
   font-weight: bold;
 }
 

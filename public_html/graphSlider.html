@@ -73,16 +73,21 @@
 			</style>
 			<div class="sliders" style="margin:5px">
 				<p>
-					<label for="a">a:</label>
-					<input type="text" id="aSlideInput" />
+					<div class="input-group">
+					<span class="input-group-addon" id="slidera">a</span>
+					<input type="text" id="aSlideInput" aria-describedby="slidera">
+					</div>
 					<div id="sliderA1" style="width:300px;margin:10px;"></div>
-					<label for="b">b:</label>
-					<input type="text" id="bSlideInput" style="border:0; color:#f6931f; font-weight:bold;" />
+					<div class="input-group">
+					<span class="input-group-addon" id="sliderb">b</span>
+					<input type="text" id="bSlideInput" aria-describedby="sliderb">
+          </div>
 					<div id="sliderB1" style="width:300px;margin:10px;"></div>
-					<label for="c">c:</label>
-					<input type="text" id="cSlideInput" style="border:0; color:#f6931f; font-weight:bold;" />
+          <div class="input-group">
+					<span class="input-group-addon" id="sliderc">c</span>
+					<input type="text" id="cSlideInput" aria-describedby="sliderc">
+					</div>
 					<div id="sliderC1" style="width:300px;margin:10px;"></div>
-					<br>
 				</p>
 			</div>
 		</div>
