@@ -13,27 +13,27 @@ function traceAvecP(){
 	pente= parametreA(tokenize(equation));
 	ordonnee= parametreB(tokenize(equation));
 	exp = exposant(tokenize(equation));
-	var point1;
-	var point2
-
+	alert
+	if(exp == 0){
+	 pointLineaire();
+	}
+	else if( exp != 0){
+	pointQuadratique()
+	}
+}
 /*Cette premiere partie est pour une ligne. On trace la ligne en utilisent les deux points
  *La duexieme partie trace une courbe, ou sommet est le sommet de la curbe et p2 est un point
  *qui est situe a +1 de -b/2a (x) et la valeur de y est l'ordonnee.
 */
-	if (exp == 0) {
-		point1 = board.create('point', [1,(ordonnee+pente)], {style:6, name:'p1'});
-		point2 = board.create('point', [(ordonnee/-pente), 0], {style:6, name:'p2'});
-		var ligne = board.create('line', [point1,point2]);
-
-
-		// affichage dynamique de l'équation
-	     board.on('update', function(){
-		 document.getElementById('equationGraph').innerHTML= "y= "+((point1.Y()-point2.Y())/(point1.X()-point2.X())).toFixed(2)
-		+ 'x +' + (point1.Y()-(point1.X()*((point1.Y()-point2.Y())/(point1.X()-point2.X())))).toFixed(2);
-		});
-
-
-
+function pointLineaire(){
+	var point1 = board.create('point', [1,(ordonnee+pente)], {style:6, name:'p1'});
+	var point2 = board.create('point', [(ordonnee/-pente), 0], {style:6, name:'p2'});
+	var ligne = board.create('line', [point1,point2]);
+	// affichage dynamique de l'équation
+	board.on('update', function(){
+	document.getElementById('equationGraph').innerHTML= "y= "+((point1.Y()-point2.Y())/(point1.X()-point2.X())).toFixed(2)
+	+ 'x +' + (point1.Y()-(point1.X()*((point1.Y()-point2.Y())/(point1.X()-point2.X())))).toFixed(2);
+	});
 /*
  * Code pour représenter la pente de l'équation linéaire sous forme de triangle
  * se déplaçant le long de la ligne.
@@ -42,33 +42,32 @@ function traceAvecP(){
  */
 		//triangle= board.create('slopetriangle', [ligne, point1]);
 
-		affichageEquationLineairePoint(point1,point2);
-		document.getElementById("equationGraph").innerHTML= " Équation linéaire: y = " + pente + "x" + " + " + ordonnee;
+	affichageEquationLineairePoint(point1,point2);
+	document.getElementById("equationGraph").innerHTML= " Équation linéaire: y = " + pente + "x" + " + " + ordonnee;
+}
 
-
-
-	} else if (exp != 0 ){
-		var hPoint = -pente/(2*exp);//-b/2a
-		var yPoint = (4*exp*ordonnee-(pente*pente))/(4*exp); //(4ac-b²)/4a
-		var depP2= (exp*(hPoint+1)*(hPoint+1))+(pente*(hPoint+1))+ordonnee;// nouveau point de depart pour "p2"
-		var sommet = board.create('point', [hPoint, yPoint], {style:6, name:'p1'});// point sommet
-		var p2 = board.create('point', [(hPoint+1), depP2], {style:6, name:'p2'}); //le "p2" est placer sur la courbe à 1 de distance par rapport au sommet(ceci évite les conflits 0/0)
-		var text = String.fromCharCode(178);
-		document.getElementById("equationGraph").innerHTML= " Équation quadratique: y = ax"+text+ " + bx + c";
-		var ligne = board.create('functiongraph', function(x) {
-			var ax = sommet.X(),
-			    ay = sommet.Y(),
-			    bx = p2.X(),
-			    by = p2.Y(),
-		    	a = (by - ay) / ( (bx - ax) * (bx - ax) );
-			    return a * (x - ax) * (x - ax) + ay;
+function pointQuadratique() {
+	var hPoint = -pente/(2*exp);//-b/2a
+	var yPoint = (4*exp*ordonnee-(pente*pente))/(4*exp); //(4ac-b²)/4a
+	var depP2= (exp*(hPoint+1)*(hPoint+1))+(pente*(hPoint+1))+ordonnee;// nouveau point de depart pour "p2"
+	var sommet = board.create('point', [hPoint, yPoint], {style:6, name:'p1'});// point sommet
+	var p2 = board.create('point', [(hPoint+1), depP2], {style:6, name:'p2'}); //le "p2" est placer sur la courbe à 1 de distance par rapport au sommet(ceci évite les conflits 0/0)
+	var text = String.fromCharCode(178);
+	document.getElementById("equationGraph").innerHTML= " Équation quadratique: y = ax"+text+ " + bx + c";
+	var ligne = board.create('functiongraph', function(x) {
+		var ax = sommet.X(),
+			ay = sommet.Y(),
+			bx = p2.X(),
+			by = p2.Y(),
+		    a = (by - ay) / ( (bx - ax) * (bx - ax) );
+			return a * (x - ax) * (x - ax) + ay;
 		}, {fixed: false});
 		affichageEquationQuadratiquePoint(sommet,p2);
 		ligne.addParents([sommet, p2]);
 
 
-	}
 }
+
 
 // Fonction qui affiche l'ordonnée à l'origine d'une équation quadratique.
 // L'affichage est placée dans une bulle
