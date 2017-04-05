@@ -64,7 +64,8 @@
 	<div class="row">
 		<div class="container col-lg-2">
 			<div class="btn-group-vertical" role="group" id="btnGroup">
-				
+				<!--Création du bootstrap popover à l'aide de l'option data-toggle="popover"
+				La balise css div .css-typing permet de créer l'effet typewriter: écriture animée	-->
 				<button type="button" class="btn btn-pente btn-lg" id="btnpente" onClick="animerPente()" data-toggle="popover">Pente</button>
 				
 				<div id="example-popover-content" class="hidden">
@@ -91,6 +92,39 @@
         html : true, 
         content: function() {
           return $("#example-popover-content").html();
+        }
+    });
+});
+
+                </script>
+				<button type="button" class="btn btn-pente btn-lg" id="btnresetter" onClick="resetGraph()">Reset</button>
+				<button type="button" class="btn btn-pente btn-lg" id="btnAfficOrd" onClick="afficherOrdonnee()" data-toggle="popover">Ordonnee</button>
+				
+				
+				<div id="example-popover-content2" class="hidden">
+             
+               <p class= "css-typing"> Le calcul de la pente: </p>
+               <p class= "css-typing"> Dans une équation du type </p>
+               <p class= "css-typing"> y = Ax +B </p>
+               <p class= "css-typing"> La pente = le paramètre A </p>
+              
+               <p class= "css-typing"> Étant donné 2 points: </p>
+               <p class= "css-typing">p1(x1, y1) et p2(x2, y2) </p>
+               <p class= "css-typing"> la pente a se calcule: </p>
+               <p class= "css-typing"><span class='numer'>y2 - y1</span> <span class='denom'>x2 - x1</span></p>
+               <p class= "css-typing">qui représente la formule:</p>
+			   <p class="css-typing" > <span class='numer'> Variation sur Y</span> <span class='denom'>Variation sur X</span></p>
+           
+             </div>
+                 
+				<script>
+			
+                $(function(){
+    // Enables popover
+    $('[data-toggle="popover"]').popover({
+        html : true, 
+        content: function() {
+          return $("#example-popover-content2").html();
         },
         title: function() {
           return $("#example-popover-title").html();
@@ -99,8 +133,6 @@
 });
 
                 </script>
-				<button type="button" class="btn btn-pente btn-lg" id="btnresetter" onClick="resetGraph()">Reset</button>
-				<button type="button" class="btn btn-pente btn-lg" id="btnAfficOrd" onClick="afficherOrdonnee()">Ordonnee</button>
 				<button type="button" class="btn btn-pente btn-lg" id="btnAxeStm" onClick="axeDeSymetrie()">Axe symétrie </button>
 				<button type="button" class="btn btn-pente btn-lg" id="btnAfficZero" onClick="afficherLesZeros()">Les zéros </button>
 			</div>
