@@ -26,6 +26,13 @@ function plot(func, atts){
 	}
 }
 
+/*Function pour la soummision avec Enter*/
+$(document).keypress(function(e) {
+    if(e.which == 13) {
+        trace();
+    }
+});
+
 /*Fonction appelée par le bouton Soumettre.
 *L'équation est analysée et on change les virgules avec des points.
 *Ensuite, en utilisant la fonction tokenizer, on analyse l'équation
@@ -82,7 +89,7 @@ function slidesCanonique (a, h,k){
 		}
 	var stringEquation= board.create('text', [4,-2,function(){return 'y= '+sliderA.Value().toFixed(2)
 	+ '(x' + (sliderB.Value()<0?'+':'-')+Math.abs(sliderB.Value().toFixed(2))+ ')²'+(sliderC.Value()<0?'':'+')+sliderC.Value().toFixed(2)}],{fontSize:18, visible:true});
-	
+
 		c=plot(f);
 }
 /*Fonction appelée au chargement de la page.
@@ -282,15 +289,15 @@ const parametreB = function(code){
 	}
 	return ordonnee;
 };
-// methode qui valide l'équation entre en 'input' 
+// methode qui valide l'équation entre en 'input'
 //return -1 si aucune erreur detecter lors des tests
 //return la position de la premiere erreur sinon.
 function validation(equation){
 	var valide= -1; // on présume aucune erreur
 	var test;
-	
+
 	if((test=valLimit(equation))>=0 ||
-	(test=valCaractere(equation))>=0|| 
+	(test=valCaractere(equation))>=0||
 	(test=valRepetition(equation))>=0){
 		valide=test;
 	}

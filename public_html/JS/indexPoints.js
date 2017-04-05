@@ -8,6 +8,13 @@ function addCurve(board, func, atts){
 	return f;
 }
 
+/*Function pour la soummision avec Enter*/
+$(document).keypress(function(e) {
+    if(e.which == 13) {
+        traceAvecP();
+    }
+});
+
 function traceAvecP(){
 	var equation = document.getElementById('input').value;
         equation=equation.replace(/,/g,'.'); // rempalce les "," par "."
@@ -89,10 +96,11 @@ function afficherOrdonnee(){
            bulleOrdonnee.setAttribute({visible:false});
 					 ord.setAttribute({visible:false});
     });
+		bulleOrdonnee.on('down', function()  {             //function pour cacher le bulles avec un event.
+           ord.update();
+					 bulleOrdonnee.update();
+    });
  }
-
-
-
 
 // Fonction pour afficher l'axe de symétrie.
 // Pour le moment on se contentera d'afficher l'équation de l'axe x= ...   à côté du point et sans bulle
