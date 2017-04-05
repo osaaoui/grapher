@@ -111,7 +111,7 @@ height: 600px;
 
 .jxbox2 {
   position: relative;
-  left: 0px;
+  left: 180px;
       overflow: scroll;
       background-color: whitesmoke!important;
       border-style: solid;
@@ -353,4 +353,60 @@ fieldset[disabled] .btn-pente.active {
     border-width: 5px;
     border-style: solid;
     border-color: #555 transparent transparent transparent;
+}
+
+/* 
+ animation de texte
+ */
+div .css-typing{
+  color: #555; 
+  font-family: "Courier";
+  font-size: 20px;
+  margin: 10px 0 0 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 30em;
+  animation: type 4s steps(60, end); 
+  -webkit-animation-fill-mode:both;
+}
+
+div .css-typing :nth-child(2){
+  animation: type2 8s steps(60, end);
+  
+}
+
+
+
+/* code pour afficher les fractions*/
+.numer {
+   border-bottom:solid black 2px; display:inline-block; float:left} 
+ 
+.denom {
+  display:inline-block; clear:left; float:left
+}
+
+
+@keyframes type{ 
+  from { width: 0; } 
+} 
+
+@keyframes type2{
+  0%{width: 0;}
+  50%{width: 0;}
+  100%{ width: 100; } 
+} 
+
+@keyframes blink{
+  to{opacity: .0;}
+}
+
+::selection{
+  background: black;
+}
+.popover{
+	max-width: 400px;
+	border-radius: 30px;
+}
+.container{
+margin-left:80px;
 }
