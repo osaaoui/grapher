@@ -23,7 +23,7 @@ function traceAvecP(){
 		pente= parametreA(tokenize(equation));
 		ordonnee= parametreB(tokenize(equation));
 		exp = exposant(tokenize(equation));
-	
+                zoomPlan(exp,pente ,ordonnee );
 		if(exp == 0){
 		pointLineaire();
 		}
@@ -84,7 +84,68 @@ function pointQuadratique() {
 
 }
 
+// ajustement le zoom du plan cartésien selon l'équation entré y=ax²+bx+c ou y=bx+c
+function zoomPlan(a,b,c){
+	var xPos=8;
+	var xNeg=-5;
+	var yPos=8;
+	var yNeg=-5;
+	if(a!=0){ // equation quadratique
 
+		var sommetX=-b/(2*a);
+		var sommetY=((4*a*c)-(b*b))/(4*a);
+
+		if ((sommetX>8 ||sommetX<-5)||(sommetY>8||sommetY<-5)){ // le sommet est hors du plan
+			//alert( sommetX +" "+sommetY );
+			if(sommetX>8){ //si le sommet situer plus a droite que le plan de base
+				xPos=sommetX*2; xNeg=-sommetX;
+			}
+			if(sommetX<-5){ //si le sommet situer plus a gauche que le plan de base
+				xNeg=sommetX*2; xPos=-sommetX;
+			}
+			if(sommetY>8){//si le sommet situer plus a en ahut que le plan de base
+				yPos=sommetY*2; yNeg=-sommetY;
+			}
+			if(sommetY<-5){//si le sommet situer plus en bas que le plan de base
+				yNeg=sommetY*2; yPos=-sommetY;
+			}
+			if(sommetX==0 || sommetY==0){ // si le sommet est sur l'une des ligne du plan cartésien
+			xNeg=yNeg;
+			xPos=yPos
+		}
+		board.setBoundingBox([xNeg,yPos,xPos,yNeg]);
+
+	}
+}else if(b!=0){ // equation linaire
+	var zeroX=-c/b;
+	var zeroY=c;
+	if((zeroX > 8 ||zeroX<-5) && (zeroY>8 || zeroY<-5)){ //des points zero sont hors du plan
+		if(zeroX> 8){
+			xPos=zeroX*1.5; xNeg=-zeroX;
+		}
+		if(zeroX<-5){
+			xNeg=zeroX*1.5; xPos=-zeroX;
+		}
+		if(zeroY>8){
+			yPos=zeroY*1.5; yNeg=-zeroY;
+		}
+		if(zeroY<-5){
+			xNeg=zeroX*1.5; xPos=-zeroX;
+		}
+		board.setBoundingBox([xNeg,yPos,xPos,yNeg]);
+	}
+}else{ // equation plane
+	if(c>8){
+		yPos=c*1.5;
+		yNeg=-c*0.5;
+	}
+	if(c<-5){
+		yPos=-c*0.5;
+		yNeg=c*1.5;
+	}
+	board.setBoundingBox([xNeg,yPos,xPos,yNeg]);
+}
+}
 // Fonction qui affiche l'ordonnée à l'origine d'une équation quadratique.
 // L'affichage est placée dans une bulle
 
