@@ -9,16 +9,25 @@ function addCurve(board, func, atts){
 }
 
 function traceAvecP(){
-	var equation = document.getElementById('input').value;//alert(equation);
-	pente= parametreA(tokenize(equation));
-	ordonnee= parametreB(tokenize(equation));
-	exp = exposant(tokenize(equation));
-	alert
-	if(exp == 0){
-	 pointLineaire();
-	}
-	else if( exp != 0){
-	pointQuadratique()
+	var equation = document.getElementById('input').value;
+        equation=equation.replace(/,/g,'.'); // rempalce les "," par "."
+		var erreur=validation(equation);
+	if(erreur<0){
+		pente= parametreA(tokenize(equation));
+		ordonnee= parametreB(tokenize(equation));
+		exp = exposant(tokenize(equation));
+	
+		if(exp == 0){
+		pointLineaire();
+		}
+		else if( exp != 0){
+		pointQuadratique()
+		}
+	}else{ // affichage des erreurs
+		var input=document.getElementById('input');
+		input.selectionStart = erreur;
+		input.selectionEnd=++erreur;
+		input.focus();
 	}
 }
 /*Cette premiere partie est pour une ligne. On trace la ligne en utilisent les deux points
@@ -321,7 +330,50 @@ function affichageEquationQuadratiquePoint (p1,p2){
 	( (p2.X() - p1.X()) * (p2.X() - p1.X()) )))).toFixed(2);	//
 	});
 }
+// methode qui valide l'équation entre en 'input' 
+//return -1 si aucune erreur detecter lors des tests
+//return la position de la premiere erreur sinon.
+function validation(equation){
+	var valide= -1; // on présume aucune erreur
+	var test;
+	
+	if((test=valLimit(equation))>=0 ||
+	(test=valCaractere(equation))>=0|| 
+	(test=valRepetition(equation))>=0){
+		valide=test;
+	}
+	return valide;
+}
+// permet la detection de caractère qui ne sont ' pas encore prie en compte par le logiciel .
+// notamment '*' et '/'
+function valLimit(equation){
+	var evaluation= equation.search(/[\*\/\(\)]+/);
+	if (evaluation>=0){
+	 alert("le logiciel ne prend pour le moment pas en compte les symbole '*' et '/'");
+	}
+	return evaluation;
+}
+// permet la detection de caractère non valide
+function valCaractere(equation){
+	var evaluation = equation.search(/[^²x\+\-0-9,.]/);
+	if(evaluation>=0){
+		alert("l'équation ne doit contenir que des caracteres accepté (voir la liste dans le wiki)");
+	}
+	return evaluation;
+}
 
+// detecte quelque anomalie d'écriture non prie en compte par le logiciel
+// plusieur variables consécutives sans operateur  (ex: 2xx)
+// nombre apres la variable (ex:x73)
+// un nombre avec  plus de un '.' (ex:23.43.68)
+// un nombre sans chiffre avant la virgule (ex:.75)
+function valRepetition(equation){
+	var evaluation = equation.search(/xx|x²x²|x[0-9]+|x²[0-9]+|[0-9]+\.[0-9]+\.|[^0-9]\.[0-9]+|^\./);
+	if(evaluation>=0){
+		alert("nous avons detecté une anomalie dans l'équation il y a repetition ");
+	}
+	return evaluation;
+}
 function resetGraph(){
 	JXG.JSXGraph.freeBoard(board);
 	board = JXG.JSXGraph.initBoard('box', {boundingbox:[-5,8,8,-5], axis:true, zoomfactor: 0.8, showCopyright: false});
