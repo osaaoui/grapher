@@ -5,7 +5,7 @@ var p1, p2, p3;
 var exp;
 function addCurve(board, func, atts){
 	var f= board.create('functiongraph', [func], atts,{fixed: false});
-	return f;
+	return f;`
 }
 
 /*Function pour la soummision avec Enter*/
