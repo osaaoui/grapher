@@ -88,6 +88,18 @@ function pointLineaire(){
 			document.getElementById('denominateur').innerHTML= point1.X()+"-"+point2.X().toFixed(2);
 	}
 	});
+	
+	// CALCUL ET AFFICHAGE DYNAMIQUE DE L'ORDONNÉE À L'ORIGINE
+	board.on('update', function(){
+	document.getElementById('ordonneeEquation').innerHTML= "y= "+((point1.Y()-point2.Y())/(point1.X()-point2.X())).toFixed(2)
+	+ 'x +' + (point1.Y()-(point1.X()*((point1.Y()-point2.Y())/(point1.X()-point2.X())))).toFixed(2);
+	});
+	
+	board.on('update', function(){
+	document.getElementById('ordonneeFormule').innerHTML= "Ordonnée = "+(point1.Y()-(point1.X()*((point1.Y()-point2.Y())/(point1.X()-point2.X())))).toFixed(2);
+	});
+	
+	
 /*
  * Code pour représenter la pente de l'équation linéaire sous forme de triangle
  * se déplaçant le long de la ligne.
