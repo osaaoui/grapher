@@ -43,12 +43,50 @@ function traceAvecP(){
 */
 function pointLineaire(){
 	var point1 = board.create('point', [1,(ordonnee+pente)], {style:6, name:'p1'});
+	
+	
 	var point2 = board.create('point', [(ordonnee/-pente), 0], {style:6, name:'p2'});
+	
 	var ligne = board.create('line', [point1,point2]);
-	// affichage dynamique de l'équation
+	// affichage dynamique de l'équation à l'extérieur du graphe
 	board.on('update', function(){
 	document.getElementById('equationGraph').innerHTML= "y= "+((point1.Y()-point2.Y())/(point1.X()-point2.X())).toFixed(2)
 	+ 'x +' + (point1.Y()-(point1.X()*((point1.Y()-point2.Y())/(point1.X()-point2.X())))).toFixed(2);
+	});
+	// affichage de l'équation dans la bulle informative. Elle est dynamique, elle se modifie si on bouge la courbe
+	board.on('update', function(){
+	document.getElementById('equationEntree').innerHTML= "y= "+((point1.Y()-point2.Y())/(point1.X()-point2.X())).toFixed(2)
+	+ 'x +' + (point1.Y()-(point1.X()*((point1.Y()-point2.Y())/(point1.X()-point2.X())))).toFixed(2);
+	});
+	
+	// Affichage de deux points dynamiques qui servent à illustrer comment calculer la pente à partir de 2 points de la courbe
+	board.on('update', function(){
+	document.getElementById('penteDeuxPoints').innerHTML= "p1(" +point1.X().toFixed(2)+"," + point1.Y().toFixed(2)+")"+ " et p2("+ point2.X().toFixed(2)+","+ point2.Y().toFixed(2)+")";
+	});
+	
+	// affichage dynamique de la pente de l'équation en se basant uniquement sur le paramètre a de l'équation entrée ou modifiée.
+	board.on('update', function(){
+	document.getElementById('penteEquation').innerHTML= "La pente = " + ((point1.Y()-point2.Y())/(point1.X()-point2.X())).toFixed(2);
+	});
+	
+	// Affichage dynamique du numérateur de la formule de calcul de la pente à partir de deux points
+	// si le point 2 est négatif, le mettre entre parenthèses: ex. 5 - (-2)
+	board.on('update', function(){
+		if(point2.Y() < 0){
+	document.getElementById('numerateur').innerHTML= point1.Y()+"-("+point2.Y().toFixed(2)+")";
+	}else{
+		document.getElementById('numerateur').innerHTML= point1.Y()+"-"+point2.Y().toFixed(2);
+	}
+	});
+	
+	// Affichage dynamique du dénominateur de la formule de calcul de la pente à partir de deux points
+	//si le point 2 est négatif, le mettre entre parenthèses: ex. 5 - (-2)
+	board.on('update', function(){
+		if(point2.X() < 0){
+			document.getElementById('denominateur').innerHTML= point1.X()+"-(" + point2.X().toFixed(2)+")";
+		}else{
+			document.getElementById('denominateur').innerHTML= point1.X()+"-"+point2.X().toFixed(2);
+	}
 	});
 /*
  * Code pour représenter la pente de l'équation linéaire sous forme de triangle
