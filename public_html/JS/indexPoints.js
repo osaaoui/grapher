@@ -26,9 +26,11 @@ function traceAvecP(){
 		exp = exposant(tokenize(equation));
                 zoomPlan(exp,pente ,ordonnee );
 		if(exp == 0){
+		typeEquation=0;
 		pointLineaire();
 		}
 		else if( exp != 0){
+		typeEquation=1;
 		pointQuadratique()
 		}
 	}else{ // affichage des erreurs
@@ -235,7 +237,6 @@ function afficherLesZeros(){
 
  var ord = board.create('point', [0,(dynamiqueC())], {style:6, name:'', fixed:true});
  var discriminant= dynamiqueB()*dynamiqueB() - (4 * dynamiqueA() * dynamiqueC());
- alert(dynamiqueA()+ " "+dynamiqueB()+" " +dynamiqueC());
  var valDiscriminant= Math.sqrt(discriminant);
  if (discriminant >= 0){
  var premierZero= ((- dynamiqueB() + valDiscriminant)/(2*dynamiqueA())).toFixed(2);
