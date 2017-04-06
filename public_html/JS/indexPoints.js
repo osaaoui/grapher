@@ -1,7 +1,7 @@
 var board = JXG.JSXGraph.initBoard('box', {boundingbox:[-5,8,8,-5], axis:true, zoomfactor: 0.8, showCopyright: false});
 var ordonnee;
 var pente;
-var p1, p2, p3;
+var point1, point2, p3;
 var exp;
 function addCurve(board, func, atts){
 	var f= board.create('functiongraph', [func], atts,{fixed: false});
@@ -42,10 +42,10 @@ function traceAvecP(){
  *qui est situe a +1 de -b/2a (x) et la valeur de y est l'ordonnee.
 */
 function pointLineaire(){
-	var point1 = board.create('point', [1,(ordonnee+pente)], {style:6, name:'p1'});
+	 point1 = board.create('point', [1,(ordonnee+pente)], {style:6, name:'p1'});
 	
 	
-	var point2 = board.create('point', [(ordonnee/-pente), 0], {style:6, name:'p2'});
+	 point2 = board.create('point', [(ordonnee/-pente), 0], {style:6, name:'p2'});
 	
 	var ligne = board.create('line', [point1,point2]);
 	// affichage dynamique de l'équation à l'extérieur du graphe
@@ -116,20 +116,20 @@ function pointQuadratique() {
 	var hPoint = -pente/(2*exp);//-b/2a
 	var yPoint = (4*exp*ordonnee-(pente*pente))/(4*exp); //(4ac-b²)/4a
 	var depP2= (exp*(hPoint+1)*(hPoint+1))+(pente*(hPoint+1))+ordonnee;// nouveau point de depart pour "p2"
-	var sommet = board.create('point', [hPoint, yPoint], {style:6, name:'p1'});// point sommet
-	var p2 = board.create('point', [(hPoint+1), depP2], {style:6, name:'p2'}); //le "p2" est placer sur la courbe à 1 de distance par rapport au sommet(ceci évite les conflits 0/0)
+	point1 = board.create('point', [hPoint, yPoint], {style:6, name:'p1'});// point sommet
+	point2 = board.create('point', [(hPoint+1), depP2], {style:6, name:'p2'}); //le "p2" est placer sur la courbe à 1 de distance par rapport au sommet(ceci évite les conflits 0/0)
 	var text = String.fromCharCode(178);
 	document.getElementById("equationGraph").innerHTML= " Équation quadratique: y = ax"+text+ " + bx + c";
 	var ligne = board.create('functiongraph', function(x) {
-		var ax = sommet.X(),
-			ay = sommet.Y(),
-			bx = p2.X(),
-			by = p2.Y(),
+		var ax = point1.X(),
+			ay = point1.Y(),
+			bx = point2.X(),
+			by = point2.Y(),
 		    a = (by - ay) / ( (bx - ax) * (bx - ax) );
 			return a * (x - ax) * (x - ax) + ay;
 		}, {fixed: false});
-		affichageEquationQuadratiquePoint(sommet,p2);
-		ligne.addParents([sommet, p2]);
+		affichageEquationQuadratiquePoint(point1,point2);
+		ligne.addParents([point1, point2]);
 
 
 }
@@ -232,12 +232,14 @@ function axeDeSymetrie(){
 
 function afficherLesZeros(){
 
- var ord = board.create('point', [0,(ordonnee)], {style:6, name:'', fixed:true});
- var discriminant= pente*pente - (4 * exp * ordonnee);
+ var ord = board.create('point', [0,(dynamiqueC())], {style:6, name:'', fixed:true});
+ var discriminant= dynamiqueB()*dynamiqueB() - (4 * dynamiqueA() * dynamiqueC());
+ alert(dynamiqueA()+ " "+dynamiqueB()+" " +dynamiqueC());
  var valDiscriminant= Math.sqrt(discriminant);
  if (discriminant >= 0){
- var premierZero= ((- pente + valDiscriminant)/2*exp).toFixed(2);
- var deuxiemeZero= ((- pente - valDiscriminant)/2*exp).toFixed(2);
+ var premierZero= ((- dynamiqueB() + valDiscriminant)/(2*dynamiqueA())).toFixed(2);
+ var deuxiemeZero= ((- dynamiqueB() - valDiscriminant)/(2*dynamiqueA())).toFixed(2);
+ 
   var zero1 = board.create('point', [premierZero,0], {style:6, name: premierZero, fixed:true});
   var zero2 = board.create('point', [deuxiemeZero,0], {style:6, name:deuxiemeZero, fixed:true});
  } else if(discriminant < 0){
@@ -245,6 +247,7 @@ function afficherLesZeros(){
 		{anchor: ord,strokeColor: "#fff", cssClass:'mytext'});    //  équation test: x²- 3x+4
  }
 }
+
 
 
 
@@ -493,6 +496,43 @@ function valRepetition(equation){
 		alert("nous avons detecté une anomalie dans l'équation il y a repetition ");
 	}
 	return evaluation;
+}
+
+// retourne le parametre 'a' dynamiquement avec les changements de la courbe
+// peu etre utile pour extraire 'a' des fonctions  ax+b ou ax²+bx+c
+function dynamiqueA(){
+var valA;
+if(typeEquation==0){
+	valA= ((point1.Y()-point2.Y())/(point1.X()-point2.X())).toFixed(2);	
+	}
+else if(typeEquation==1){
+	valA=((point2.Y() - point1.Y()) / ( (point2.X() - point1.X()) * (point2.X() - point1.X()))).toFixed(2);
+	}
+return valA;
+}
+// return le parametre 'b' dynamiquement avec les changements de la courbe
+// peu etre utile pour extraire 'b' des fonctions  ax+b ou ax²+bx+c
+function dynamiqueB(){
+var valB;
+if(typeEquation==0){
+	valB= (point1.Y()-(point1.X()*((point1.Y()-point2.Y())/(point1.X()-point2.X())))).toFixed(2);	
+	}
+else if(typeEquation==1){
+	valB=(-2*((point2.Y() - point1.Y()) / ( (point2.X() - point1.X()) * (point2.X() - point1.X()) ))*point1.X()).toFixed(2);
+	}
+return valB;
+}
+// return le parametre 'c' dynamiquement avec les changements de la courbe
+// peu etre utile pour extraire 'c' des fonctions  ax²+bx+c
+function dynamiqueC(){
+var valC;
+if(typeEquation==1){
+	valC=((point1.Y()*4*((point2.Y() - point1.Y()) / ( (point2.X() - point1.X()) * (point2.X() - point1.X())))+((-2*((point2.Y() - point1.Y())
+	/ ( (point2.X() - point1.X()) * (point2.X() - point1.X()) ))*point1.X())*(-2*((point2.Y() - point1.Y()) )
+	/ ( (point2.X() - point1.X()) * (point2.X() - point1.X()) ))*point1.X())) / (4*((point2.Y() - point1.Y()) /
+	( (point2.X() - point1.X()) * (point2.X() - point1.X()) )))).toFixed(2);
+	}
+return valC;
 }
 function resetGraph(){
 	JXG.JSXGraph.freeBoard(board);
