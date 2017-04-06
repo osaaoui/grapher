@@ -3,6 +3,7 @@ var ordonnee;
 var pente;
 var point1, point2, p3;
 var exp;
+var typeEquation;
 function addCurve(board, func, atts){
 	var f= board.create('functiongraph', [func], atts,{fixed: false});
 	return f;
