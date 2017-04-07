@@ -1,7 +1,7 @@
 var board = JXG.JSXGraph.initBoard('box', {boundingbox:[-5,8,8,-5], axis:true, zoomfactor: 0.8, showCopyright: false});
 var ordonnee;
 var pente;
-var point1, point2, p3;
+var point1, point2, p3, point3;
 var exp;
 var typeEquation;
 function addCurve(board, func, atts){
@@ -46,9 +46,10 @@ function traceAvecP(){
 */
 function pointLineaire(){
 	 point1 = board.create('point', [1,(ordonnee+pente)], {style:6, name:'p1'});
-	
-	
+	 
 	 point2 = board.create('point', [(ordonnee/-pente), 0], {style:6, name:'p2'});
+	 
+	 point3 = board.create('point', [0,(ordonnee)], {visible: false, style:6});
 	
 	var ligne = board.create('line', [point1,point2]);
 	// affichage dynamique de l'équation à l'extérieur du graphe
@@ -203,9 +204,15 @@ function zoomPlan(a,b,c){
 // L'affichage est placée dans une bulle
 
 function afficherOrdonnee(){
-	ord = board.create('point', [0,(ordonnee)], {style:6, name:'', fixed:true});
-	var bulleOrdonnee= board.create('text', [-2, 0, "ordonnee= " + ordonnee],
+	
+	ord = board.create('point', [0,((point1.Y()-(point1.X()*((point1.Y()-point2.Y())/(point1.X()-point2.X())))).toFixed(2))], {style:6, fixed:true});
+	board.on('update', function(){
+	
+	 var bulleOrdonnee= board.create('text', [-2, 0, "ordonnee= " + (point1.Y()-(point1.X()*((point1.Y()-point2.Y())/(point1.X()-point2.X())))).toFixed(2)],
 		{anchor: ord,strokeColor: "#fff", cssClass:'mytext', visible:true});
+		
+	});
+	
 		bulleOrdonnee.on('move', function () {             //function pour cacher le bulles avec un event.
            bulleOrdonnee.setAttribute({visible:false});
 					 ord.setAttribute({visible:false});
