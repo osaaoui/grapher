@@ -54,13 +54,13 @@ function pointLineaire(){
 	var ligne = board.create('line', [point1,point2]);
 	// affichage dynamique de l'équation à l'extérieur du graphe
 	board.on('update', function(){
-	document.getElementById('equationGraph').innerHTML= "y= "+((point1.Y()-point2.Y())/(point1.X()-point2.X())).toFixed(2)
-	+ 'x +' + (point1.Y()-(point1.X()*((point1.Y()-point2.Y())/(point1.X()-point2.X())))).toFixed(2);
+	document.getElementById('equationGraph').innerHTML= "y= "+dynamiqueA()
+	+ 'x +' + dynamiqueB();
 	});
 	// affichage de l'équation dans la bulle informative. Elle est dynamique, elle se modifie si on bouge la courbe
 	board.on('update', function(){
-	document.getElementById('equationEntree').innerHTML= "y= "+((point1.Y()-point2.Y())/(point1.X()-point2.X())).toFixed(2)
-	+ 'x +' + (point1.Y()-(point1.X()*((point1.Y()-point2.Y())/(point1.X()-point2.X())))).toFixed(2);
+	document.getElementById('equationEntree').innerHTML= "y= "+dynamiqueA()
+	+ 'x +' + dynamiqueB();
 	});
 	
 	// Affichage de deux points dynamiques qui servent à illustrer comment calculer la pente à partir de 2 points de la courbe
@@ -70,7 +70,7 @@ function pointLineaire(){
 	
 	// affichage dynamique de la pente de l'équation en se basant uniquement sur le paramètre a de l'équation entrée ou modifiée.
 	board.on('update', function(){
-	document.getElementById('penteEquation').innerHTML= "La pente = " + ((point1.Y()-point2.Y())/(point1.X()-point2.X())).toFixed(2);
+	document.getElementById('penteEquation').innerHTML= "La pente = " + dynamiqueA();
 	});
 	
 	// Affichage dynamique du numérateur de la formule de calcul de la pente à partir de deux points
@@ -95,12 +95,12 @@ function pointLineaire(){
 	
 	// CALCUL ET AFFICHAGE DYNAMIQUE DE L'ORDONNÉE À L'ORIGINE
 	board.on('update', function(){
-	document.getElementById('ordonneeEquation').innerHTML= "y= "+((point1.Y()-point2.Y())/(point1.X()-point2.X())).toFixed(2)
-	+ 'x +' + (point1.Y()-(point1.X()*((point1.Y()-point2.Y())/(point1.X()-point2.X())))).toFixed(2);
+	document.getElementById('ordonneeEquation').innerHTML= "y= "+dynamiqueA()
+	+ 'x +' + dynamiqueB();
 	});
 	
 	board.on('update', function(){
-	document.getElementById('ordonneeFormule').innerHTML= "Ordonnée = "+(point1.Y()-(point1.X()*((point1.Y()-point2.Y())/(point1.X()-point2.X())))).toFixed(2);
+	document.getElementById('ordonneeFormule').innerHTML= "Ordonnée = "+dynamiqueB();
 	});
 	
 	
