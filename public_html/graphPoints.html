@@ -67,60 +67,58 @@
 				<!--Création du bootstrap popover à l'aide de l'option data-toggle="popover"
 				La balise css div .css-typing permet de créer l'effet typewriter: écriture animée	-->
 				<button type="button" class="btn btn-pente btn-lg" id="btnpente" onClick="animerPente()" data-toggle="popover">Pente</button>
-				
+
 				<div id="example-popover-content" class="hidden">
-             
-               <p class= "css-typing"> Calculer la pente: </p>
-               <p class= "css-typing"> 1) à partir de l'équation </p>
+
+               <p class= "css-typing"> Calculer la pente: 1) à partir de l'équation </p>
                <p id="equationEntree" class= "css-typing"> y = Ax +B </p>
                <p id="penteEquation" class="css-typing"> La pente = le paramètre A </p>
-              
                <p class= "css-typing">2) à partir de 2 points: </p>
                <p id ="penteDeuxPoints" class= "css-typing">p1(x1, y1) et p2(x2, y2) </p>
                <p class= "css-typing"> la pente a se calcule: </p>
                <p id="formuleDeuxPoints" class= "css-typing"><span class='numer' id="numerateur">y2 - y1</span> <span class='denom' id="denominateur">x2 - x1</span></p>
                <p class= "css-typing">qui représente la formule:</p>
 			   <p class="css-typing" > <span class='numer'> Variation sur Y</span> <span class='denom'>Variation sur X</span></p>
-           
+
              </div>
-                 
+
 				<script>
-			
-                $(function(){
-    // Enables popover
-    $('[data-toggle="popover"]').popover({
-        html : true, 
-        content: function() {
-          return $("#example-popover-content").html();
-        }
-    });
-});
+				$('#btnpente').popover({
+				  title: "varTitle",
+				  content: "varContent",
+				  html: true,
+				  placement: 'bottom'
+				});
+
+				$('#btnpente').on('click', function(){
+				  $('#textPeda').popover('toggle');
+				});
 
                 </script>
 				<button type="button" class="btn btn-pente btn-lg" id="btnresetter" onClick="resetGraph()">Reset</button>
 				<button type="button" class="btn btn-pente btn-lg" id="btnAfficOrd" onClick="afficherOrdonnee()" data-toggle="popover2">Ordonnee</button>
-				
-				
+
+
 				<div id="example-popover-content2" class="hidden">
-             
+
                <p class= "css-typing"> Calculer l'ordonnée à l'origine</p>
                <p class= "css-typing">1) à partir de l'équation:</p>
                <p id="ordonneeEquation" class= "css-typing"> y = ax + b</p>
-               <p id="ordonneeFormule" class= "css-typing"> b= y-ax</p>
-               
+               <p id="ordonneeFormule" class= "css-typing"> b = y-ax</p>
+
              </div>
-                 
+
 				<script>
-			
+
                 $(function(){
     // Enables popover
     $('[data-toggle="popover2"]').popover({
-        html : true, 
+        html : true,
         content: function() {
           return $("#example-popover-content2").html();
         }
     });
-    
+
 });
 
                 </script>
@@ -128,16 +126,16 @@
 				<button type="button" class="btn btn-pente btn-lg" id="btnAfficZero" onClick="afficherLesZeros()">Les zéros </button>
 			</div>
 		</div>
-		<div class="container col-lg-7 col-lg-pull-1" id="containerJxBox">
+		<div class="container col-lg-7 col-lg-pull-2" id="containerJxBox">
 			<div class="jxgbox jxbox2" id="box"></div>
 		</div>
-		<!-- <div class="container col-lg-2 col-lg-push-1" id="textPourJxBox">
-		<div id="textPeda">
+<div class="container col-lg-2 col-lg-push-1" id="textPourJxBox">
+		<div class="text" id="textPeda">
 			<p>
 			affichage text
 		</p>
 		</div>
-		</div> -->
+		</div>
 		<br>
 		<div class = "containter center-block col-md-4 col-md-push-3" id="boxTextEqu">
 			<p id="equationGraph"><span>Y = </span><span id="ax"></span><span>ax&#178 + </span><span id="bx"></span><span>bx + </span><span id ="cx">c</span></p>
