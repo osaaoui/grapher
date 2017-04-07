@@ -230,8 +230,8 @@ function afficherOrdonnee(){
 // Pour le moment on se contentera d'afficher l'équation de l'axe x= ...   à côté du point et sans bulle
 // une fois qu'on a trouvé un affichage approprié de la bulle, on remettra le code qui est commenté ci-bas
 function axeDeSymetrie(){
-	var x = -pente/(2*exp);//-b/2a
-	var y = (4*exp*ordonnee-(pente*pente))/(4*exp); //(4ac-b²)/4a
+	var x = -dynamiqueB()/(2*dynamiqueA());//-b/2a
+	var y = (4*dynamiqueA()*dynamiqueC()-(dynamiqueB()*dynamiqueB()))/(4*dynamiqueA()); //(4ac-b²)/4a
 	pointBas= board.create('point', [x, (y-6)], {style:6, name:"x= " + x.toFixed(2)});// point sommet
 	pointHaut= board.create('point', [x, (y +10)], {style:6, name:"x= " + x.toFixed(2)});// point sommet
 	var li2 = board.create('line',[pointBas,pointHaut],
