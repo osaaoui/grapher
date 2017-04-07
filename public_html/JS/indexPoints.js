@@ -426,8 +426,8 @@ const parametreB = function(code){
 
 
 function affichageEquationLineairePoint(p,t){
-	var stringEquation= board.create('text', [4,-1, function(){return 'y= '+((p.Y()-t.Y())/(p.X()-t.X())).toFixed(2) //(1)
-	+ 'x +' + (p.Y()-(p.X()*((p.Y()-t.Y())/(p.X()-t.X())))).toFixed(2)}])//(2)
+	var stringEquation= board.create('text', [4,-1, function(){return 'y= '+dynamiqueA() //(1)
+	+ 'x +' + dynamiqueB()}])//(2)
 };
 
 
@@ -447,22 +447,16 @@ function affichageEquationLineairePoint(p,t){
 */
 
 function affichageEquationQuadratiquePoint (p1,p2){
-	var stringEquation= board.create('text', [4,-1,function(){return 'y= '+ ((p2.Y() - p1.Y()) / ( (p2.X() - p1.X()) * (p2.X() - p1.X()))).toFixed(2)//(1)
-	+ 'x² +' + (-2*((p2.Y() - p1.Y()) / ( (p2.X() - p1.X()) * (p2.X() - p1.X()) ))*p1.X()).toFixed(2) //(2)
-	+ 'x +' + ((p1.Y()*4*((p2.Y() - p1.Y()) / ( (p2.X() - p1.X()) * (p2.X() - p1.X())))+((-2*((p2.Y() - p1.Y())
-	/ ( (p2.X() - p1.X()) * (p2.X() - p1.X()) ))*p1.X())*(-2*((p2.Y() - p1.Y()) )
-	/ ( (p2.X() - p1.X()) * (p2.X() - p1.X()) ))*p1.X())) / (4*((p2.Y() - p1.Y()) /
-	( (p2.X() - p1.X()) * (p2.X() - p1.X()) )))).toFixed(2)}]);	// affichage fonction avec les points
+	var stringEquation= board.create('text', [4,-1,function(){return 'y= '+ dynamiqueA()//(1)
+	+ 'x² +' + dynamiqueB() //(2)
+	+ 'x +' + dynamiqueC()}]);	// affichage fonction avec les points
 
 
 	// affichage dynamique de l'équation quadratique dans le DOM
 	board.on('update', function(){
-		document.getElementById('equationGraph').innerHTML= 'y= '+ ((p2.Y() - p1.Y()) / ( (p2.X() - p1.X()) * (p2.X() - p1.X()))).toFixed(2)//(1)
-	+ 'x² +' + (-2*((p2.Y() - p1.Y()) / ( (p2.X() - p1.X()) * (p2.X() - p1.X()) ))*p1.X()).toFixed(2) //(2)
-	+ 'x +' + ((p1.Y()*4*((p2.Y() - p1.Y()) / ( (p2.X() - p1.X()) * (p2.X() - p1.X())))+((-2*((p2.Y() - p1.Y())
-	/ ( (p2.X() - p1.X()) * (p2.X() - p1.X()) ))*p1.X())*(-2*((p2.Y() - p1.Y()) )
-	/ ( (p2.X() - p1.X()) * (p2.X() - p1.X()) ))*p1.X())) / (4*((p2.Y() - p1.Y()) /
-	( (p2.X() - p1.X()) * (p2.X() - p1.X()) )))).toFixed(2);	//
+		document.getElementById('equationGraph').innerHTML= 'y= '+ dynamiqueA()//(1)
+	+ 'x² +' + dynamiqueB() //(2)
+	+ 'x +' + dynamiqueC();	//
 	});
 }
 // methode qui valide l'équation entre en 'input' 
@@ -511,7 +505,11 @@ function valRepetition(equation){
 }
 
 // retourne le parametre 'a' dynamiquement avec les changements de la courbe
-// peu etre utile pour extraire 'a' des fonctions  ax+b ou ax²+bx+c
+// pour  ax+b (quand typeEquation==0):
+// le parametre 'a', correspondant à la pente, est former grâce à l'équation usuelle (y2-y1/x2-x1) 
+// Pour ax²+bx+c(quand type Equation==1):
+// la courbe utilise la fonction canonique  y= a(x-h)²+k
+// le parametre 'a', correspondant à l'ouverture , est former grâce à l'equation a=(y2-y1/(x2-x1)²) 
 function dynamiqueA(){
 var valA;
 if(typeEquation==0){
@@ -523,7 +521,14 @@ else if(typeEquation==1){
 return valA;
 }
 // return le parametre 'b' dynamiquement avec les changements de la courbe
-// peu etre utile pour extraire 'b' des fonctions  ax+b ou ax²+bx+c
+// // pour  ax+b (quand typeEquation==0):
+// le parametre 'b' ce resout de en en isolant le b de l'équation linéraire b=y-ax
+// Puisque nous devons garder les points pour maintenir le dynamisme de la fonction et puisque a=(y2-y1/x2-x1)
+// nous obtenons  b=y1-(y2-y1/x2-x1)*x1 
+// Pour ax²+bx+c(quand type Equation==1):
+// la courbe utilise la forme canonique  y= a(x-h)²+k
+// le parametre 'b' ce resout en isolant b de l'equation  h=-b/2a => b=-2ah =>b=-2*(y2-y1/(x2-x1)²)*h
+// Sachant que  h et k corresponde au coordonnée du sommet on peu remplacer respectivement h par x1 et k par y1
 function dynamiqueB(){
 var valB;
 if(typeEquation==0){
@@ -535,7 +540,13 @@ else if(typeEquation==1){
 return valB;
 }
 // return le parametre 'c' dynamiquement avec les changements de la courbe
-// peu etre utile pour extraire 'c' des fonctions  ax²+bx+c
+// peu etre utile pour extraire 'c' des fonctions  ax²+bx+c:
+// la courbe utilise la forme canonique  y= a(x-h)²+k
+// Le parametre 'c' ce resout en isolant c de l'equation k=4ac-b²/4a=> c=4ak-b²/4a 
+// en remplaçant b par (-2*(y2-y1/(x2-x1)²)*h) et a par (y2-y1/(x2-x1)²)
+// on obtient c=((4*(y2-y1/(x2-x1)²)*k)-(-2*(y2-y1/(x2-x1)²)*h)²)/(4*(y2-y1/(x2-x1)²))
+// Sachant que  h et k corresponde au coordonnée du sommet on peu remplacer respectivement h par x1 et k par y1
+
 function dynamiqueC(){
 var valC;
 if(typeEquation==1){
