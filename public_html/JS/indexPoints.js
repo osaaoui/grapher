@@ -205,13 +205,13 @@ function zoomPlan(a,b,c){
 
 function afficherOrdonnee(){
 	
-	ord = board.create('point', [0,((point1.Y()-(point1.X()*((point1.Y()-point2.Y())/(point1.X()-point2.X())))).toFixed(2))], {style:6, fixed:true});
+	ord = board.create('point', [0,dynamiqueB()], {style:6, fixed:true});
 	
 	// nouveau code qui permet l'affichage dynamique de l'ordonnée dans la bulle à l'intérieur du graphe
 	// Il fallait en fait appeler cette fonction update sur la bulleOrdonnee.
 	board.on('update', function(){
 	
-	 var bulleOrdonnee= board.create('text', [-2, 0, "ordonnee= " + (point1.Y()-(point1.X()*((point1.Y()-point2.Y())/(point1.X()-point2.X())))).toFixed(2)],
+	 var bulleOrdonnee= board.create('text', [-2, 0, "ordonnee= " + dynamiqueB()],
 		{anchor: ord,strokeColor: "#fff", cssClass:'mytext', visible:true});
 		
 	});
