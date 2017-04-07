@@ -61,14 +61,14 @@ function trace(){
  *Ensuite, une équation dynamique est créée et cachée.
 */
 function slidesGenerique (pente, ordonnee, exp) {
-	sliderA =board.create('slider',[[4,-3],[6,-3],[pente-4,pente,pente+4]],{name:'a', visible:false});
+	sliderA =board.create('slider',[[4,-3],[6,-3],[exp-4,exp,exp+4]],{name:'a', visible:false});
 	sliderA.visible(false);
-	sliderB =board.create('slider',[[4,-3.5],[6,-3.5], [ordonnee -4, ordonnee,ordonnee +4]],{visible:false});
+	sliderB =board.create('slider',[[4,-3.5],[6,-3.5], [pente-4,pente,pente+4]],{visible:false});
 	sliderB.visible(false);
-	sliderC =board.create('slider',[[4,-4],[6,-4],[exp-4,exp,exp+4]],{visible:false});
+	sliderC =board.create('slider',[[4,-4],[6,-4],[ordonnee -4, ordonnee,ordonnee +4]],{visible:false});
 	sliderC.visible(false);
 	function f(x) {
-		return sliderC.Value()*(x*x)+ sliderA.Value()*x + sliderB.Value();
+		return sliderA.Value()*(x*x)+ sliderB.Value()*x + sliderC.Value();
 	}
 	var stringEquation= board.create('text', [4,-2,function(){return 'y= '+sliderC.Value().toFixed(2)
 	+ 'x²' + (sliderA.Value()<0?'':'+')+ sliderA.Value().toFixed(2)
@@ -97,15 +97,15 @@ function slidesCanonique (a, h,k){
  *Les curseurs sont ancrés sur les curseurs JSXGraph.
  */
 function sliderFunction() {
-	var valSliderA = sliderC.Value();
-	var valSliderB = sliderA.Value();
-	var valSliderC = sliderB.Value();
+	var valSliderA = sliderA.Value();
+	var valSliderB = sliderB.Value();
+	var valSliderC = sliderC.Value();
 	$("#sliderA1").slider({
 		orientation: "horizontal",range: "min",min: valSliderA - 4,max: valSliderA + 4,value: valSliderA,
 		slide: function(event, ui) {
 			$("#aSlideInput").val(ui.value);
 			a = ui.value;
-			sliderC.setValue(a);
+			sliderA.setValue(a);
 			board.updateQuality = board.BOARD_QUALITY_HIGH;
 			board.update();
 		}
@@ -116,7 +116,7 @@ function sliderFunction() {
 		slide: function(event, ui) {
 			$("#bSlideInput").val(ui.value);
 			b = ui.value;
-			sliderA.setValue(b);
+			sliderB.setValue(b);
 			board.updateQuality = board.BOARD_QUALITY_HIGH;
 			board.update();
 		}
@@ -127,14 +127,13 @@ function sliderFunction() {
 		slide: function(event, ui) {
 			$("#cSlideInput").val(ui.value);
 			c = ui.value;
-			sliderB.setValue(c);
+			sliderC.setValue(c);
 			board.updateQuality = board.BOARD_QUALITY_HIGH;
 			board.update();
 		}
 	});
 	$("#cSlideInput").val($("#sliderC1").slider("value"));
 };
-
 // ajustement le zoom du plan cartésien selon l'équation entré y=ax²+bx+c ou y=bx+c
 function zoomPlan(a,b,c){
 	var xPos=8;
@@ -337,9 +336,9 @@ function changementCanonique(){
 		//effacerGenerique();
 		JXG.JSXGraph.freeBoard(board);
 		board = JXG.JSXGraph.initBoard('box', {boundingbox:[-5,8,8,-5], axis:true, zoomfactor: 0.8, showCopyright: false});
-		h=-pente/2*exp;
-		k=((4*exp*ordonnee)-(pente*pente))/(4*exp);
-		slidesCanonique (exp, h,k);
+		h=-sliderB.Value()/2*sliderA.Value();
+		k=((4*sliderA.Value()*sliderC.Value())-(sliderB.Value()*sliderB.Value()))/(4*sliderA.Value());
+		slidesCanonique (sliderA.Value(), h,k);
 	}
 /*La function recharge la page avec location.reload() aprés avoir mis la table à 0.*/
 function erase () {
