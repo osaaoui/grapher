@@ -379,23 +379,14 @@ fieldset[disabled] .btn-pente.active {
 /*
  animation de texte
  */
-.css-typing{
+.css-typing {
   color: #555;
   font-family: "Courier";
-  font-size: 18px;
+  font-size: 16px;
   white-space: nowrap;
   overflow: hidden;
-  width: inherit;
-  animation: type 3s steps(60, end);
-  -webkit-animation-fill-mode:both;
+  padding-left: 5px;
 }
-
- .css-typing :nth-child(2){
-  animation: type2 3s steps(60, end);
-
-}
-
-
 
 /* code pour afficher les fractions*/
 .numer {
@@ -406,27 +397,10 @@ fieldset[disabled] .btn-pente.active {
 }
 
 
-@keyframes type{
-  from { width: 0; }
-}
-
-@keyframes type2{
-  0%{width: 0;}
-  50%{width: 0;}
-  100%{ width: 100; }
-}
-
-@keyframes blink{
-  to{opacity: .0;}
-}
-
 ::selection{
   background: black;
 }
 .popover{
 	max-width: 400px;
 	border-radius: 30px;
-}
-.container{
-/*margin-left:80px;*/
 }
