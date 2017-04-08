@@ -104,6 +104,15 @@ background-color: #91adc9!important;
   padding: 10px;
 }
 
+#textPentePeda {
+  display: none;
+}
+
+#textOrdoPeda {
+  display: none;
+}
+
+
 #box {
 width: 800px;
 height: 600px;
