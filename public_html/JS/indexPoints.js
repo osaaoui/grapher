@@ -61,13 +61,13 @@ function pointLineaire(){
 	var ligne = board.create('line', [point1,point2]);
 	// affichage dynamique de l'équation à l'extérieur du graphe
 	board.on('update', function(){
-		document.getElementById('equationGraph').innerHTML= "y= "+dynamiqueA()
-		+ 'x +' + dynamiqueB();
+		document.getElementById('equationGraph').innerHTML= "y = "+dynamiqueA()
+		+ 'x + ' + dynamiqueB();
 	});
 	// affichage de l'équation dans la bulle informative. Elle est dynamique, elle se modifie si on bouge la courbe
 	board.on('update', function(){
-		document.getElementById('equationEntree').innerHTML= "y= "+dynamiqueA()
-		+ 'x +' + dynamiqueB();
+		document.getElementById('equationEntree').innerHTML= "y = "+dynamiqueA()
+		+ 'x + ' + dynamiqueB();
 	});
 
 	// Affichage de deux points dynamiques qui servent à illustrer comment calculer la pente à partir de 2 points de la courbe
@@ -102,8 +102,8 @@ function pointLineaire(){
 
 	// CALCUL ET AFFICHAGE DYNAMIQUE DE L'ORDONNÉE À L'ORIGINE
 	board.on('update', function(){
-		document.getElementById('ordonneeEquation').innerHTML= "y= "+dynamiqueA()
-		+ 'x +' + dynamiqueB();
+		document.getElementById('ordonneeEquation').innerHTML= "y = "+dynamiqueA()
+		+ 'x + ' + dynamiqueB();
 	});
 
 	board.on('update', function(){
@@ -244,6 +244,12 @@ function axeDeSymetrie(){
 	pointHaut= board.create('point', [x, (y +10)], {style:6, name:"x= " + x.toFixed(2)});// point sommet
 	var li2 = board.create('line',[pointBas,pointHaut],
 	{straightFirst:false, straightLast:false, strokeWidth:2, dash:2});
+
+	board.on('move', function () {             //function pour cacher le bulles avec un event.
+		li2.setAttribute({visible:false});
+		pointBas.setAttribute({visible:false});
+		ponintHaut.setAttribute({visible:false});
+	});
 
 	//var bulleAxeBas= board.create('text', [-2, 0, "x= " + x.toFixed(2) ],
 	//{anchor: pointBas,strokeColor: "#fff", cssClass:'mytext'});
@@ -426,7 +432,6 @@ const parametreB = function(code){
 	return ordonnee;
 };
 
-
 /*
 * fonction qui forme le String formant l'équation linéaire y=ax+b
 * Prend en paramètre 2 points
@@ -435,14 +440,10 @@ const parametreB = function(code){
 * Puisque nous devons garder les points pour maintenir le dynamisme de la fonction et puisque a=(y2-y1/x2-x1)
 * nous obtenons  b=y1-(y2-y1/x2-x1)*x1 (2)
 */
-
-
 function affichageEquationLineairePoint(p,t){
 	var stringEquation= board.create('text', [4,-1, function(){return 'y= '+dynamiqueA() //(1)
 	+ 'x +' + dynamiqueB()}])//(2)
 };
-
-
 
 /*
 * fonction qui forme le String formant l'équation quadratique y=ax²+bx+c
@@ -457,7 +458,6 @@ function affichageEquationLineairePoint(p,t){
 * Sachant que  h et k corresponde au coordonnée du sommet on peu remplacer respectivement h par x1 et k par y1
 * clarification: toutes les équations mises au carré doivent etre ecritent au long (ex: (x1-x2)²=> (x1-x2)*(x1-x2))
 */
-
 function affichageEquationQuadratiquePoint (p1,p2){
 	var stringEquation= board.create('text', [4,-1,function(){return 'y= '+ dynamiqueA()//(1)
 	+ 'x² +' + dynamiqueB() //(2)
@@ -551,6 +551,7 @@ function dynamiqueB(){
 	}
 	return valB;
 }
+
 // return le parametre 'c' dynamiquement avec les changements de la courbe
 // peu etre utile pour extraire 'c' des fonctions  ax²+bx+c:
 // la courbe utilise la forme canonique  y= a(x-h)²+k
@@ -558,7 +559,6 @@ function dynamiqueB(){
 // en remplaçant b par (-2*(y2-y1/(x2-x1)²)*h) et a par (y2-y1/(x2-x1)²)
 // on obtient c=((4*(y2-y1/(x2-x1)²)*k)-(-2*(y2-y1/(x2-x1)²)*h)²)/(4*(y2-y1/(x2-x1)²))
 // Sachant que  h et k corresponde au coordonnée du sommet on peu remplacer respectivement h par x1 et k par y1
-
 function dynamiqueC(){
 	var valC;
 	if(typeEquation==1){
