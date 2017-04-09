@@ -84,9 +84,9 @@ function pointLineaire(){
 	// si le point 2 est négatif, le mettre entre parenthèses: ex. 5 - (-2)
 	board.on('update', function(){
 		if(point2.Y() < 0){
-			document.getElementById('numerateur').innerHTML= point1.Y()+"-("+point2.Y().toFixed(2)+")";
+			document.getElementById('numerateur').innerHTML= point1.Y().toFixed()+"-("+point2.Y().toFixed(2)+")";
 		}else{
-			document.getElementById('numerateur').innerHTML= point1.Y()+"-"+point2.Y().toFixed(2);
+			document.getElementById('numerateur').innerHTML= point1.Y().toFixed()+"-"+point2.Y().toFixed(2);
 		}
 	});
 
@@ -94,9 +94,9 @@ function pointLineaire(){
 	//si le point 2 est négatif, le mettre entre parenthèses: ex. 5 - (-2)
 	board.on('update', function(){
 		if(point2.X() < 0){
-			document.getElementById('denominateur').innerHTML= point1.X()+"-(" + point2.X().toFixed(2)+")";
+			document.getElementById('denominateur').innerHTML= point1.X().toFixed()+"-(" + point2.X().toFixed(2)+")";
 		}else{
-			document.getElementById('denominateur').innerHTML= point1.X()+"-"+point2.X().toFixed(2);
+			document.getElementById('denominateur').innerHTML= point1.X().toFixed()+"-"+point2.X().toFixed(2);
 		}
 	});
 
