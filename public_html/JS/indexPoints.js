@@ -224,11 +224,18 @@ function afficherOrdonnee(){
 		board.removeObject(ord);
 		board.removeObject(bulleOrdonnee);
 	}
-
+	// Afficher l'ordonnée à l'origine si l'équation est linéaire
+	if (typeEquation==0){
 	ord = board.create('point', [0,dynamiqueB()], {style:6, fixed:true});
   bulleOrdonnee= board.create('text', [-2, 0, "ordonnee= " + dynamiqueB()],
 	{anchor: ord,strokeColor: "#fff", cssClass:'mytext', visible:true});
-
+	
+	// Afficher l'ordonnée à l'origine si l'équation est quadratique'
+ }else if(typeEquation==1){
+ 	ord = board.create('point', [0,dynamiqueC()], {style:6, fixed:true});
+  bulleOrdonnee= board.create('text', [-2, 0, "ordonnee= " + dynamiqueC()],
+	{anchor: ord,strokeColor: "#fff", cssClass:'mytext', visible:true});
+ }
 	bulleOrdonnee.on('move', function () {          //function pour cacher le bulles avec un event.
 		ord.setAttribute({visible:false});
 		bulleOrdonnee.setAttribute({visible:false});
