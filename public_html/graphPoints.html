@@ -63,7 +63,7 @@
 	<div class="row">
 		<div class="container col-lg-2">
 			<div class="btn-group-vertical" role="group" id="btnGroup">
-				<button type="button" class="btn btn-pente btn-lg" id="btnpente" onClick="animerPente(); textPente();" disabled="true">Pente</button>
+				<button type="button" class="btn btn-pente btn-lg" id="btnpente" onClick="animerPente(); textPente(); this.disabled=true;" disabled="true">Pente</button>
 				<button type="button" class="btn btn-pente btn-lg" id="btnresetter" onClick="resetGraph()" disabled="true">Reset</button>
 				<button type="button" class="btn btn-pente btn-lg" id="btnAfficOrd" onClick="textOrd(); afficherOrdonnee();" disabled="true">Ordonnee</button>
 				<button type="button" class="btn btn-pente btn-lg" id="btnAxeStm" onClick="axeDeSymetrie()" disabled="true">Axe symétrie </button>
@@ -73,28 +73,28 @@
 		<div class="container col-lg-7 col-lg-pull-1" id="containerJxBox">
 			<div class="jxgbox jxbox2" id="box"></div>
 		</div>
-<div class="container col-lg-3" id="textPourJxBox">
-		<div class="panel panel-default" id="textPeda">
-			<div id="textPentePeda" class= "css-typing">
-						 <p id="nope"> Calculer la pente:</p>
-						 <p class= "css-typing" id="nope">1) à partir de l'équation</p>
-						 <p id="equationEntree" class= "css-typing"> y = Ax +B </p>
-						 <p id="penteEquation" class="css-typing"> La pente = le paramètre A </p>
-						 <p class= "css-typing">2) à partir de 2 points: </p>
-						 <p id ="penteDeuxPoints" class= "css-typing">p1(x1, y1) et p2(x2, y2) </p>
-						 <p class= "css-typing"> la pente a se calcule: </p>
-						 <p id="formuleDeuxPoints" class= "css-typing"><span class='numer' id="numerateur">y2 - y1</span> <span class='denom' id="denominateur">x2 - x1</span></p>
-						 <p class= "css-typing">qui représente la formule:</p>
-			       <p class="css-typing" > <span class='numer'> Variation sur Y</span> <span class='denom'>Variation sur X</span></p>
+		<div class="container col-lg-3" id="textPourJxBox">
+			<div class="panel panel-default" id="textPeda">
+				<div id="textPentePeda" class= "css-typing">
+					<p id="nope"> Calculer la pente:</p>
+					<p class= "css-typing" id="nope">1) à partir de l'équation</p>
+					<p id="equationEntree" class= "css-typing"> y = Ax +B </p>
+					<p id="penteEquation" class="css-typing"> La pente = le paramètre A </p>
+					<p class= "css-typing">2) à partir de 2 points: </p>
+					<p id ="penteDeuxPoints" class= "css-typing">p1(x1, y1) et p2(x2, y2) </p>
+					<p class= "css-typing"> la pente a se calcule: </p>
+					<p id="formuleDeuxPoints" class= "css-typing"><span class='numer' id="numerateur">y2 - y1</span> <span class='denom' id="denominateur">x2 - x1</span></p>
+					<p class= "css-typing">qui représente la formule:</p>
+					<p class="css-typing" > <span class='numer'> Variation sur Y</span> <span class='denom'>Variation sur X</span></p>
 
-					 </div>
-					 <div id="textOrdoPeda">
-									 <p class= "css-typing"> Calculer l'ordonnée à l'origine</p>
-									 <p class= "css-typing">1) à partir de l'équation:</p>
-									 <p id="ordonneeEquation" class= "css-typing"> y = ax + b</p>
-									 <p id="ordonneeFormule" class= "css-typing"> b = y-ax</p>
-								 </div>
-		</div>
+				</div>
+				<div id="textOrdoPeda">
+					<p class= "css-typing"> Calculer l'ordonnée à l'origine</p>
+					<p class= "css-typing">1) à partir de l'équation:</p>
+					<p id="ordonneeEquation" class= "css-typing"> y = ax + b</p>
+					<p id="ordonneeFormule" class= "css-typing"> b = y-ax</p>
+				</div>
+			</div>
 		</div>
 		<br>
 		<div class = "containter center-block col-md-4 col-md-push-3" id="boxTextEqu">
@@ -104,30 +104,30 @@
 	<br>
 	<div class="container-fluid" id="bottom">
 		<div class="container col-lg-7 col-lg-push-1">
-		<fieldset class="form-group form-inline" id="saisie">
-			<br>
-			<label for="input" id="label">Équation :</label>
-			<input type = "text" class="form-control input-lg" id="input" rows="2">
-		</input>
-		<div id="clavier-virtuel">
-			<button id="2" class= "clavierbutton">
-				&#178;
-			</button>
-			<button id="x2"class= "clavierbutton">
-				x&#178;
-			</button>
-			<button id="y2" class= "clavierbutton">
-				y&#178;
-			</button>
-		</fieldset>
+			<fieldset class="form-group form-inline" id="saisie">
+				<br>
+				<label for="input" id="label">Équation :</label>
+				<input type = "text" class="form-control input-lg" id="input" rows="2">
+			</input>
+			<div id="clavier-virtuel">
+				<button id="2" class= "clavierbutton">
+					&#178;
+				</button>
+				<button id="x2"class= "clavierbutton">
+					x&#178;
+				</button>
+				<button id="y2" class= "clavierbutton">
+					y&#178;
+				</button>
+			</fieldset>
+		</div>
+		<br>
+		<div class="btn-group btn-group-lg" role="group">
+			<button type="submit" class="btn btn-saisie btn-lg inline" id="btnrnd" onClick="traceAvecP(); this.disabled=true;">Soumettre</button>
+			<button type="reset" class="btn btn-saisie btn-lg inline" id= "eff" onClick="erase()">Effacer</button>
+		</div>
 	</div>
-	<br>
-<div class="btn-group btn-group-lg" role="group">
-<button type="submit" class="btn btn-saisie btn-lg inline" id="btnrnd" onClick="traceAvecP()">Soumettre</button>
-<button type="reset" class="btn btn-saisie btn-lg inline" id= "eff" onClick="erase()">Effacer</button>
 </div>
-</div>
-	</div>
 </body>
 <script type="text/javascript" src="JS/indexPoints.js"></script>
 <script type="text/javascript" src="JS/clavierVirtuel.js"></script>

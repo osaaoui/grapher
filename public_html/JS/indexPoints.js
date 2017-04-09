@@ -11,33 +11,34 @@ function addCurve(board, func, atts){
 
 /*Function pour la soummision avec Enter*/
 $(document).keypress(function(e) {
-    if(e.which == 13) {
-        traceAvecP();
-    }
+	if(e.which == 13) {
+		traceAvecP();
+	}
 });
 
+/*Function pour tracer la courbe avec des points mouvables*/
 function traceAvecP(){
 	var equation = document.getElementById('input').value;
-        equation=equation.replace(/,/g,'.'); // rempalce les "," par "."
+	equation=equation.replace(/,/g,'.'); // rempalce les "," par "."
 	var erreur=validation(equation);
 	document.getElementById('btnresetter').disabled=false;//activation du bouton Reset
 	if(erreur<0){
 		pente= parametreA(tokenize(equation));
 		ordonnee= parametreB(tokenize(equation));
 		exp = exposant(tokenize(equation));
-                zoomPlan(exp,pente ,ordonnee );
+		zoomPlan(exp,pente ,ordonnee );
 		if(exp == 0){
-		typeEquation=0;
-		document.getElementById('btnpente').disabled=false;	//activation du bouton Pente
-    document.getElementById('btnAfficOrd').disabled=false;//activation du bouton Ordonnee
-		pointLineaire();
+			typeEquation=0;
+			document.getElementById('btnpente').disabled=false;	//activation du bouton Pente
+			document.getElementById('btnAfficOrd').disabled=false;//activation du bouton Ordonnee
+			pointLineaire();
 		}
 		else if( exp != 0){
-		typeEquation=1;
-		document.getElementById('btnAfficOrd').disabled=false;//activation du bouton Ordonnee
-		document.getElementById('btnAxeStm').disabled=false;//activation du bouton  Axe symétrie
-		document.getElementById('btnAfficZero').disabled=false;//activation du bouton Les zéros
-		pointQuadratique()
+			typeEquation=1;
+			document.getElementById('btnAfficOrd').disabled=false;//activation du bouton Ordonnee
+			document.getElementById('btnAxeStm').disabled=false;//activation du bouton  Axe symétrie
+			document.getElementById('btnAfficZero').disabled=false;//activation du bouton Les zéros
+			pointQuadratique()
 		}
 	}else{ // affichage des erreurs
 		var input=document.getElementById('input');
@@ -46,47 +47,47 @@ function traceAvecP(){
 		input.focus();
 	}
 }
-/*Cette premiere partie est pour une ligne. On trace la ligne en utilisent les deux points
- *La duexieme partie trace une courbe, ou sommet est le sommet de la curbe et p2 est un point
- *qui est situe a +1 de -b/2a (x) et la valeur de y est l'ordonnee.
+
+/*Cette function trace une droite. On trace la droite en utilisent les deux points
+*
 */
 function pointLineaire(){
-	 point1 = board.create('point', [1,(ordonnee+pente)], {style:6, name:'p1'});
+	point1 = board.create('point', [1,(ordonnee+pente)], {style:6, name:'p1'});
 
-	 point2 = board.create('point', [(ordonnee/-pente), 0], {style:6, name:'p2'});
+	point2 = board.create('point', [(ordonnee/-pente), 0], {style:6, name:'p2'});
 
-	 point3 = board.create('point', [0,(ordonnee)], {visible: false, style:6});
+	point3 = board.create('point', [0,(ordonnee)], {visible: false, style:6});
 
 	var ligne = board.create('line', [point1,point2]);
 	// affichage dynamique de l'équation à l'extérieur du graphe
 	board.on('update', function(){
-	document.getElementById('equationGraph').innerHTML= "y= "+dynamiqueA()
-	+ 'x +' + dynamiqueB();
+		document.getElementById('equationGraph').innerHTML= "y= "+dynamiqueA()
+		+ 'x +' + dynamiqueB();
 	});
 	// affichage de l'équation dans la bulle informative. Elle est dynamique, elle se modifie si on bouge la courbe
 	board.on('update', function(){
-	document.getElementById('equationEntree').innerHTML= "y= "+dynamiqueA()
-	+ 'x +' + dynamiqueB();
+		document.getElementById('equationEntree').innerHTML= "y= "+dynamiqueA()
+		+ 'x +' + dynamiqueB();
 	});
 
 	// Affichage de deux points dynamiques qui servent à illustrer comment calculer la pente à partir de 2 points de la courbe
 	board.on('update', function(){
-	document.getElementById('penteDeuxPoints').innerHTML= "p1(" +point1.X().toFixed(2)+"," + point1.Y().toFixed(2)+")"+ " et p2("+ point2.X().toFixed(2)+","+ point2.Y().toFixed(2)+")";
+		document.getElementById('penteDeuxPoints').innerHTML= "p1(" +point1.X().toFixed(2)+"," + point1.Y().toFixed(2)+")"+ " et p2("+ point2.X().toFixed(2)+","+ point2.Y().toFixed(2)+")";
 	});
 
 	// affichage dynamique de la pente de l'équation en se basant uniquement sur le paramètre a de l'équation entrée ou modifiée.
 	board.on('update', function(){
-	document.getElementById('penteEquation').innerHTML= "La pente = " + dynamiqueA();
+		document.getElementById('penteEquation').innerHTML= "La pente = " + dynamiqueA();
 	});
 
 	// Affichage dynamique du numérateur de la formule de calcul de la pente à partir de deux points
 	// si le point 2 est négatif, le mettre entre parenthèses: ex. 5 - (-2)
 	board.on('update', function(){
 		if(point2.Y() < 0){
-	document.getElementById('numerateur').innerHTML= point1.Y()+"-("+point2.Y().toFixed(2)+")";
-	}else{
-		document.getElementById('numerateur').innerHTML= point1.Y()+"-"+point2.Y().toFixed(2);
-	}
+			document.getElementById('numerateur').innerHTML= point1.Y()+"-("+point2.Y().toFixed(2)+")";
+		}else{
+			document.getElementById('numerateur').innerHTML= point1.Y()+"-"+point2.Y().toFixed(2);
+		}
 	});
 
 	// Affichage dynamique du dénominateur de la formule de calcul de la pente à partir de deux points
@@ -96,32 +97,35 @@ function pointLineaire(){
 			document.getElementById('denominateur').innerHTML= point1.X()+"-(" + point2.X().toFixed(2)+")";
 		}else{
 			document.getElementById('denominateur').innerHTML= point1.X()+"-"+point2.X().toFixed(2);
-	}
+		}
 	});
 
 	// CALCUL ET AFFICHAGE DYNAMIQUE DE L'ORDONNÉE À L'ORIGINE
 	board.on('update', function(){
-	document.getElementById('ordonneeEquation').innerHTML= "y= "+dynamiqueA()
-	+ 'x +' + dynamiqueB();
+		document.getElementById('ordonneeEquation').innerHTML= "y= "+dynamiqueA()
+		+ 'x +' + dynamiqueB();
 	});
 
 	board.on('update', function(){
-	document.getElementById('ordonneeFormule').innerHTML= "Ordonnée = "+dynamiqueB();
+		document.getElementById('ordonneeFormule').innerHTML= "Ordonnée = "+dynamiqueB();
 	});
 
 
-/*
- * Code pour représenter la pente de l'équation linéaire sous forme de triangle
- * se déplaçant le long de la ligne.
- * suppression du glider qui ne fait que créer un point de plus sur la courbe. Il peut porter à confusion.
- *  On attache le triangle à l'un des deux points définis en haut, ce qui rend le triangle plus visible.
- */
-		//triangle= board.create('slopetriangle', [ligne, point1]);
+	/*
+	* Code pour représenter la pente de l'équation linéaire sous forme de triangle
+	* se déplaçant le long de la ligne.
+	* suppression du glider qui ne fait que créer un point de plus sur la courbe. Il peut porter à confusion.
+	*  On attache le triangle à l'un des deux points définis en haut, ce qui rend le triangle plus visible.
+	*/
+	//triangle= board.create('slopetriangle', [ligne, point1]);
 
 	affichageEquationLineairePoint(point1,point2);
 	document.getElementById("equationGraph").innerHTML= " Équation linéaire: y = " + pente + "x" + " + " + ordonnee;
 }
 
+/*
+* Cette fonction trace une courbe en utilisant les trois paramètres de l'équation d'entrée.
+*/
 function pointQuadratique() {
 	var hPoint = -pente/(2*exp);//-b/2a
 	var yPoint = (4*exp*ordonnee-(pente*pente))/(4*exp); //(4ac-b²)/4a
@@ -132,16 +136,14 @@ function pointQuadratique() {
 	document.getElementById("equationGraph").innerHTML= " Équation quadratique: y = ax"+text+ " + bx + c";
 	var ligne = board.create('functiongraph', function(x) {
 		var ax = point1.X(),
-			ay = point1.Y(),
-			bx = point2.X(),
-			by = point2.Y(),
-		    a = (by - ay) / ( (bx - ax) * (bx - ax) );
-			return a * (x - ax) * (x - ax) + ay;
-		}, {fixed: false});
-		affichageEquationQuadratiquePoint(point1,point2);
-		ligne.addParents([point1, point2]);
-
-
+		ay = point1.Y(),
+		bx = point2.X(),
+		by = point2.Y(),
+		a = (by - ay) / ( (bx - ax) * (bx - ax) );
+		return a * (x - ax) * (x - ax) + ay;
+	}, {fixed: false});
+	affichageEquationQuadratiquePoint(point1,point2);
+	ligne.addParents([point1, point2]);
 }
 
 // ajustement le zoom du plan cartésien selon l'équation entré y=ax²+bx+c ou y=bx+c
@@ -217,20 +219,20 @@ function afficherOrdonnee(){
 	// Il fallait en fait appeler cette fonction update sur la bulleOrdonnee.
 	board.on('update', function(){
 
-	 var bulleOrdonnee= board.create('text', [-2, 0, "ordonnee= " + dynamiqueB()],
+		var bulleOrdonnee= board.create('text', [-2, 0, "ordonnee= " + dynamiqueB()],
 		{anchor: ord,strokeColor: "#fff", cssClass:'mytext', visible:true});
 
 	});
 
-		bulleOrdonnee.on('move', function () {             //function pour cacher le bulles avec un event.
-           bulleOrdonnee.setAttribute({visible:false});
-					 ord.setAttribute({visible:false});
-    });
-		bulleOrdonnee.on('down', function()  {             //function pour cacher le bulles avec un event.
-           ord.update();
-					 bulleOrdonnee.update();
-    });
- }
+	bulleOrdonnee.on('move', function () {             //function pour cacher le bulles avec un event.
+		bulleOrdonnee.setAttribute({visible:false});
+		ord.setAttribute({visible:false});
+	});
+	bulleOrdonnee.on('down', function()  {             //function pour cacher le bulles avec un event.
+		ord.update();
+		bulleOrdonnee.update();
+	});
+}
 
 // Fonction pour afficher l'axe de symétrie.
 // Pour le moment on se contentera d'afficher l'équation de l'axe x= ...   à côté du point et sans bulle
@@ -241,83 +243,87 @@ function axeDeSymetrie(){
 	pointBas= board.create('point', [x, (y-6)], {style:6, name:"x= " + x.toFixed(2)});// point sommet
 	pointHaut= board.create('point', [x, (y +10)], {style:6, name:"x= " + x.toFixed(2)});// point sommet
 	var li2 = board.create('line',[pointBas,pointHaut],
-    {straightFirst:false, straightLast:false, strokeWidth:2, dash:2});
+	{straightFirst:false, straightLast:false, strokeWidth:2, dash:2});
 
-    //var bulleAxeBas= board.create('text', [-2, 0, "x= " + x.toFixed(2) ],
-		//{anchor: pointBas,strokeColor: "#fff", cssClass:'mytext'});
+	//var bulleAxeBas= board.create('text', [-2, 0, "x= " + x.toFixed(2) ],
+	//{anchor: pointBas,strokeColor: "#fff", cssClass:'mytext'});
 	//var bulleAxeHaut= board.create('text', [-2, 0, "x= " + x.toFixed(2) ],
-		//{anchor: pointHaut,strokeColor: "#fff", cssClass:'mytext'});
+	//{anchor: pointHaut,strokeColor: "#fff", cssClass:'mytext'});
 }
 
 function afficherLesZeros(){
 
- var ord = board.create('point', [0,(dynamiqueC())], {style:6, name:'', fixed:true});
- var discriminant= dynamiqueB()*dynamiqueB() - (4 * dynamiqueA() * dynamiqueC());
- var valDiscriminant= Math.sqrt(discriminant);
- if (discriminant >= 0){
- var premierZero= ((- dynamiqueB() + valDiscriminant)/(2*dynamiqueA())).toFixed(2);
- var deuxiemeZero= ((- dynamiqueB() - valDiscriminant)/(2*dynamiqueA())).toFixed(2);
+	var ord = board.create('point', [0,(dynamiqueC())], {style:6, name:'', fixed:true});
+	var discriminant= dynamiqueB()*dynamiqueB() - (4 * dynamiqueA() * dynamiqueC());
+	var valDiscriminant= Math.sqrt(discriminant);
+	if (discriminant >= 0){
+		var premierZero= ((- dynamiqueB() + valDiscriminant)/(2*dynamiqueA())).toFixed(2);
+		var deuxiemeZero= ((- dynamiqueB() - valDiscriminant)/(2*dynamiqueA())).toFixed(2);
 
-  var zero1 = board.create('point', [premierZero,0], {style:6, name: premierZero, fixed:true});
-  var zero2 = board.create('point', [deuxiemeZero,0], {style:6, name:deuxiemeZero, fixed:true});
- } else if(discriminant < 0){
- 	var bulleAucuneSolution= board.create('text', [-2, 0, "L'équation n'a aucune solution"],
+		var zero1 = board.create('point', [premierZero,0], {style:6, name: premierZero, fixed:true});
+		var zero2 = board.create('point', [deuxiemeZero,0], {style:6, name:deuxiemeZero, fixed:true});
+	} else if(discriminant < 0){
+		var bulleAucuneSolution= board.create('text', [-2, 0, "L'équation n'a aucune solution"],
 		{anchor: ord,strokeColor: "#fff", cssClass:'mytext'});    //  équation test: x²- 3x+4
- }
+	}
 }
 
 
 
 
 /* La fonction animerPente appelle la fonction animerVariationEnY qui, à son tour, fait appel à la fonction animerVariationEnX
- * Le tout pour animer la pente d'une équation linéaire.
- */
+* Le tout pour animer la pente d'une équation linéaire.
+*/
 
 function animerPente(){
 	return animerVariationEnY();
 }
 
 /* animerVariationEnY: l'animation prend comme point de départ l'ordonnée à l'origine
- *  et s'arrêtera au point formé par l'ordonnée+pente
- */
+*  et s'arrêtera au point formé par l'ordonnée+pente
+*/
 
 animerVariationEnY= function (){
-	   if(exp ==0){
-	   //board.options.text.useMathJax = true;
-	    p1= board.create('point', [0, (ordonnee+pente)], {style:6, name:'a', trace:true,color: 'green',strokeWidth:0.1});
-		p2= board.create('point', [1, (ordonnee+pente)], {style:6, name:'b', trace:true,color: 'green',strokeWidth:0.1});
-		p3= board.create('point', [0, (ordonnee+0)], {style:6, name:'o', trace:true,color: 'green',strokeWidth:0.1});
+	if(exp ==0){
+		//board.options.text.useMathJax = true;
+		p1= board.create('point', [0, (ordonnee+pente)], {style:6, name:'a', trace:true,color: 'green',strokeWidth:0.1,visible: false});
+		p2= board.create('point', [1, (ordonnee+pente)], {style:6, name:'b', trace:true,color: 'green',strokeWidth:0.1,visible: false});
+		p3= board.create('point', [0, (ordonnee+0)], {style:6, name:'o', trace:true,color: 'green',strokeWidth:0.1,visible: false});
 
 		// afficher la bulle d'information en utilisation la librairie MathJax pour afficher les fractions
 		var bullePente= board.create('text', [-2, 0, " La pente = " + pente],
 		{anchor: p3,strokeColor: "#fff", cssClass:'mytext'});
+		bullePente.on('move', function () {             //function pour cacher le bulles avec un event.
+			bullePente.setAttribute({visible:false});
+			ord.setAttribute({visible:false});
+		});
+		bullePente.on('down', function()  {             //function pour cacher le bulles avec un event.
+			ord.update();
+			bullePente.update();
+		});
 		//var bullePente= board.create('text',[-2, 0,'$\\\\dfrac {variation sur Y}{Variation sur X} $'],
 		//{anchor: p3,strokeColor: "#fff", cssClass:'mytext'});
 		// function() {0
-        //return '$$ \frac ab $$';}],
+		//return '$$ \frac ab $$';}],
 
-			return p3.moveTo([p3.X(), p1.Y()], 2500, {callback: animerVariationEnX});
-		}else if (exp != 0 ){
-			var bullePente= board.create('text', [-2, 0, "Équation quadratique: aucune pente"],
-		    {anchor: p3,strokeColor: "#fff", cssClass:'mytext'});
-		   }
-		};
+		return p3.moveTo([p3.X(), p1.Y()], 2500, {callback: animerVariationEnX, visible: false});
+	}else if (exp != 0 ){
+		var bullePente= board.create('text', [-2, 0, "Équation quadratique: aucune pente"],
+		{anchor: p3,strokeColor: "#fff", cssClass:'mytext'});
+	}
+};
 
 
 /* animerVariationEnX: Pour le moment le point de départ de la variation en X est 1
- * car dans l'équation 3x+2 par exemple, 3x <=> 3/1x. Il faudra tenir compte bien sûr de cas
- * lorsque la pente est fractionnaire.
- * l'animation s'arrêtera ici à la valeur de ordonnée+pente
- */
-
-
-
+* car dans l'équation 3x+2 par exemple, 3x <=> 3/1x. Il faudra tenir compte bien sûr de cas
+* lorsque la pente est fractionnaire.
+* l'animation s'arrêtera ici à la valeur de ordonnée+pente
+*/
 animerVariationEnX= function(){
-	    p1= board.create('point', [0, (ordonnee+pente)], {style:6, name:'a', trace:true,color: 'green',strokeWidth:0.1});
-		p2= board.create('point', [1, (ordonnee+pente)], {style:6, name:'b', trace:true,color: 'green',strokeWidth:0.1});
-		p3= board.create('point', [0, (ordonnee+0)], {style:6, name:'o', trace:true,color: 'green',strokeWidth:0.1});
-
-	return p1.moveTo([1, (ordonnee+pente)], 2500);
+	p1= board.create('point', [0, (ordonnee+pente)], {style:6, name:'a', trace:true,color: 'green',strokeWidth:0.1,visible: false});
+	p2= board.create('point', [1, (ordonnee+pente)], {style:6, name:'b', trace:true,color: 'green',strokeWidth:0.1,visible: false});
+	p3= board.create('point', [0, (ordonnee+0)], {style:6, name:'o', trace:true,color: 'green',strokeWidth:0.1,visible: false});
+  return p1.moveTo([1, (ordonnee+pente)], 2500);
 };
 
 
@@ -461,8 +467,8 @@ function affichageEquationQuadratiquePoint (p1,p2){
 	// affichage dynamique de l'équation quadratique dans le DOM
 	board.on('update', function(){
 		document.getElementById('equationGraph').innerHTML= 'y= '+ dynamiqueA()//(1)
-	+ 'x² +' + dynamiqueB() //(2)
-	+ 'x +' + dynamiqueC();	//
+		+ 'x² +' + dynamiqueB() //(2)
+		+ 'x +' + dynamiqueC();	//
 	});
 }
 // methode qui valide l'équation entre en 'input'
@@ -484,7 +490,7 @@ function validation(equation){
 function valLimit(equation){
 	var evaluation= equation.search(/[\*\/\(\)]+/);
 	if (evaluation>=0){
-	 alert("le logiciel ne prend pour le moment pas en compte les symbole '*' et '/'");
+		alert("le logiciel ne prend pour le moment pas en compte les symbole '*' et '/'");
 	}
 	return evaluation;
 }
@@ -517,14 +523,14 @@ function valRepetition(equation){
 // la courbe utilise la fonction canonique  y= a(x-h)²+k
 // le parametre 'a', correspondant à l'ouverture , est former grâce à l'equation a=(y2-y1/(x2-x1)²)
 function dynamiqueA(){
-var valA;
-if(typeEquation==0){
-	valA= ((point1.Y()-point2.Y())/(point1.X()-point2.X())).toFixed(2);
+	var valA;
+	if(typeEquation==0){
+		valA= ((point1.Y()-point2.Y())/(point1.X()-point2.X())).toFixed(2);
 	}
-else if(typeEquation==1){
-	valA=((point2.Y() - point1.Y()) / ( (point2.X() - point1.X()) * (point2.X() - point1.X()))).toFixed(2);
+	else if(typeEquation==1){
+		valA=((point2.Y() - point1.Y()) / ( (point2.X() - point1.X()) * (point2.X() - point1.X()))).toFixed(2);
 	}
-return valA;
+	return valA;
 }
 // return le parametre 'b' dynamiquement avec les changements de la courbe
 // // pour  ax+b (quand typeEquation==0):
@@ -536,14 +542,14 @@ return valA;
 // le parametre 'b' ce resout en isolant b de l'equation  h=-b/2a => b=-2ah =>b=-2*(y2-y1/(x2-x1)²)*h
 // Sachant que  h et k corresponde au coordonnée du sommet on peu remplacer respectivement h par x1 et k par y1
 function dynamiqueB(){
-var valB;
-if(typeEquation==0){
-	valB= (point1.Y()-(point1.X()*((point1.Y()-point2.Y())/(point1.X()-point2.X())))).toFixed(2);
+	var valB;
+	if(typeEquation==0){
+		valB= (point1.Y()-(point1.X()*((point1.Y()-point2.Y())/(point1.X()-point2.X())))).toFixed(2);
 	}
-else if(typeEquation==1){
-	valB=(-2*((point2.Y() - point1.Y()) / ( (point2.X() - point1.X()) * (point2.X() - point1.X()) ))*point1.X()).toFixed(2);
+	else if(typeEquation==1){
+		valB=(-2*((point2.Y() - point1.Y()) / ( (point2.X() - point1.X()) * (point2.X() - point1.X()) ))*point1.X()).toFixed(2);
 	}
-return valB;
+	return valB;
 }
 // return le parametre 'c' dynamiquement avec les changements de la courbe
 // peu etre utile pour extraire 'c' des fonctions  ax²+bx+c:
@@ -554,14 +560,14 @@ return valB;
 // Sachant que  h et k corresponde au coordonnée du sommet on peu remplacer respectivement h par x1 et k par y1
 
 function dynamiqueC(){
-var valC;
-if(typeEquation==1){
-	valC=((point1.Y()*4*((point2.Y() - point1.Y()) / ( (point2.X() - point1.X()) * (point2.X() - point1.X())))+((-2*((point2.Y() - point1.Y())
-	/ ( (point2.X() - point1.X()) * (point2.X() - point1.X()) ))*point1.X())*(-2*((point2.Y() - point1.Y()) )
-	/ ( (point2.X() - point1.X()) * (point2.X() - point1.X()) ))*point1.X())) / (4*((point2.Y() - point1.Y()) /
-	( (point2.X() - point1.X()) * (point2.X() - point1.X()) )))).toFixed(2);
+	var valC;
+	if(typeEquation==1){
+		valC=((point1.Y()*4*((point2.Y() - point1.Y()) / ( (point2.X() - point1.X()) * (point2.X() - point1.X())))+((-2*((point2.Y() - point1.Y())
+		/ ( (point2.X() - point1.X()) * (point2.X() - point1.X()) ))*point1.X())*(-2*((point2.Y() - point1.Y()) )
+		/ ( (point2.X() - point1.X()) * (point2.X() - point1.X()) ))*point1.X())) / (4*((point2.Y() - point1.Y()) /
+		( (point2.X() - point1.X()) * (point2.X() - point1.X()) )))).toFixed(2);
 	}
-return valC;
+	return valC;
 }
 function resetGraph(){
 	JXG.JSXGraph.freeBoard(board);
