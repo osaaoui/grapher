@@ -231,6 +231,15 @@ function afficherOrdonnee(){
 // Pour le moment on se contentera d'afficher l'équation de l'axe x= ...   à côté du point et sans bulle
 // une fois qu'on a trouvé un affichage approprié de la bulle, on remettra le code qui est commenté ci-bas
 function axeDeSymetrie(){
+	if (typeof pointBas != "undefined") { //si l'object existe on le detruis.
+		board.removeObject(pointBas);
+	}
+	if (typeof pointHaut != "undefined") {
+		board.removeObject(pointHaut);
+	}
+	if (typeof li2 != "undefined") {
+		board.removeObject(li2);
+	}
 	var x = -dynamiqueB()/(2*dynamiqueA());//-b/2a
 	var y = (4*dynamiqueA()*dynamiqueC()-(dynamiqueB()*dynamiqueB()))/(4*dynamiqueA()); //(4ac-b²)/4a
 	pointBas= board.create('point', [x, (y-6)], {style:6, name:"x= " + x.toFixed(2)});// point sommet
@@ -239,9 +248,15 @@ function axeDeSymetrie(){
 	{straightFirst:false, straightLast:false, strokeWidth:2, dash:2});
 
 	board.on('move', function () {             //function pour cacher le bulles avec un event.
-		li2.setAttribute({visible:false});
-		pointBas.setAttribute({visible:false});
-		ponintHaut.setAttribute({visible:false});
+		if (typeof pointBas != "undefined") { //si l'object existe on le detruis.
+			board.removeObject(pointBas);
+		}
+		if (typeof pointHaut != "undefined") {
+			board.removeObject(pointHaut);
+		}
+		if (typeof li2 != "undefined") {
+			board.removeObject(li2);
+		}
 	});
 
 	//var bulleAxeBas= board.create('text', [-2, 0, "x= " + x.toFixed(2) ],
