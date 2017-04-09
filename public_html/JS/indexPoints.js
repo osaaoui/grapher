@@ -251,8 +251,7 @@ function axeDeSymetrie(){
 }
 
 function afficherLesZeros(){
-
-	var ord = board.create('point', [0,(dynamiqueC())], {style:6, name:'', fixed:true});
+	var ordZer = board.create('point', [0,(dynamiqueC())], {style:6, name:'', fixed:true});
 	var discriminant= dynamiqueB()*dynamiqueB() - (4 * dynamiqueA() * dynamiqueC());
 	var valDiscriminant= Math.sqrt(discriminant);
 	if (discriminant >= 0){
@@ -262,9 +261,15 @@ function afficherLesZeros(){
 		var zero1 = board.create('point', [premierZero,0], {style:6, name: premierZero, fixed:true});
 		var zero2 = board.create('point', [deuxiemeZero,0], {style:6, name:deuxiemeZero, fixed:true});
 	} else if(discriminant < 0){
-		var bulleAucuneSolution= board.create('text', [-2, 0, "L'équation n'a aucune solution"],
-		{anchor: ord,strokeColor: "#fff", cssClass:'mytext'});    //  équation test: x²- 3x+4
+		var bulleAucuneSolution= board.create('text', [-2, 0, " L'équation n'a aucune solution "],
+		{anchor: ordZer,strokeColor: "#fff", cssClass:'mytext'});    //  équation test: x²- 3x+4
 	}
+	board.on('move', function () {             //function pour cacher le bulles avec un event.
+		ordZer.setAttribute({visible:false});
+		zero1.setAttribute({visible:false});
+		zero2.setAttribute({visible:false});
+	});
+
 }
 
 
