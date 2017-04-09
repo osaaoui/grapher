@@ -9,6 +9,7 @@ var exp;
 var a = 0.1;
 var b = 0;
 var c = 0;
+var enterPr = false;
 
 /*Fonction pour créer la courbe. Les attributs sont passés en tant que paramètres.
 *La courbe est dessinée à l'aide de la fonction de curseur.
@@ -29,7 +30,13 @@ function plot(func, atts){
 /*Function pour la soummision avec Enter*/
 $(document).keypress(function(e) {
     if(e.which == 13) {
+			 if (enterPr == false) {
+				enterPr = true;
+				document.getElementById('btnrnd').disabled = true;
         trace();
+			} else {
+        alert("S.V.P. utilisez Effacer après la première soumission.");
+			}
     }
 });
 
@@ -39,8 +46,8 @@ $(document).keypress(function(e) {
 *et il y a l'extraction des trois variables.
 */
 function trace(){
-	var equation = document.getElementById('input').value;//alert(equation);
-        equation=equation.replace(/,/g,'.'); // rempalce les "," par "."
+	var equation=document.getElementById('input').value;
+      equation=equation.replace(/,/g,'.'); // rempalce les "," par "."
 		var erreur=validation(equation);
 	if(erreur<0){
             pente= parametreA(tokenize(equation));
@@ -56,21 +63,20 @@ function trace(){
 	}
 }
 
-
 /*La fonction crée les curseurs et les cache, afin qu'ils puissent être utilisés avec des curseurs DOM.
  *Ensuite, une équation dynamique est créée et cachée.
 */
 function slidesGenerique (pente, ordonnee, exp) {
-	sliderA =board.create('slider',[[4,-3],[6,-3],[exp-4,exp,exp+4]],{name:'a', visible:false});
+	sliderA=board.create('slider',[[4,-3],[6,-3],[exp-4,exp,exp+4]],{name:'a', visible:false});
 	sliderA.visible(false);
-	sliderB =board.create('slider',[[4,-3.5],[6,-3.5], [pente-4,pente,pente+4]],{visible:false});
+	sliderB=board.create('slider',[[4,-3.5],[6,-3.5], [pente-4,pente,pente+4]],{visible:false});
 	sliderB.visible(false);
-	sliderC =board.create('slider',[[4,-4],[6,-4],[ordonnee -4, ordonnee,ordonnee +4]],{visible:false});
+	sliderC=board.create('slider',[[4,-4],[6,-4],[ordonnee -4, ordonnee,ordonnee +4]],{visible:false});
 	sliderC.visible(false);
 	function f(x) {
 		return sliderA.Value()*(x*x)+ sliderB.Value()*x + sliderC.Value();
 	}
-	var stringEquation= board.create('text', [4,-2,function(){return 'y= '+sliderC.Value().toFixed(2)
+	var stringEquation=board.create('text', [4,-2,function(){return 'y= '+sliderC.Value().toFixed(2)
 	+ 'x²' + (sliderA.Value()<0?'':'+')+ sliderA.Value().toFixed(2)
 	+ 'x'+(sliderB.Value()<0?'':'+')+sliderB.Value().toFixed(2)}], {fontSize:18, visible:false});
 	c=plot(f);
@@ -78,11 +84,11 @@ function slidesGenerique (pente, ordonnee, exp) {
 }
 
 function slidesCanonique (a, h,k){
-	sliderA =board.create('slider',[[4,-3],[6,-3],[a-4,a,a+4]],{name:'a', visible:true});
+	sliderA=board.create('slider',[[4,-3],[6,-3],[a-4,a,a+4]],{name:'a', visible:true});
 	sliderA.visible(true);
-	sliderB =board.create('slider',[[4,-3.5],[6,-3.5], [h -4, h,h+4]],{visible:true});
+	sliderB=board.create('slider',[[4,-3.5],[6,-3.5], [h -4, h,h+4]],{visible:true});
 	sliderB.visible(true);
-	sliderC =board.create('slider',[[4,-4],[6,-4],[k-4,k,k+4]],{visible:true});
+	sliderC=board.create('slider',[[4,-4],[6,-4],[k-4,k,k+4]],{visible:true});
 	sliderC.visible(true);
 	function f(x){
 		return sliderA.Value()*Math.pow(x-Number(sliderB.Value()),2)+sliderC.Value();
@@ -92,6 +98,7 @@ function slidesCanonique (a, h,k){
 
 		c=plot(f);
 }
+
 /*Fonction appelée au chargement de la page.
  *La fonction crée des curseurs HTML et affiche les bonnes valeurs dans ax, bx et c.
  *Les curseurs sont ancrés sur les curseurs JSXGraph.
@@ -134,6 +141,7 @@ function sliderFunction() {
 	});
 	$("#cSlideInput").val($("#sliderC1").slider("value"));
 };
+
 // ajustement le zoom du plan cartésien selon l'équation entré y=ax²+bx+c ou y=bx+c
 function zoomPlan(a,b,c){
 	var xPos=8;
@@ -166,7 +174,7 @@ function zoomPlan(a,b,c){
 		board.setBoundingBox([xNeg,yPos,xPos,yNeg]);
 
 	}
-}else if(b!=0){ // equation linaire
+} else if(b != 0) { // equation linaire
 	var zeroX=-c/b;
 	var zeroY=c;
 	if((zeroX > 8 ||zeroX<-5) && (zeroY>8 || zeroY<-5)){ //des points zero sont hors du plan
@@ -184,7 +192,7 @@ function zoomPlan(a,b,c){
 		}
 		board.setBoundingBox([xNeg,yPos,xPos,yNeg]);
 	}
-}else{ // equation plane
+} else { // equation plane
 	if(c>8){
 		yPos=c*1.5;
 		yNeg=-c*0.5;
@@ -194,7 +202,7 @@ function zoomPlan(a,b,c){
 		yNeg=c*1.5;
 	}
 	board.setBoundingBox([xNeg,yPos,xPos,yNeg]);
-}
+ }
 }
 
 function clearAll(board){
@@ -219,7 +227,6 @@ const tokenize= function (code) {
 	while ((m = tokenRegExp.exec(code)) !== null)
 	results.push(m[1]);
 	return results;
-
 };
 
 const exposant = function(code){
@@ -332,6 +339,7 @@ function valRepetition(equation){
 	}
 	return evaluation;
 }
+
 function changementCanonique(){
 		//effacerGenerique();
 		JXG.JSXGraph.freeBoard(board);
@@ -340,6 +348,68 @@ function changementCanonique(){
 		k=((4*sliderA.Value()*sliderC.Value())-(sliderB.Value()*sliderB.Value()))/(4*sliderA.Value());
 		slidesCanonique (sliderA.Value(), h,k);
 	}
+
+/*Function pour animer la pente avec les sliders.
+ */
+	function animerPente(){
+    if (typeof p1 != 'undefined') {
+			board.removeObject(p1);
+		}
+		if (typeof p2 != 'undefined') {
+			board.removeObject(p2);
+		}
+		if (typeof p3 != 'undefined') {
+			board.removeObject(p3);
+		}
+		if (typeof anim1 != 'undefined') {
+			board.removeObject(anim1);
+		}
+		if (typeof anim2 != 'undefined') {
+			board.removeObject(anim2);
+		}
+		if (typeof bullePente != 'undefined') {
+			board.removeObject(bullePente);
+		}
+
+   if(sliderA.Value() == 0){
+		 p1=board.create('point', [0, (sliderB.Value()+sliderC.Value())], {style:6, name:'a', trace:true,color: 'green',strokeWidth:0.1,visible: false});
+		 p2=board.create('point', [1, (sliderB.Value()+sliderC.Value())], {style:6, name:'b', trace:true,color: 'green',strokeWidth:0.1,visible: false});
+		 p3=board.create('point', [0, (sliderC.Value()+0)], {style:6, name:'o', trace:true,color: 'green',strokeWidth:0.1,visible: false});
+
+		 // afficher la bulle d'information en utilisation la librairie MathJax pour afficher les fractions
+		 var bullePente= board.create('text', [-2, 0, " La pente = " + pente],
+		 {anchor: p3,strokeColor: "#fff", cssClass:'mytext'});
+
+	   anim1=p3.moveTo([p3.X(), p1.Y()], 1500);
+	   anim2=p1.moveTo([1, (sliderB.Value()+sliderC.Value())], 1500);
+
+ } else {
+ 	  var bullePente= board.create('text', [-2, 0, "&nbsp&nbspÉquation quadratique: aucune pente! Le curseur A doit être à zéro.&nbsp&nbsp"],
+	  {anchor: p3,strokeColor: "#fff", cssClass:'mytext'});
+ }
+
+ board.on('move', function () {             //function pour detruire les objects on hover sur le graph
+		if (typeof p1 != 'undefined') {
+			board.removeObject(p1);
+		}
+		if (typeof p2 != 'undefined') {
+			board.removeObject(p2);
+		}
+		if (typeof p3 != 'undefined') {
+			board.removeObject(p3);
+		}
+		if (typeof anim1 != 'undefined') {
+			board.removeObject(anim1);
+		}
+		if (typeof anim2 != 'undefined') {
+			board.removeObject(anim2);
+		}
+		if (typeof bullePente != 'undefined') {
+			board.removeObject(bullePente);
+		}
+	});
+}
+
 /*La function recharge la page avec location.reload() aprés avoir mis la table à 0.*/
 function erase () {
 	$('#input').val('');

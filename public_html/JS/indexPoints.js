@@ -4,6 +4,8 @@ var pente;
 var point1, point2, p3, point3;
 var exp;
 var typeEquation;
+var enterPr = false;
+
 function addCurve(board, func, atts){
 	var f= board.create('functiongraph', [func], atts,{fixed: false});
 	return f;
@@ -12,7 +14,13 @@ function addCurve(board, func, atts){
 /*Function pour la soummision avec Enter*/
 $(document).keypress(function(e) {
 	if(e.which == 13) {
-		traceAvecP();
+		 if (enterPr == false) {
+			enterPr = true;
+			document.getElementById('btnrnd').disabled = true;
+			traceAvecP();
+		} else {
+			alert("S.V.P. utilisez Effacer après la première soumission.");
+		}
 	}
 });
 
@@ -247,7 +255,7 @@ function axeDeSymetrie(){
 	var li2 = board.create('line',[pointBas,pointHaut],
 	{straightFirst:false, straightLast:false, strokeWidth:2, dash:2});
 
-	board.on('move', function () {             //function pour cacher le bulles avec un event.
+	board.on('move', function () {
 		if (typeof pointBas != "undefined") { //si l'object existe on le detruis.
 			board.removeObject(pointBas);
 		}
@@ -305,9 +313,6 @@ function afficherLesZeros(){
 	});
 }
 
-
-
-
 /* La fonction animerPente appelle la fonction animerVariationEnY qui, à son tour, fait appel à la fonction animerVariationEnX
 * Le tout pour animer la pente d'une équation linéaire.
 */
@@ -350,7 +355,6 @@ animerVariationEnY= function (){
 	}
 };
 
-
 /* animerVariationEnX: Pour le moment le point de départ de la variation en X est 1
 * car dans l'équation 3x+2 par exemple, 3x <=> 3/1x. Il faudra tenir compte bien sûr de cas
 * lorsque la pente est fractionnaire.
@@ -363,14 +367,11 @@ animerVariationEnX= function(){
   return p1.moveTo([1, (ordonnee+pente)], 2500);
 };
 
-
-
 function clearAll(board){
 	JXG.JSXGraph.freeBoard(board);
 	board = JXG.JSXGraph.initBoard('box', {boundingbox:[-5,8,8,-5], axis:true, showCopyright: false});
 	return board;
 }
-
 
 /* La fonction tokenize retourne un tableau de chaines de caractères
 * elle prend en paramètre une chaine String (l'équation à traiter)
@@ -378,8 +379,6 @@ function clearAll(board){
 * pour éviter des effets de bord (side effects).
 * On fera appel à la composition de fonctions pour retourner les valeurs
 */
-
-
 const tokenize= function (code) {
 	var results = [];
 	var text = String.fromCharCode(178);
@@ -390,7 +389,6 @@ const tokenize= function (code) {
 	while ((m = tokenRegExp.exec(code)) !== null)
 	results.push(m[1]);
 	return results;
-
 };
 
 const exposant = function(code){
@@ -456,9 +454,7 @@ const parametreB = function(code){
 		if(tok[i].match(/^-?[^x\+]+$/)){
 			//alert("La pente "+ tok[i].match(/^-?[^x\+]+$/));
 			ordonnee += Number(tok[i].match(/^-?[^x\+]+$/));
-
 		}
-
 	}
 	return ordonnee;
 };
@@ -600,6 +596,7 @@ function dynamiqueC(){
 	}
 	return valC;
 }
+
 function resetGraph(){
 	JXG.JSXGraph.freeBoard(board);
 	board = JXG.JSXGraph.initBoard('box', {boundingbox:[-5,8,8,-5], axis:true, zoomfactor: 0.8, showCopyright: false});
