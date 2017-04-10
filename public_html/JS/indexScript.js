@@ -464,6 +464,72 @@ function axeDeSymetrie(){
 	});
 }
 
+function afficherLesZeros(){
+	if (typeof ordZer != "undefined") { //si l'object existe on le detruis.
+		board.removeObject(ordZer);
+	}
+	if (typeof zero1 != "undefined") {
+		board.removeObject(zero1);
+	}
+	if (typeof zero2 != "undefined") {
+		board.removeObject(zero2);
+	}
+
+	ordZer = board.create('point', [0,(sliderC.Value())], {style:6, name:'', fixed:true});
+	var discriminant= sliderB.Value()*sliderB.Value() - (4 * sliderA.Value() * sliderC.Value());
+	var valDiscriminant= Math.sqrt(discriminant);
+	if (discriminant >= 0){
+		var premierZero= ((- sliderB.Value() + valDiscriminant)/(2*sliderA.Value())).toFixed(2);
+		var deuxiemeZero= ((- sliderB.Value() - valDiscriminant)/(2*sliderA.Value())).toFixed(2);
+
+		zero1 = board.create('point', [premierZero,0], {style:6, name: premierZero, fixed:true});
+		zero2 = board.create('point', [deuxiemeZero,0], {style:6, name:deuxiemeZero, fixed:true});
+	} else if(discriminant < 0){
+		var bulleAucuneSolution= board.create('text', [-2, 0, " L'équation n'a aucune solution "],
+		{anchor: ordZer,strokeColor: "#fff", cssClass:'mytext'});    //  équation test: x²- 3x+4
+	}
+	
+	/* injecter les valeurs des paramètres a, b et c dans la formule quadratique pour
+	 * qu'ils s'affichent de façon dynamique
+	 
+	 
+	board.on('update', function(){
+		document.getElementById('paraB').innerHTML= dynamiqueB();
+	});
+	board.on('update', function(){
+		document.getElementById('paraB2').innerHTML= dynamiqueB();
+	});
+	board.on('update', function(){
+		document.getElementById('paraA').innerHTML= "(" + dynamiqueA()+ ")";
+		});
+	board.on('update', function(){
+		document.getElementById('paraC').innerHTML= "(" + dynamiqueC()+ ")";
+	});
+	board.on('update', function(){
+		document.getElementById('paraA2').innerHTML= "(" + dynamiqueA()+ ")";
+	});
+	
+	board.on('update', function(){
+		document.getElementById('lesZeros').innerHTML= "Les zéros sont: " + premierZero + " et " + deuxiemeZero;
+	});
+	*/
+	
+	
+	board.on('move', function () {             //function pour cacher le bulles avec un event.
+		if (typeof ordZer != "undefined") { //si l'object existe on le detruis.
+			ordZer.setAttribute({visible:false});
+		}
+		if (typeof zero1 != "undefined") {
+			zero1.setAttribute({visible:false});
+		}
+		if (typeof zero2 != "undefined") {
+			zero2.setAttribute({visible:false});
+		}
+		if (typeof bulleAucuneSolution != "undefined") {
+			bulleAucuneSolution.setAttribute({visible:false});
+		}
+	});
+}
 
 function resetGraph(){
 	JXG.JSXGraph.freeBoard(board);
