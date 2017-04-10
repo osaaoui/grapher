@@ -410,6 +410,27 @@ function changementCanonique(){
 	});
 }
 
+/*
+ * fonction qui affiche dans une bulle mobile l'ordonnée à l'origine de l'équation
+ * @param : aucun
+ * @return: aucun
+ */
+
+function afficherOrdonnee(){
+  if (typeof ord != "undefined") { //si l'object existe on le detruis.
+		board.removeObject(ord);
+		board.removeObject(bulleOrdonnee);
+	}
+ 	ord = board.create('point', [0,sliderC.Value()], {style:6, fixed:true});
+    bulleOrdonnee= board.create('text', [-2, 0, "ordonnee= " + sliderC.Value()],
+	{anchor: ord,strokeColor: "#fff", cssClass:'mytext', visible:true});
+ }
+	bulleOrdonnee.on('move', function () {          //function pour cacher le bulles avec un event.
+		ord.setAttribute({visible:false});
+		bulleOrdonnee.setAttribute({visible:false});
+	});
+
+
 function resetGraph(){
 	JXG.JSXGraph.freeBoard(board);
 	board = JXG.JSXGraph.initBoard('box', {boundingbox:[-5,8,8,-5], axis:true, zoomfactor: 0.8, showCopyright: false});
