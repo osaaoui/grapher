@@ -12,3 +12,9 @@ function textAxe(){
 	document.getElementById('textAxeSym').style.display = 'block';
     
 }
+
+function textZeros(){
+	document.getElementById('textLesZeros').style.display = 'block';
+	document.getElementById('textAxeSym').style.display = 'none';
+    
+}

@@ -67,7 +67,7 @@
 				<button type="button" class="btn btn-pente btn-lg" id="btnresetter" onClick="resetGraph()" disabled="true">Reset</button>
 				<button type="button" class="btn btn-pente btn-lg" id="btnAfficOrd" onClick="textOrd(); afficherOrdonnee();" disabled="true">Ordonnee</button>
 				<button type="button" class="btn btn-pente btn-lg" id="btnAxeStm" onClick=" textAxe(); axeDeSymetrie()" disabled="true">Axe symétrie </button>
-				<button type="button" class="btn btn-pente btn-lg" id="btnAfficZero" onClick="afficherLesZeros()" disabled="true">Les zéros </button>
+				<button type="button" class="btn btn-pente btn-lg" id="btnAfficZero" onClick=" textZeros(); afficherLesZeros()" disabled="true">Les zéros </button>
 			</div>
 		</div>
 		<div class="container col-lg-7 col-lg-pull-1" id="containerJxBox">
@@ -106,7 +106,32 @@
 					<p "css-typing"> verticale qui passe par le sommet de cette parabole </p>
 					<p id="axeDeSymetrie" class= "css-typing"> x = <span class='numer' id="numerateur">-b</span> <span class='denom' id="denominateur">2a</span> </p>
 					</div>
+					
+				<div id="textLesZeros">	
+					<p "css-typing"> Les zéros représentent les points de rencontre de la parabole avec l'axe des x </p>
+					<p "css-typing"> C'est-à-dire les valeurs de la variable x lorsque y = 0</p>
+					<p "css-typing"> Pour calculer les zéros: </p>
+					<p "css-typing">  Il faut résoudre l'équation ax&#178+ bx +c= 0</p>
+					<p "css-typing"> soit par la méthode de factorisation </p>
+					<p "css-typing"> soit par la formule quadratique: </p>
+				<table style="font-family:verdana;">
+  					<tr>
+    				<td><span id="paraB">&minus;b &plusmn;</span> 
+    			 	&radic;<span style="text-decoration:overline"><span id="paraB2">&nbsp;
+   				 	b</span><span style="font-size: 10px;vertical-align:+25%;">2</span> &minus; 
+    				4<span id="paraA">a</span><span id="paraC">c&nbsp;</span></span></td>
+  					</tr>
+ 					 <tr>
+   					 <td style="text-align:center;">
+    				<span style="text-decoration:overline;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+    				2<span id="paraA2">a</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>
+   				 </td>
+ 				 </tr>
+				</table>
+				<br>
 				
+				<p id="lesZeros" "css-typing">Les zéros sont: </p>
+			</div>	
 			</div>
 		</div>
 		<br>
