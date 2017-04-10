@@ -330,6 +330,9 @@ function afficherLesZeros(){
 		{anchor: ordZer,strokeColor: "#fff", cssClass:'mytext'});    //  équation test: x²- 3x+4
 	}
 	
+	/* injecter les valeurs des paramètres a, b et c dans la formule quadratique pour
+	 * qu'ils s'affichent de façon dynamique
+	 */
 	
 	board.on('update', function(){
 		document.getElementById('paraB').innerHTML= dynamiqueB();
