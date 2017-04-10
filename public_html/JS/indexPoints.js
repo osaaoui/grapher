@@ -382,14 +382,15 @@ function animerPente(){
 */
 
 animerVariationEnY= function (){
-	if(exp ==0){
+	if(typeEquation == 0){
 		//board.options.text.useMathJax = true;
-		p1= board.create('point', [0, (ordonnee+pente)], {style:6, name:'a', trace:true,color: 'green',strokeWidth:0.1,visible: false});
-		p2= board.create('point', [1, (ordonnee+pente)], {style:6, name:'b', trace:true,color: 'green',strokeWidth:0.1,visible: false});
-		p3= board.create('point', [0, (ordonnee+0)], {style:6, name:'o', trace:true,color: 'green',strokeWidth:0.1,visible: false});
+		//alert(Number(dynamiqueA()) + Number(dynamiqueB()));
+		p1= board.create('point', [0, (Number(dynamiqueB())+ Number(dynamiqueA()))], {style:6, name:'a', trace:true,color: 'green',strokeWidth:0.1,visible: false});
+		p2= board.create('point', [1, (Number(dynamiqueB())+Number(dynamiqueA()))], {style:6, name:'b', trace:true,color: 'green',strokeWidth:0.1,visible: false});
+		p3= board.create('point', [0, (Number(dynamiqueB())+0)], {style:6, name:'o', trace:true,color: 'green',strokeWidth:0.1,visible: false});
 
 		// afficher la bulle d'information en utilisation la librairie MathJax pour afficher les fractions
-		var bullePente= board.create('text', [-2, 0, " La pente = " + pente],
+		var bullePente= board.create('text', [-2, 0, " La pente = " + dynamiqueA()],
 		{anchor: p3,strokeColor: "#fff", cssClass:'mytext'});
 		bullePente.on('move', function () {             //function pour cacher le bulles avec un event.
 			bullePente.setAttribute({visible:false});
@@ -405,7 +406,7 @@ animerVariationEnY= function (){
 		//return '$$ \frac ab $$';}],
 
 		return p3.moveTo([p3.X(), p1.Y()], 2500, {callback: animerVariationEnX, visible: false});
-	}else if (exp != 0 ){
+	}else if (typeEquation == 1 ){
 		var bullePente= board.create('text', [-2, 0, "Équation quadratique: aucune pente"],
 		{anchor: p3,strokeColor: "#fff", cssClass:'mytext'});
 	}
@@ -417,10 +418,10 @@ animerVariationEnY= function (){
 * l'animation s'arrêtera ici à la valeur de ordonnée+pente
 */
 animerVariationEnX= function(){
-	p1= board.create('point', [0, (ordonnee+pente)], {style:6, name:'a', trace:true,color: 'green',strokeWidth:0.1,visible: false});
-	p2= board.create('point', [1, (ordonnee+pente)], {style:6, name:'b', trace:true,color: 'green',strokeWidth:0.1,visible: false});
-	p3= board.create('point', [0, (ordonnee+0)], {style:6, name:'o', trace:true,color: 'green',strokeWidth:0.1,visible: false});
-  return p1.moveTo([1, (ordonnee+pente)], 2500);
+	p1= board.create('point', [0, (Number(dynamiqueB())+ Number(dynamiqueA()))], {style:6, name:'a', trace:true,color: 'green',strokeWidth:0.1,visible: false});
+	p2= board.create('point', [1, (Number(dynamiqueB())+ Number(dynamiqueA()))], {style:6, name:'b', trace:true,color: 'green',strokeWidth:0.1,visible: false});
+	p3= board.create('point', [0, (Number(dynamiqueB())+0)], {style:6, name:'o', trace:true,color: 'green',strokeWidth:0.1,visible: false});
+  return p1.moveTo([1, (Number(dynamiqueB())+ Number(dynamiqueA()))], 2500);
 };
 
 function clearAll(board){
