@@ -410,6 +410,12 @@ function changementCanonique(){
 	});
 }
 
+function resetGraph(){
+	JXG.JSXGraph.freeBoard(board);
+	board = JXG.JSXGraph.initBoard('box', {boundingbox:[-5,8,8,-5], axis:true, zoomfactor: 0.8, showCopyright: false});
+	trace();
+}
+
 /*La function recharge la page avec location.reload() aprés avoir mis la table à 0.*/
 function erase () {
 	$('#input').val('');
