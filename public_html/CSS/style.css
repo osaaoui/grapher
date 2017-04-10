@@ -391,10 +391,8 @@ fieldset[disabled] .btn-pente.active {
   color: #555;
   font-family: "Courier";
   font-size: 16px;
-  white-space: nowrap;
   overflow: hidden;
   padding-left: 5px;
-
 }
 
 /* code pour afficher les fractions*/
