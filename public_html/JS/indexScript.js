@@ -429,6 +429,40 @@ function afficherOrdonnee(){
 		ord.setAttribute({visible:false});
 		bulleOrdonnee.setAttribute({visible:false});
 	});
+	
+function axeDeSymetrie(){
+	if (typeof pointBas != "undefined") { //si l'object existe on le detruis.
+		board.removeObject(pointBas);
+	}
+	if (typeof pointHaut != "undefined") {
+		board.removeObject(pointHaut);
+	}
+	if (typeof li2 != "undefined") {
+		board.removeObject(li2);
+	}
+	var x = -sliderB.Value()/(2*sliderA.Value());//-b/2a
+	var y = (4*sliderA.Value()*sliderC.Value()-(sliderB.Value()*sliderB.Value()))/(4*sliderA.Value()); //(4ac-b²)/4a
+	pointBas= board.create('point', [x, (y-6)], {style:6, name:"x= " + x.toFixed(2)});// point sommet
+	pointHaut= board.create('point', [x, (y +10)], {style:6, name:"x= " + x.toFixed(2)});// point sommet
+	var li2 = board.create('line',[pointBas,pointHaut],
+	{straightFirst:false, straightLast:false, strokeWidth:2, dash:2});
+	
+	//board.on('update', function(){
+	//	document.getElementById('axeDeSymetrie').innerHTML= "x= "+x.toFixed(2);
+	//});
+
+	board.on('move', function () {
+		if (typeof pointBas != "undefined") { //si l'object existe on le detruis.
+			board.removeObject(pointBas);
+		}
+		if (typeof pointHaut != "undefined") {
+			board.removeObject(pointHaut);
+		}
+		if (typeof li2 != "undefined") {
+			board.removeObject(li2);
+		}
+	});
+}
 
 
 function resetGraph(){
