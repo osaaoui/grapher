@@ -31,6 +31,7 @@ function traceAvecP(){
 	var erreur=validation(equation);
 	document.getElementById('btnresetter').disabled=false;//activation du bouton Reset
 	if(erreur<0){
+                document.getElementById('btnrnd').disabled = true; // on scelle le bouton de soummission
 		pente= parametreA(tokenize(equation));
 		ordonnee= parametreB(tokenize(equation));
 		exp = exposant(tokenize(equation));
@@ -665,6 +666,7 @@ function resetGraph(){
 
 /*La function recharge la page avec location.reload() aprés avoir mis la table a 0*/
 function erase () {
+        document.getElementById('btnrnd').disabled = false;
 	$('#input').val('');
 	JXG.JSXGraph.freeBoard(board);
 	board = JXG.JSXGraph.initBoard('box', {boundingbox:[-5,8,8,-5], axis:true, zoomfactor: 0.8, showCopyright: false});
