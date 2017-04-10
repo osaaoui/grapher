@@ -8,3 +8,7 @@ function textOrd(){
     document.getElementById('textPentePeda').style.display = 'none';
     
 }
+function textAxe(){
+	document.getElementById('textAxeSym').style.display = 'block';
+    
+}

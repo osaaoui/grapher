@@ -66,7 +66,7 @@
 				<button type="button" class="btn btn-pente btn-lg" id="btnpente" onClick="animerPente(); textPente(); this.disabled=true;" disabled="true">Pente</button>
 				<button type="button" class="btn btn-pente btn-lg" id="btnresetter" onClick="resetGraph()" disabled="true">Reset</button>
 				<button type="button" class="btn btn-pente btn-lg" id="btnAfficOrd" onClick="textOrd(); afficherOrdonnee();" disabled="true">Ordonnee</button>
-				<button type="button" class="btn btn-pente btn-lg" id="btnAxeStm" onClick="axeDeSymetrie()" disabled="true">Axe symétrie </button>
+				<button type="button" class="btn btn-pente btn-lg" id="btnAxeStm" onClick=" textAxe(); axeDeSymetrie()" disabled="true">Axe symétrie </button>
 				<button type="button" class="btn btn-pente btn-lg" id="btnAfficZero" onClick="afficherLesZeros()" disabled="true">Les zéros </button>
 			</div>
 		</div>
@@ -98,7 +98,15 @@
 					<p class= "css-typing"> 2)Équation quadratique:</p>
 					<p id="ordonneeEquationQuadratique" class= "css-typing"> y = ax + b + c</p>
 					<p id="ordonneeFormuleQuadratique" class= "css-typing"> ordonnée = c </p>
-				</div>
+					</div>
+					
+					<!-- affichage du texte de l'axe de symétrie -->
+					<div id="textAxeSym">
+					<p "css-typing"> L'axe de symétrie d'une parabole est la droite </p>
+					<p "css-typing"> verticale qui passe par le sommet de cette parabole </p>
+					<p id="axeDeSymetrie" class= "css-typing"> x = <span class='numer' id="numerateur">-b</span> <span class='denom' id="denominateur">2a</span> </p>
+					</div>
+				
 			</div>
 		</div>
 		<br>

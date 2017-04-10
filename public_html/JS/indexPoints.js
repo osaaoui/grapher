@@ -277,6 +277,10 @@ function axeDeSymetrie(){
 	pointHaut= board.create('point', [x, (y +10)], {style:6, name:"x= " + x.toFixed(2)});// point sommet
 	var li2 = board.create('line',[pointBas,pointHaut],
 	{straightFirst:false, straightLast:false, strokeWidth:2, dash:2});
+	
+	board.on('update', function(){
+		document.getElementById('axeDeSymetrie').innerHTML= "x= "+x.toFixed(2);
+	});
 
 	board.on('move', function () {
 		if (typeof pointBas != "undefined") { //si l'object existe on le detruis.
@@ -289,6 +293,11 @@ function axeDeSymetrie(){
 			board.removeObject(li2);
 		}
 	});
+	
+	
+		
+	
+	
 
 	//var bulleAxeBas= board.create('text', [-2, 0, "x= " + x.toFixed(2) ],
 	//{anchor: pointBas,strokeColor: "#fff", cssClass:'mytext'});
