@@ -5,5 +5,6 @@ function textPente(){
 
 function textOrd(){
   document.getElementById('textOrdoPeda').style.display = 'block';
-    document.getElementById('textPentePeda').style.display = 'none'
+    document.getElementById('textPentePeda').style.display = 'none';
+    
 }

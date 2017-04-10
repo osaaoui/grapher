@@ -48,6 +48,18 @@ function traceAvecP(){
 			document.getElementById('btnAfficZero').disabled=false;//activation du bouton Les zéros
 			pointQuadratique()
 		}
+		
+		// affichage dynamique de l'ordonnée dans la bulle externe
+		if (typeEquation==1){
+		board.on('update', function(){
+		document.getElementById('ordonneeEquationQuadratique').innerHTML= "y = "+dynamiqueA()
+		+ 'x + ' + dynamiqueB()+ dynamiqueC();
+	});
+
+	board.on('update', function(){
+		document.getElementById('ordonneeFormuleQuadratique').innerHTML= "Ordonnée = "+dynamiqueC();
+	});
+	}
 	}else{ // affichage des erreurs
 		var input=document.getElementById('input');
 		input.selectionStart = erreur;
@@ -100,6 +112,7 @@ function pointLineaire(){
 
 	// Affichage dynamique du dénominateur de la formule de calcul de la pente à partir de deux points
 	//si le point 2 est négatif, le mettre entre parenthèses: ex. 5 - (-2)
+	
 	board.on('update', function(){
 		if(point2.X() < 0){
 			document.getElementById('denominateur').innerHTML= point1.X().toFixed()+"-(" + point2.X().toFixed(2)+")";
@@ -109,6 +122,7 @@ function pointLineaire(){
 	});
 
 	// CALCUL ET AFFICHAGE DYNAMIQUE DE L'ORDONNÉE À L'ORIGINE
+	if(typeEquation==0){
 	board.on('update', function(){
 		document.getElementById('ordonneeEquation').innerHTML= "y = "+dynamiqueA()
 		+ 'x + ' + dynamiqueB();
@@ -117,6 +131,8 @@ function pointLineaire(){
 	board.on('update', function(){
 		document.getElementById('ordonneeFormule').innerHTML= "Ordonnée = "+dynamiqueB();
 	});
+	}
+	
 
 
 	/*
