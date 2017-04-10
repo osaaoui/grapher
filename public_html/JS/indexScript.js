@@ -377,7 +377,7 @@ function changementCanonique(){
 		 p3=board.create('point', [0, (sliderC.Value()+0)], {style:6, name:'o', trace:true,color: 'green',strokeWidth:0.1,visible: false});
 
 		 // afficher la bulle d'information en utilisation la librairie MathJax pour afficher les fractions
-		 var bullePente= board.create('text', [-2, 0, " La pente = " + pente],
+		 var bullePente= board.create('text', [-2, 0, " La pente = " + sliderB.Value()],
 		 {anchor: p3,strokeColor: "#fff", cssClass:'mytext'});
 
 	   anim1=p3.moveTo([p3.X(), p1.Y()], 1500);
