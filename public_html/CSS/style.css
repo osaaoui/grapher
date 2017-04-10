@@ -104,6 +104,7 @@ background-color: #91adc9!important;
   padding: 10px;
 }
 
+/*text boite pedagogique*/
 #textPentePeda {
   display: none;
 }
@@ -112,6 +113,13 @@ background-color: #91adc9!important;
   display: none;
 }
 
+#textAxeSym {
+  display: none;
+}
+
+#textLesZeros {
+  display: none;
+}
 
 #box {
 width: 800px;
@@ -386,7 +394,7 @@ fieldset[disabled] .btn-pente.active {
   white-space: nowrap;
   overflow: hidden;
   padding-left: 5px;
-  
+
 }
 
 /* code pour afficher les fractions*/
