@@ -4,6 +4,12 @@ body {
    background-color: #c5cdd3!important;
    padding-top: 10px;
  }
+ 
+#apropos {
+  background-color: whitesmoke!important;
+  color: slateGray!important;
+ padding-top: 10px;
+}
 
 /*body page index*/
 #debut {
@@ -97,6 +103,17 @@ background-color: #91adc9!important;
   margin-bottom: -100px;
   border-left: 3px solid #black!important;
   border-right: 3px solid #black!important;
+}
+
+.aproposText{
+  padding: 10px;
+  background-color: slateGray!important;
+  color: whitesmoke!important;
+}
+
+
+.lien {
+  color: whitesmoke!important;
 }
 
 /*css jxbox*/
