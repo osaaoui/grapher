@@ -104,6 +104,11 @@ background-color: #91adc9!important;
   padding: 10px;
 }
 
+#containerJxBoxP {
+  padding: 10px;
+  left: 20px;
+}
+
 /*text boite pedagogique*/
 #textPentePeda {
   display: none;
@@ -128,7 +133,7 @@ height: 600px;
 
 .jxbox2 {
   position: relative;
-  left: 120px;
+  left: 50px;
       overflow: scroll;
       background-color: whitesmoke!important;
       border-style: solid;
@@ -141,7 +146,8 @@ height: 600px;
 
 /*espace pedagogique dans la page graphPoints*/
 #textPourJxBox {
-  padding: 10px;
+  left: 14px;
+  padding-top: 10px;
 }
 
 #textPeda {
