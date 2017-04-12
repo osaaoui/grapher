@@ -49,11 +49,17 @@ function trace(){
 	var equation=document.getElementById('input').value;
       equation=equation.replace(/,/g,'.'); // rempalce les "," par "."
 		var erreur=validation(equation);
+                document.getElementById('btnresetter').disabled=false;//activation du bouton Reset
 	if(erreur<0){
             pente= parametreA(tokenize(equation));
             ordonnee= parametreB(tokenize(equation));
             exp = exposant(tokenize(equation));
             zoomPlan(exp,pente ,ordonnee );
+            document.getElementById('btnAfficOrd').disabled=false;//activation du bouton Ordonnee
+            document.getElementById('btnAxeStm').disabled=false;//activation du bouton  Axe symétrie
+            document.getElementById('btnAfficZero').disabled=false;//activation du bouton Les zéros
+            document.getElementById('btnpente').disabled=false;//activation du bouton Pente
+            document.getElementById('canonique').disabled=false;//activation du bouton canonique
             slidesGenerique (pente, ordonnee, exp);
 	}else{
 		var input=document.getElementById('input');
@@ -314,7 +320,7 @@ function validation(equation){
 function valLimit(equation){
 	var evaluation= equation.search(/[\*\/\(\)]+/);
 	if (evaluation>=0){
-	 alert("le logiciel ne prend pour le moment pas en compte les symbole '*' et '/'");
+	 alert("le logiciel ne prend pas en compte les symbole '*' et '/'");
 	}
 	return evaluation;
 }
@@ -539,6 +545,13 @@ function resetGraph(){
 
 /*La function recharge la page avec location.reload() aprés avoir mis la table à 0.*/
 function erase () {
+    document.getElementById('btnrnd').disabled = false;
+		document.getElementById('btnresetter').disabled=true;//activation du bouton Reset
+		document.getElementById('btnpente').disabled=true;	//activation du bouton Pente
+		document.getElementById('btnAfficOrd').disabled=true;//activation du bouton Ordonnee
+		document.getElementById('btnAxeStm').disabled=true;//activation du bouton  Axe symétrie
+		document.getElementById('btnAfficZero').disabled=true;
+		document.getElementById('canonique').disabled=true;
 	$('#input').val('');
 	JXG.JSXGraph.freeBoard(board);
 	board = JXG.JSXGraph.initBoard('box', {boundingbox:[-5,8,8,-5], axis:true, zoomfactor: 0.8, showCopyright: false});
