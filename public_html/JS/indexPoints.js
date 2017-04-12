@@ -681,6 +681,11 @@ function resetGraph(){
 /*La function recharge la page avec location.reload() aprés avoir mis la table a 0*/
 function erase () {
         document.getElementById('btnrnd').disabled = false;
+        document.getElementById('btnresetter').disabled=true;//deactivation du bouton Reset
+		document.getElementById('btnpente').disabled=true;	//deactivation du bouton Pente
+		document.getElementById('btnAfficOrd').disabled=true;//deactivation du bouton Ordonnee
+		document.getElementById('btnAxeStm').disabled=true;//deactivation du bouton  Axe symétrie
+		document.getElementById('btnAfficZero').disabled=true;//deactivation du bouton zero
 	$('#input').val('');
 	JXG.JSXGraph.freeBoard(board);
 	board = JXG.JSXGraph.initBoard('box', {boundingbox:[-5,8,8,-5], axis:true, zoomfactor: 0.8, showCopyright: false});
