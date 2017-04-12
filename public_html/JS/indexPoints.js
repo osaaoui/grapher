@@ -592,7 +592,7 @@ function validation(equation){
 function valLimit(equation){
 	var evaluation= equation.search(/[\*\/\(\)]+/);
 	if (evaluation>=0){
-		alert("le logiciel ne prend pour le moment pas en compte les symbole '*' et '/'");
+		alert("le logiciel ne prend pas en compte les symbole '*' et '/'");
 	}
 	return evaluation;
 }
@@ -613,7 +613,7 @@ function valCaractere(equation){
 function valRepetition(equation){
 	var evaluation = equation.search(/xx|x²x²|x[0-9]+|x²[0-9]+|[0-9]+\.[0-9]+\.|[^0-9]\.[0-9]+|^\./);
 	if(evaluation>=0){
-		alert("nous avons detecté une anomalie dans l'équation il y a repetition ");
+		alert("nous avons detecté une anomalie dans l'équation");
 	}
 	return evaluation;
 }
