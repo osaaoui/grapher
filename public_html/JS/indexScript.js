@@ -335,7 +335,7 @@ function valCaractere(equation){
 function valRepetition(equation){
 	var evaluation = equation.search(/xx|x²x²|x[0-9]+|x²[0-9]+|[0-9]+\.[0-9]+\.|[^0-9]\.[0-9]+|^\./);
 	if(evaluation>=0){
-		alert("nous avons detecté une anomalie dans l'équation il y a repetition ");
+		alert("nous avons detecté une anomalie dans l'équation  ");
 	}
 	return evaluation;
 }
