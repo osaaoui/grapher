@@ -142,7 +142,7 @@ function pointLineaire(){
 	* suppression du glider qui ne fait que créer un point de plus sur la courbe. Il peut porter à confusion.
 	*  On attache le triangle à l'un des deux points définis en haut, ce qui rend le triangle plus visible.
 	*/
-	//triangle= board.create('slopetriangle', [ligne, point1]);
+	triangle= board.create('slopetriangle', [ligne, point1]);
 
 	affichageEquationLineairePoint(point1,point2);
 	document.getElementById("equationGraph").innerHTML= " Équation linéaire: y = " + pente + "x" + " + " + ordonnee;
