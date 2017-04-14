@@ -332,16 +332,41 @@ function axeDeSymetrie(){
 	}
 	var x = -dynamiqueB()/(2*dynamiqueA());//-b/2a
 	var y = (4*dynamiqueA()*dynamiqueC()-(dynamiqueB()*dynamiqueB()))/(4*dynamiqueA()); //(4ac-b²)/4a
-	pointBas= board.create('point', [x, (y-6)], {style:6, name:"x= " + x.toFixed(2)});// point sommet
-	pointHaut= board.create('point', [x, (y +10)], {style:6, name:"x= " + x.toFixed(2)});// point sommet
+	pointBas= board.create('point', [x, (y-6)], {style:6, name:"x = " + x.toFixed(2)});// point sommet
+	pointHaut= board.create('point', [x, (y +10)], {style:6, name:"x = " + x.toFixed(2)});// point sommet
 	var li2 = board.create('line',[pointBas,pointHaut],
 	{straightFirst:false, straightLast:false, strokeWidth:2, dash:2});
 
+ document.getElementById('axeDeSymetrie').innerHTML= "x = "+x.toFixed(2);
 	board.on('update', function(){
-		document.getElementById('axeDeSymetrie').innerHTML= "x= "+x.toFixed(2);
+		document.getElementById('axeDeSymetrie').innerHTML= "x = "+x.toFixed(2);
 	});
 
-	board.on('move', function () {
+	point1.on('move', function () {
+		if (typeof pointBas != "undefined") { //si l'object existe on le detruis.
+			board.removeObject(pointBas);
+		}
+		if (typeof pointHaut != "undefined") {
+			board.removeObject(pointHaut);
+		}
+		if (typeof li2 != "undefined") {
+			board.removeObject(li2);
+		}
+	});
+
+	point2.on('move', function () {
+		if (typeof pointBas != "undefined") { //si l'object existe on le detruis.
+			board.removeObject(pointBas);
+		}
+		if (typeof pointHaut != "undefined") {
+			board.removeObject(pointHaut);
+		}
+		if (typeof li2 != "undefined") {
+			board.removeObject(li2);
+		}
+	});
+
+	li2.on('move', function () {
 		if (typeof pointBas != "undefined") { //si l'object existe on le detruis.
 			board.removeObject(pointBas);
 		}
@@ -629,11 +654,11 @@ function affichageEquationQuadratiquePoint (p1,p2){
 			+ "+(" + dynamiqueC()+')';
 		});
 	}else if(dynamiqueC() >= 0 && dynamiqueB() >= 0){
-		document.getElementById('equationGraph').innerHTML= 'y= '+ dynamiqueA()//(1)
+		document.getElementById('equationGraph').innerHTML= 'y = '+ dynamiqueA()//(1)
 		+ 'x² +' + dynamiqueB() //(2)
 		+ 'x +' + dynamiqueC();	//
 		board.on('update', function(){
-			document.getElementById('equationGraph').innerHTML= 'y= '+ dynamiqueA()//(1)
+			document.getElementById('equationGraph').innerHTML= 'y = '+ dynamiqueA()//(1)
 			+ 'x² +' + dynamiqueB() //(2)
 			+ 'x +' + dynamiqueC();	//
 		});
@@ -747,8 +772,8 @@ function resetGraph(){
 
 /*La function recharge la page avec location.reload() aprés avoir mis la table a 0*/
 function erase () {
-        document.getElementById('btnrnd').disabled = false;
-        document.getElementById('btnresetter').disabled=true;//deactivation du bouton Reset
+    document.getElementById('btnrnd').disabled = false;
+    document.getElementById('btnresetter').disabled=true;//deactivation du bouton Reset
 		document.getElementById('btnpente').disabled=true;	//deactivation du bouton Pente
 		document.getElementById('btnAfficOrd').disabled=true;//deactivation du bouton Ordonnee
 		document.getElementById('btnAxeStm').disabled=true;//deactivation du bouton  Axe symétrie
