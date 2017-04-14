@@ -20,6 +20,7 @@ function textAxe(){
   document.getElementById('textPentePeda').style.display = 'none';
   document.getElementById('textOrdoPeda').style.display = 'none';
   document.getElementById('textLesZeros').style.display = 'none';
+    misajour();
 }
 
 function textZeros(){
@@ -27,4 +28,5 @@ function textZeros(){
 	document.getElementById('textAxeSym').style.display = 'none';
   document.getElementById('textPentePeda').style.display = 'none';
   document.getElementById('textOrdoPeda').style.display = 'none';
+  afficherLesZeros();
 }

@@ -128,6 +128,11 @@ function misajour(){
 
 	// Affichage dynamique du numérateur de la formule de calcul de la pente à partir de deux points
 	// si le point 2 est négatif, le mettre entre parenthèses: ex. 5 - (-2)
+	if(point2.Y() < 0){
+		document.getElementById('numerateur').innerHTML= point1.Y().toFixed()+"-("+point2.Y().toFixed(2)+")";
+	}else{
+		document.getElementById('numerateur').innerHTML= point1.Y().toFixed()+"-"+point2.Y().toFixed(2);
+	}
 	board.on('update', function(){
 		if(point2.Y() < 0){
 			document.getElementById('numerateur').innerHTML= point1.Y().toFixed()+"-("+point2.Y().toFixed(2)+")";
@@ -138,7 +143,11 @@ function misajour(){
 
 	// Affichage dynamique du dénominateur de la formule de calcul de la pente à partir de deux points
 	//si le point 2 est négatif, le mettre entre parenthèses: ex. 5 - (-2)
-
+	if(point2.X() < 0){
+		document.getElementById('denominateur').innerHTML= point1.X().toFixed()+"-(" + point2.X().toFixed(2)+")";
+	}else{
+		document.getElementById('denominateur').innerHTML= point1.X().toFixed()+"-"+point2.X().toFixed(2);
+	}
 	board.on('update', function(){
 		if(point2.X() < 0){
 			document.getElementById('denominateur').innerHTML= point1.X().toFixed()+"-(" + point2.X().toFixed(2)+")";
@@ -360,22 +369,18 @@ function afficherLesZeros(){
 	if (typeof zero2 != "undefined") {
 		board.removeObject(zero2);
 	}
-
 	ordZer = board.create('point', [0,(dynamiqueC())], {style:6, name:'', fixed:true});
 	var discriminant= dynamiqueB()*dynamiqueB() - (4 * dynamiqueA() * dynamiqueC());
 	var valDiscriminant= Math.sqrt(discriminant);
 	if (discriminant > 0){
 		var premierZero= ((- dynamiqueB() + valDiscriminant)/(2*dynamiqueA())).toFixed(2);
 		var deuxiemeZero= ((- dynamiqueB() - valDiscriminant)/(2*dynamiqueA())).toFixed(2);
-
 		zero1 = board.create('point', [premierZero,0], {style:6, name: premierZero, fixed:true});
 		zero2 = board.create('point', [deuxiemeZero,0], {style:6, name:deuxiemeZero, fixed:true});
-
 		// Afficher les 2 zéros
 		board.on('update', function(){
 		document.getElementById('lesZeros').innerHTML= "Les zéros sont: " + premierZero + " et " + deuxiemeZero;
 	});
-
 	} else if(discriminant < 0){
 		var bulleAucuneSolution= board.create('text', [-2, 0, " L'équation n'a aucune solution "],
 		{anchor: ordZer,strokeColor: "#fff", cssClass:'mytext'});    //  équation test: x²- 3x+4
@@ -393,11 +398,9 @@ function afficherLesZeros(){
 	});
 
 	}
-
 	/* injecter les valeurs des paramètres a, b et c dans la formule quadratique pour
 	 * qu'ils s'affichent de façon dynamique
 	 */
-
 	board.on('update', function(){
 		document.getElementById('paraB').innerHTML= dynamiqueB();
 	});
@@ -413,9 +416,21 @@ function afficherLesZeros(){
 	board.on('update', function(){
 		document.getElementById('paraA2').innerHTML= "(" + dynamiqueA()+ ")";
 	});
-
-
-	board.on('move', function () {             //function pour cacher le bulles avec un event.
+	point1.on('move', function () {             //function pour cacher le bulles avec un event.
+		if (typeof ordZer != "undefined") { //si l'object existe on le detruis.
+			ordZer.setAttribute({visible:false});
+		}
+		if (typeof zero1 != "undefined") {
+			zero1.setAttribute({visible:false});
+		}
+		if (typeof zero2 != "undefined") {
+			zero2.setAttribute({visible:false});
+		}
+		if (typeof bulleAucuneSolution != "undefined") {
+			bulleAucuneSolution.setAttribute({visible:false});
+		}
+	});
+	point2.on('move', function () {             //function pour cacher la bulle et les zeros avec un event.
 		if (typeof ordZer != "undefined") { //si l'object existe on le detruis.
 			ordZer.setAttribute({visible:false});
 		}
@@ -551,7 +566,7 @@ const parametreB = function(code){
 */
 function affichageEquationLineairePoint(p,t){
 	var stringEquation= board.create('text', [4,-1, function(){return 'y= '+dynamiqueA() //(1)
-	+ 'x +' + dynamiqueB()}])//(2)
+	+ 'x +' + dynamiqueB()}], {visible: false})//(2)
 };
 
 /*
@@ -570,58 +585,61 @@ function affichageEquationLineairePoint(p,t){
 function affichageEquationQuadratiquePoint (p1,p2){
 	if(dynamiqueB()< 0 && dynamiqueC() < 0){
 		var stringEquation= board.create('text', [4,-1,function(){return 'y= '+ dynamiqueA()//(1)
-	+ 'x² +(' + dynamiqueB()+ ')' //(2)
-	+ '+(' + dynamiqueC()+ ')'}]);	// affichage fonction avec les points
-
-	}else if(dynamiqueB()< 0 && dynamiqueC() >= 0 ){
+		+ 'x² +(' + dynamiqueB()+ ')' //(2)
+		+ '+(' + dynamiqueC()+ ')'}],{visible: false});	// affichage fonction avec les points
+	} else if(dynamiqueB()< 0 && dynamiqueC() >= 0 ){
 		var stringEquation= board.create('text', [4,-1,function(){return 'y= '+ dynamiqueA()//(1)
-	+ 'x² +(' + dynamiqueB()+')' //(2)
-	+ "+ " + dynamiqueC()}]);
-
+		+ 'x² +(' + dynamiqueB()+')' //(2)
+		+ "+ " + dynamiqueC()}],{visible: false});
 	} else if(dynamiqueC()< 0 && dynamiqueB() >= 0){
-	var stringEquation= board.create('text', [4,-1,function(){return 'y= '+ dynamiqueA()//(1)
-	+ 'x² + ' + dynamiqueB() //(2)
-	+ "+(" + dynamiqueC()+')'}]);
-
-
-	}else{
 		var stringEquation= board.create('text', [4,-1,function(){return 'y= '+ dynamiqueA()//(1)
-	+ 'x² +' + dynamiqueB() //(2)
-	+ 'x +' + dynamiqueC()}]);	// affichage fonction avec les points
-
+		+ 'x² + ' + dynamiqueB() //(2)
+		+ "+(" + dynamiqueC()+')'}],{visible: false});
+	} else{
+		var stringEquation= board.create('text', [4,-1,function(){return 'y= '+ dynamiqueA()//(1)
+		+ 'x² +' + dynamiqueB() //(2)
+		+ 'x +' + dynamiqueC()}],{visible: false});	// affichage fonction avec les points
 	}
-
-
-
-
 	// affichage dynamique de l'équation quadratique dans le DOM
 	if(dynamiqueB()< 0 && dynamiqueC() < 0){
-				board.on('update', function(){
 		document.getElementById('equationGraph').innerHTML= "y = "+dynamiqueA()
 		+ 'x² +(' + dynamiqueB()+ ')'
 		+ '+(' + dynamiqueC()+ ')';
-	});
-			}else if(dynamiqueB()< 0 && dynamiqueC() >= 0 ){
-				board.on('update', function(){
+		board.on('update', function(){
+			document.getElementById('equationGraph').innerHTML= "y = "+dynamiqueA()
+			+ 'x² +(' + dynamiqueB()+ ')'
+			+ '+(' + dynamiqueC()+ ')';
+		});
+	} else if(dynamiqueB()< 0 && dynamiqueC() >= 0 ){
 		document.getElementById('equationGraph').innerHTML= "y = "+dynamiqueA()
 		+ 'x² +(' + dynamiqueB()+')'
 		+ "+ " + dynamiqueC();
-	});
-			} else if(dynamiqueC()< 0 && dynamiqueB() >= 0){
-				board.on('update', function(){
+		board.on('update', function(){
+			document.getElementById('equationGraph').innerHTML= "y = "+dynamiqueA()
+			+ 'x² +(' + dynamiqueB()+')'
+			+ "+ " + dynamiqueC();
+		});
+	} else if(dynamiqueC()< 0 && dynamiqueB() >= 0){
 		document.getElementById('equationGraph').innerHTML= "y = "+dynamiqueA()
 		+ 'x² + ' + dynamiqueB()
 		+ "+(" + dynamiqueC()+')';
-	});
-			}else if(dynamiqueC() >= 0 && dynamiqueB() >= 0){
-				board.on('update', function(){
+		board.on('update', function(){
+			document.getElementById('equationGraph').innerHTML= "y = "+dynamiqueA()
+			+ 'x² + ' + dynamiqueB()
+			+ "+(" + dynamiqueC()+')';
+		});
+	}else if(dynamiqueC() >= 0 && dynamiqueB() >= 0){
 		document.getElementById('equationGraph').innerHTML= 'y= '+ dynamiqueA()//(1)
 		+ 'x² +' + dynamiqueB() //(2)
 		+ 'x +' + dynamiqueC();	//
-	});
-			}
-
+		board.on('update', function(){
+			document.getElementById('equationGraph').innerHTML= 'y= '+ dynamiqueA()//(1)
+			+ 'x² +' + dynamiqueB() //(2)
+			+ 'x +' + dynamiqueC();	//
+		});
+	}
 }
+
 // methode qui valide l'équation entre en 'input'
 //return -1 si aucune erreur detecter lors des tests
 //return la position de la premiere erreur sinon.
