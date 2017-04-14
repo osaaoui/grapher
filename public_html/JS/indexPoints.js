@@ -48,7 +48,7 @@ function traceAvecP(){
 			document.getElementById('btnAfficOrd').disabled=false;//activation du bouton Ordonnee
 			document.getElementById('btnAxeStm').disabled=false;//activation du bouton  Axe symétrie
 			document.getElementById('btnAfficZero').disabled=false;//activation du bouton Les zéros
-			pointQuadratique()
+			pointQuadratique();
 		}
 
 		// affichage dynamique de l'ordonnée dans la bulle externe
@@ -92,25 +92,23 @@ function traceAvecP(){
 */
 function pointLineaire(){
 	point1 = board.create('point', [1,(ordonnee+pente)], {style:6, name:'p1'});
-
 	point2 = board.create('point', [(ordonnee/-pente), 0], {style:6, name:'p2'});
-
 	point3 = board.create('point', [0,(ordonnee)], {visible: false, style:6});
-
 	var ligne = board.create('line', [point1,point2]);
 	// affichage dynamique de l'équation à l'extérieur du graphe
 	board.on('update', function(){
 		document.getElementById('equationGraph').innerHTML= "y = "+dynamiqueA()
 		+ 'x + ' + dynamiqueB();
 	});
-
+//creation triangle de la pente pour equation de premier degree/
 triangle= board.create('slopetriangle', [ligne, point1], {visible: false});
+triangle.label.setAttribute({visible: false});
 affichageEquationLineairePoint(point1,point2);
 document.getElementById("equationGraph").innerHTML= " Équation linéaire: y = " + pente + "x" + " + " + ordonnee;
 misajour();
 }
 
-/*function pour mettre a jour le text dans la boite pedagogique.*/
+/*Function pour mettre a jour le text dans la boite pedagogique.*/
 function misajour(){
 	// affichage de l'équation dans la bulle informative. Elle est dynamique, elle se modifie si on bouge la courbe
 	board.on('update', function(){
@@ -149,16 +147,52 @@ function misajour(){
 		}
 	});
 
-	// CALCUL ET AFFICHAGE DYNAMIQUE DE L'ORDONNÉE À L'ORIGINE
+	// affichage ordonne dans la boite pedagogique/
 	if(typeEquation==0){
-	board.on('update', function(){
 		document.getElementById('ordonneeEquation').innerHTML= "y = "+dynamiqueA()
 		+ 'x + ' + dynamiqueB();
-	});
-
-	board.on('update', function(){
+		board.on('update', function(){
+			document.getElementById('ordonneeEquation').innerHTML= "y = "+dynamiqueA()
+			+ 'x + ' + dynamiqueB();
+		});
 		document.getElementById('ordonneeFormule').innerHTML= "Ordonnée = "+dynamiqueB();
-	});
+		board.on('update', function(){
+			document.getElementById('ordonneeFormule').innerHTML= "Ordonnée = "+dynamiqueB();
+		});
+	} else if(typeEquation==1){
+		if(dynamiqueB()< 0 && dynamiqueC() < 0){
+			document.getElementById('ordonneeEquationQuadratique').innerHTML= "y = "+dynamiqueA()
+			+ 'x² +(' + dynamiqueB()+ ')' + '+('+ dynamiqueC()+ ')';
+			board.on('update', function(){
+				document.getElementById('ordonneeEquationQuadratique').innerHTML= "y = "+dynamiqueA()
+				+ 'x² +(' + dynamiqueB()+ ')' + '+('+ dynamiqueC()+ ')';
+			});
+		} else if(dynamiqueB()< 0 && dynamiqueC() >= 0 ){
+			document.getElementById('ordonneeEquationQuadratique').innerHTML= "y = "+dynamiqueA()
+			+ 'x² +(' + dynamiqueB()+')' + "+ " + dynamiqueC();
+			board.on('update', function(){
+				document.getElementById('ordonneeEquationQuadratique').innerHTML= "y = "+dynamiqueA()
+				+ 'x² +(' + dynamiqueB()+')' + "+ " + dynamiqueC();
+			});
+		} else if(dynamiqueC()< 0 && dynamiqueB() >= 0){
+			document.getElementById('ordonneeEquationQuadratique').innerHTML= "y = "+dynamiqueA()
+			+ 'x² + ' + dynamiqueB()+ "+(" + dynamiqueC()+')';
+			board.on('update', function(){
+				document.getElementById('ordonneeEquationQuadratique').innerHTML= "y = "+dynamiqueA()
+				+ 'x² + ' + dynamiqueB()+ "+(" + dynamiqueC()+')';
+			});
+		} else if(dynamiqueC() >= 0 && dynamiqueB() >= 0){
+			document.getElementById('ordonneeEquationQuadratique').innerHTML= "y = "+dynamiqueA()
+			+ 'x² + ' + dynamiqueB() + dynamiqueC();
+			board.on('update', function(){
+				document.getElementById('ordonneeEquationQuadratique').innerHTML= "y = "+dynamiqueA()
+				+ 'x² + ' + dynamiqueB() + dynamiqueC();
+			});
+		}
+		document.getElementById('ordonneeFormuleQuadratique').innerHTML= "Ordonnée = "+dynamiqueC();
+		board.on('update', function(){
+			document.getElementById('ordonneeFormuleQuadratique').innerHTML= "Ordonnée = "+dynamiqueC();
+		});
 	}
 }
 
@@ -255,6 +289,7 @@ function afficherOrdonnee(){
 		board.removeObject(ord);
 		board.removeObject(bulleOrdonnee);
 	}
+
 	// Afficher l'ordonnée à l'origine si l'équation est linéaire
 	if (typeEquation==0){
 	ord = board.create('point', [0,dynamiqueB()], {style:6, fixed:true});

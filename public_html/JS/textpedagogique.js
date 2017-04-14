@@ -12,6 +12,7 @@ function textOrd(){
   document.getElementById('textPentePeda').style.display = 'none';
   document.getElementById('textAxeSym').style.display = 'none';
   document.getElementById('textLesZeros').style.display = 'none';
+  misajour();
 }
 
 function textAxe(){
