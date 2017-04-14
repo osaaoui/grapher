@@ -386,10 +386,11 @@ function changementCanonique(){
 		 var bullePente= board.create('text', [-2, 0, " La pente = " + sliderB.Value()],
 		 {anchor: p3,strokeColor: "#fff", cssClass:'mytext'});
 
-	   anim1=p3.moveTo([p3.X(), p1.Y()], 1500);
-	   anim2=p1.moveTo([1, (sliderB.Value()+sliderC.Value())], 1500);
+	     anim1=p3.moveTo([p3.X(), p1.Y()], 1500);
+	     anim2=p1.moveTo([1, (sliderB.Value()+sliderC.Value())], 1500);
 	   
-	   
+	   	
+	   	// Points supplémentaires à rattacher au texte dynamique affiché dans les bulles externes
 	     point1=board.create('point', [0, (sliderB.Value()+sliderC.Value())], {style:6,trace:false,strokeWidth:0.1,visible: false});
 		 point2=board.create('point', [1, (sliderB.Value()+sliderC.Value())], {style:6,  trace:false,strokeWidth:0.1,visible: false});
 		 point3=board.create('point', [0, (sliderC.Value()+0)], {style:6,trace:false,strokeWidth:0.1,visible: false});
@@ -431,6 +432,7 @@ function changementCanonique(){
 			document.getElementById('denominateur').innerHTML= point2.X().toFixed()+"-"+point3.X().toFixed(2);
 		}
 	});
+	
 
  } else {
  	  var bullePente= board.create('text', [-2, 0, "&nbsp&nbspÉquation quadratique: aucune pente! Le curseur A doit être à zéro.&nbsp&nbsp"],
@@ -471,13 +473,18 @@ function afficherOrdonnee(){
 		board.removeObject(bulleOrdonnee);
 	}
  	ord = board.create('point', [0,sliderC.Value()], {style:6, fixed:true});
-    bulleOrdonnee= board.create('text', [-2, 0, "ordonnee= " + sliderC.Value()],
+     bulleOrdonnee= board.create('text', [-2, 0, "ordonnee= " + sliderC.Value()],
 	{anchor: ord,strokeColor: "#fff", cssClass:'mytext', visible:true});
- }
 	bulleOrdonnee.on('move', function () {          //function pour cacher le bulles avec un event.
 		ord.setAttribute({visible:false});
 		bulleOrdonnee.setAttribute({visible:false});
 	});
+	
+	
+ }
+	
+
+
 	
 function axeDeSymetrie(){
 	if (typeof pointBas != "undefined") { //si l'object existe on le detruis.
