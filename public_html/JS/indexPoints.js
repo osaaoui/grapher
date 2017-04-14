@@ -55,19 +55,19 @@ function traceAvecP(){
 			if(dynamiqueB()< 0 && dynamiqueC() < 0){
 				board.on('update', function(){
 		document.getElementById('ordonneeEquationQuadratique').innerHTML= "y = "+dynamiqueA()
-		+ 'x² - ' + dynamiqueB()+ "- " + dynamiqueC();
+		+ 'x² +(' + dynamiqueB()+ ')' + '+('+ dynamiqueC()+ ')';
 	});
-			}else if(dynamiqueB()< 0){
+			}else if(dynamiqueB()< 0 && dynamiqueC() >= 0 ){
 				board.on('update', function(){
 		document.getElementById('ordonneeEquationQuadratique').innerHTML= "y = "+dynamiqueA()
-		+ 'x² - ' + dynamiqueB()+ dynamiqueC();
+		+ 'x² +(' + dynamiqueB()+')' + "+ " + dynamiqueC();
 	});
-			} else if(dynamiqueC()< 0){
+			} else if(dynamiqueC()< 0 && dynamiqueB() >= 0){
 				board.on('update', function(){
 		document.getElementById('ordonneeEquationQuadratique').innerHTML= "y = "+dynamiqueA()
-		+ 'x² + ' + dynamiqueB()+ "- " + dynamiqueC();
-	});
-			}else{
+		+ 'x² + ' + dynamiqueB()+ "+(" + dynamiqueC()+')';
+	}); 
+			}else if(dynamiqueC() >= 0 && dynamiqueB() >= 0){
 				board.on('update', function(){
 		document.getElementById('ordonneeEquationQuadratique').innerHTML= "y = "+dynamiqueA()
 		+ 'x² + ' + dynamiqueB() + dynamiqueC();
@@ -578,17 +578,59 @@ function affichageEquationLineairePoint(p,t){
 * clarification: toutes les équations mises au carré doivent etre ecritent au long (ex: (x1-x2)²=> (x1-x2)*(x1-x2))
 */
 function affichageEquationQuadratiquePoint (p1,p2){
+	if(dynamiqueB()< 0 && dynamiqueC() < 0){
+		var stringEquation= board.create('text', [4,-1,function(){return 'y= '+ dynamiqueA()//(1)
+	+ 'x² +(' + dynamiqueB()+ ')' //(2)
+	+ '+(' + dynamiqueC()+ ')'}]);	// affichage fonction avec les points
+	
+	}else if(dynamiqueB()< 0 && dynamiqueC() >= 0 ){
+		var stringEquation= board.create('text', [4,-1,function(){return 'y= '+ dynamiqueA()//(1)
+	+ 'x² +(' + dynamiqueB()+')' //(2)
+	+ "+ " + dynamiqueC()}]);
+	
+	} else if(dynamiqueC()< 0 && dynamiqueB() >= 0){
 	var stringEquation= board.create('text', [4,-1,function(){return 'y= '+ dynamiqueA()//(1)
+	+ 'x² + ' + dynamiqueB() //(2)
+	+ "+(" + dynamiqueC()+')'}]);
+	
+	
+	}else{
+		var stringEquation= board.create('text', [4,-1,function(){return 'y= '+ dynamiqueA()//(1)
 	+ 'x² +' + dynamiqueB() //(2)
 	+ 'x +' + dynamiqueC()}]);	// affichage fonction avec les points
+		
+	}
+	
+	
 
-
+	
 	// affichage dynamique de l'équation quadratique dans le DOM
-	board.on('update', function(){
+	if(dynamiqueB()< 0 && dynamiqueC() < 0){
+				board.on('update', function(){
+		document.getElementById('equationGraph').innerHTML= "y = "+dynamiqueA()
+		+ 'x² +(' + dynamiqueB()+ ')' 
+		+ '+(' + dynamiqueC()+ ')';
+	});
+			}else if(dynamiqueB()< 0 && dynamiqueC() >= 0 ){
+				board.on('update', function(){
+		document.getElementById('equationGraph').innerHTML= "y = "+dynamiqueA()
+		+ 'x² +(' + dynamiqueB()+')' 
+		+ "+ " + dynamiqueC();
+	});
+			} else if(dynamiqueC()< 0 && dynamiqueB() >= 0){
+				board.on('update', function(){
+		document.getElementById('equationGraph').innerHTML= "y = "+dynamiqueA()
+		+ 'x² + ' + dynamiqueB()
+		+ "+(" + dynamiqueC()+')';
+	}); 
+			}else if(dynamiqueC() >= 0 && dynamiqueB() >= 0){
+				board.on('update', function(){
 		document.getElementById('equationGraph').innerHTML= 'y= '+ dynamiqueA()//(1)
 		+ 'x² +' + dynamiqueB() //(2)
 		+ 'x +' + dynamiqueC();	//
 	});
+			}
+	
 }
 // methode qui valide l'équation entre en 'input'
 //return -1 si aucune erreur detecter lors des tests
