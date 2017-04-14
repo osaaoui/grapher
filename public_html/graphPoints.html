@@ -63,7 +63,7 @@
 	<div class="row">
 		<div class="container col-lg-1">
 			<div class="btn-group-vertical" role="group" id="btnGroup">
-				<button type="button" class="btn btn-pente btn-lg" id="btnpente" onClick="animerPente(); textPente(); this.disabled=true;" disabled="true">Pente</button>
+				<button type="button" class="btn btn-pente btn-lg" id="btnpente" onClick="animerPente(); textPente();" disabled="true">Pente</button>
 				<button type="button" class="btn btn-pente btn-lg" id="btnresetter" onClick="resetGraph()" disabled="true">Reset</button>
 				<button type="button" class="btn btn-pente btn-lg" id="btnAfficOrd" onClick="textOrd(); afficherOrdonnee();" disabled="true">Ordonnee</button>
 				<button type="button" class="btn btn-pente btn-lg" id="btnAxeStm" onClick=" textAxe(); axeDeSymetrie()" disabled="true">Axe symétrie </button>
@@ -90,7 +90,7 @@
 					<p>qui représente la formule:</p>
 					<p> <span class='numer'> Variation sur Y</span> <span class='denom'>Variation sur X</span></p>
 				</div>
-				
+
 				<div id="textOrdoPeda" class= "css-typing">
 					<p> Calculer l'ordonnée à l'origine</p>
 					<p> 1)Équation linéaire:</p>

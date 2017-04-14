@@ -4,6 +4,7 @@ function textPente(){
   document.getElementById('textOrdoPeda').style.display = 'none';
   document.getElementById('textAxeSym').style.display = 'none';
   document.getElementById('textLesZeros').style.display = 'none';
+  misajour();
 }
 
 function textOrd(){

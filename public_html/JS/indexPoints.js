@@ -2,6 +2,7 @@ var board = JXG.JSXGraph.initBoard('box', {boundingbox:[-5,8,8,-5], axis:true, z
 var ordonnee;
 var pente;
 var point1, point2, p3, point3;
+var triangle;
 var exp;
 var typeEquation;
 var enterPr = false;
@@ -49,7 +50,7 @@ function traceAvecP(){
 			document.getElementById('btnAfficZero').disabled=false;//activation du bouton Les zéros
 			pointQuadratique()
 		}
-		
+
 		// affichage dynamique de l'ordonnée dans la bulle externe
 		if (typeEquation==1){
 			if(dynamiqueB()< 0 && dynamiqueC() < 0){
@@ -66,7 +67,7 @@ function traceAvecP(){
 				board.on('update', function(){
 		document.getElementById('ordonneeEquationQuadratique').innerHTML= "y = "+dynamiqueA()
 		+ 'x² + ' + dynamiqueB()+ "+(" + dynamiqueC()+')';
-	}); 
+	});
 			}else if(dynamiqueC() >= 0 && dynamiqueB() >= 0){
 				board.on('update', function(){
 		document.getElementById('ordonneeEquationQuadratique').innerHTML= "y = "+dynamiqueA()
@@ -102,6 +103,15 @@ function pointLineaire(){
 		document.getElementById('equationGraph').innerHTML= "y = "+dynamiqueA()
 		+ 'x + ' + dynamiqueB();
 	});
+
+triangle= board.create('slopetriangle', [ligne, point1], {visible: false});
+affichageEquationLineairePoint(point1,point2);
+document.getElementById("equationGraph").innerHTML= " Équation linéaire: y = " + pente + "x" + " + " + ordonnee;
+misajour();
+}
+
+/*function pour mettre a jour le text dans la boite pedagogique.*/
+function misajour(){
 	// affichage de l'équation dans la bulle informative. Elle est dynamique, elle se modifie si on bouge la courbe
 	board.on('update', function(){
 		document.getElementById('equationEntree').innerHTML= "y = "+dynamiqueA()
@@ -130,7 +140,7 @@ function pointLineaire(){
 
 	// Affichage dynamique du dénominateur de la formule de calcul de la pente à partir de deux points
 	//si le point 2 est négatif, le mettre entre parenthèses: ex. 5 - (-2)
-	
+
 	board.on('update', function(){
 		if(point2.X() < 0){
 			document.getElementById('denominateur').innerHTML= point1.X().toFixed()+"-(" + point2.X().toFixed(2)+")";
@@ -150,19 +160,6 @@ function pointLineaire(){
 		document.getElementById('ordonneeFormule').innerHTML= "Ordonnée = "+dynamiqueB();
 	});
 	}
-	
-
-
-	/*
-	* Code pour représenter la pente de l'équation linéaire sous forme de triangle
-	* se déplaçant le long de la ligne.
-	* suppression du glider qui ne fait que créer un point de plus sur la courbe. Il peut porter à confusion.
-	*  On attache le triangle à l'un des deux points définis en haut, ce qui rend le triangle plus visible.
-	*/
-	triangle= board.create('slopetriangle', [ligne, point1]);
-
-	affichageEquationLineairePoint(point1,point2);
-	document.getElementById("equationGraph").innerHTML= " Équation linéaire: y = " + pente + "x" + " + " + ordonnee;
 }
 
 /*
@@ -263,7 +260,7 @@ function afficherOrdonnee(){
 	ord = board.create('point', [0,dynamiqueB()], {style:6, fixed:true});
   bulleOrdonnee= board.create('text', [-2, 0, "ordonnee= " + dynamiqueB()],
 	{anchor: ord,strokeColor: "#fff", cssClass:'mytext', visible:true});
-	
+
 	// Afficher l'ordonnée à l'origine si l'équation est quadratique'
  }else if(typeEquation==1){
  	ord = board.create('point', [0,dynamiqueC()], {style:6, fixed:true});
@@ -295,7 +292,7 @@ function axeDeSymetrie(){
 	pointHaut= board.create('point', [x, (y +10)], {style:6, name:"x= " + x.toFixed(2)});// point sommet
 	var li2 = board.create('line',[pointBas,pointHaut],
 	{straightFirst:false, straightLast:false, strokeWidth:2, dash:2});
-	
+
 	board.on('update', function(){
 		document.getElementById('axeDeSymetrie').innerHTML= "x= "+x.toFixed(2);
 	});
@@ -311,11 +308,6 @@ function axeDeSymetrie(){
 			board.removeObject(li2);
 		}
 	});
-	
-	
-		
-	
-	
 
 	//var bulleAxeBas= board.create('text', [-2, 0, "x= " + x.toFixed(2) ],
 	//{anchor: pointBas,strokeColor: "#fff", cssClass:'mytext'});
@@ -343,34 +335,34 @@ function afficherLesZeros(){
 
 		zero1 = board.create('point', [premierZero,0], {style:6, name: premierZero, fixed:true});
 		zero2 = board.create('point', [deuxiemeZero,0], {style:6, name:deuxiemeZero, fixed:true});
-		
+
 		// Afficher les 2 zéros
 		board.on('update', function(){
 		document.getElementById('lesZeros').innerHTML= "Les zéros sont: " + premierZero + " et " + deuxiemeZero;
 	});
-	
+
 	} else if(discriminant < 0){
 		var bulleAucuneSolution= board.create('text', [-2, 0, " L'équation n'a aucune solution "],
 		{anchor: ordZer,strokeColor: "#fff", cssClass:'mytext'});    //  équation test: x²- 3x+4
-		
+
 		// Afficher que l'équation n'a pas de zéros
 		board.on('update', function(){
 		document.getElementById('lesZeros').innerHTML= "L'équation n'a pas de zéros";
 	});
-	
+
 	}else if(discriminant == 0){
 		var seulZero= point1.X();
 		// Afficher le seul zéro de l'équation
 		board.on('update', function(){
 		document.getElementById('lesZeros').innerHTML= "Il y a un seul zéro: "+ seulZero;
 	});
-	
+
 	}
-	
+
 	/* injecter les valeurs des paramètres a, b et c dans la formule quadratique pour
 	 * qu'ils s'affichent de façon dynamique
 	 */
-	
+
 	board.on('update', function(){
 		document.getElementById('paraB').innerHTML= dynamiqueB();
 	});
@@ -386,8 +378,8 @@ function afficherLesZeros(){
 	board.on('update', function(){
 		document.getElementById('paraA2').innerHTML= "(" + dynamiqueA()+ ")";
 	});
-	
-	
+
+
 	board.on('move', function () {             //function pour cacher le bulles avec un event.
 		if (typeof ordZer != "undefined") { //si l'object existe on le detruis.
 			ordZer.setAttribute({visible:false});
@@ -409,55 +401,18 @@ function afficherLesZeros(){
 */
 
 function animerPente(){
-	return animerVariationEnY();
-}
-
-/* animerVariationEnY: l'animation prend comme point de départ l'ordonnée à l'origine
-*  et s'arrêtera au point formé par l'ordonnée+pente
-*/
-
-animerVariationEnY= function (){
-	if(typeEquation == 0){
-		//board.options.text.useMathJax = true;
-		//alert(Number(dynamiqueA()) + Number(dynamiqueB()));
-		p1= board.create('point', [0, (Number(dynamiqueB())+ Number(dynamiqueA()))], {style:6, name:'a', trace:true,color: 'green',strokeWidth:0.1,visible: false});
-		p2= board.create('point', [1, (Number(dynamiqueB())+Number(dynamiqueA()))], {style:6, name:'b', trace:true,color: 'green',strokeWidth:0.1,visible: false});
-		p3= board.create('point', [0, (Number(dynamiqueB())+0)], {style:6, name:'o', trace:true,color: 'green',strokeWidth:0.1,visible: false});
-
-		// afficher la bulle d'information en utilisation la librairie MathJax pour afficher les fractions
-		var bullePente= board.create('text', [-2, 0, " La pente = " + dynamiqueA()],
-		{anchor: p3,strokeColor: "#fff", cssClass:'mytext'});
-		bullePente.on('move', function () {             //function pour cacher le bulles avec un event.
-			bullePente.setAttribute({visible:false});
-			ord.setAttribute({visible:false});
-		});
-		bullePente.on('down', function()  {             //function pour cacher le bulles avec un event.
-			ord.update();
-			bullePente.update();
-		});
-		//var bullePente= board.create('text',[-2, 0,'$\\\\dfrac {variation sur Y}{Variation sur X} $'],
-		//{anchor: p3,strokeColor: "#fff", cssClass:'mytext'});
-		// function() {0
-		//return '$$ \frac ab $$';}],
-
-		return p3.moveTo([p3.X(), p1.Y()], 2500, {callback: animerVariationEnX, visible: false});
-	}else if (typeEquation == 1 ){
-		var bullePente= board.create('text', [-2, 0, "Équation quadratique: aucune pente"],
-		{anchor: p3,strokeColor: "#fff", cssClass:'mytext'});
+	triangle.setAttribute({visible:true});
+	if (typeof bullePente != "undefined") { //si l'object existe on le detruis.
+		board.removeObject(bullePente);
 	}
-};
-
-/* animerVariationEnX: Pour le moment le point de départ de la variation en X est 1
-* car dans l'équation 3x+2 par exemple, 3x <=> 3/1x. Il faudra tenir compte bien sûr de cas
-* lorsque la pente est fractionnaire.
-* l'animation s'arrêtera ici à la valeur de ordonnée+pente
-*/
-animerVariationEnX= function(){
-	p1= board.create('point', [0, (Number(dynamiqueB())+ Number(dynamiqueA()))], {style:6, name:'a', trace:true,color: 'green',strokeWidth:0.1,visible: false});
-	p2= board.create('point', [1, (Number(dynamiqueB())+ Number(dynamiqueA()))], {style:6, name:'b', trace:true,color: 'green',strokeWidth:0.1,visible: false});
-	p3= board.create('point', [0, (Number(dynamiqueB())+0)], {style:6, name:'o', trace:true,color: 'green',strokeWidth:0.1,visible: false});
-  return p1.moveTo([1, (Number(dynamiqueB())+ Number(dynamiqueA()))], 2500);
-};
+ bullePente= board.create('text', [-2, 0, " La pente = " + dynamiqueA()],{anchor: triangle,strokeColor: "#fff", cssClass:'mytext'});
+ bullePente.on('move', function () {             //function pour cacher le bulles avec un event.
+	board.removeObject(bullePente);
+ });
+ triangle.on('move', function () {             //function pour cacher le bulles avec un event.
+	 bullePente.update();
+ });
+}
 
 function clearAll(board){
 	JXG.JSXGraph.freeBoard(board);
@@ -582,39 +537,39 @@ function affichageEquationQuadratiquePoint (p1,p2){
 		var stringEquation= board.create('text', [4,-1,function(){return 'y= '+ dynamiqueA()//(1)
 	+ 'x² +(' + dynamiqueB()+ ')' //(2)
 	+ '+(' + dynamiqueC()+ ')'}]);	// affichage fonction avec les points
-	
+
 	}else if(dynamiqueB()< 0 && dynamiqueC() >= 0 ){
 		var stringEquation= board.create('text', [4,-1,function(){return 'y= '+ dynamiqueA()//(1)
 	+ 'x² +(' + dynamiqueB()+')' //(2)
 	+ "+ " + dynamiqueC()}]);
-	
+
 	} else if(dynamiqueC()< 0 && dynamiqueB() >= 0){
 	var stringEquation= board.create('text', [4,-1,function(){return 'y= '+ dynamiqueA()//(1)
 	+ 'x² + ' + dynamiqueB() //(2)
 	+ "+(" + dynamiqueC()+')'}]);
-	
-	
+
+
 	}else{
 		var stringEquation= board.create('text', [4,-1,function(){return 'y= '+ dynamiqueA()//(1)
 	+ 'x² +' + dynamiqueB() //(2)
 	+ 'x +' + dynamiqueC()}]);	// affichage fonction avec les points
-		
-	}
-	
-	
 
-	
+	}
+
+
+
+
 	// affichage dynamique de l'équation quadratique dans le DOM
 	if(dynamiqueB()< 0 && dynamiqueC() < 0){
 				board.on('update', function(){
 		document.getElementById('equationGraph').innerHTML= "y = "+dynamiqueA()
-		+ 'x² +(' + dynamiqueB()+ ')' 
+		+ 'x² +(' + dynamiqueB()+ ')'
 		+ '+(' + dynamiqueC()+ ')';
 	});
 			}else if(dynamiqueB()< 0 && dynamiqueC() >= 0 ){
 				board.on('update', function(){
 		document.getElementById('equationGraph').innerHTML= "y = "+dynamiqueA()
-		+ 'x² +(' + dynamiqueB()+')' 
+		+ 'x² +(' + dynamiqueB()+')'
 		+ "+ " + dynamiqueC();
 	});
 			} else if(dynamiqueC()< 0 && dynamiqueB() >= 0){
@@ -622,7 +577,7 @@ function affichageEquationQuadratiquePoint (p1,p2){
 		document.getElementById('equationGraph').innerHTML= "y = "+dynamiqueA()
 		+ 'x² + ' + dynamiqueB()
 		+ "+(" + dynamiqueC()+')';
-	}); 
+	});
 			}else if(dynamiqueC() >= 0 && dynamiqueB() >= 0){
 				board.on('update', function(){
 		document.getElementById('equationGraph').innerHTML= 'y= '+ dynamiqueA()//(1)
@@ -630,7 +585,7 @@ function affichageEquationQuadratiquePoint (p1,p2){
 		+ 'x +' + dynamiqueC();	//
 	});
 			}
-	
+
 }
 // methode qui valide l'équation entre en 'input'
 //return -1 si aucune erreur detecter lors des tests
