@@ -388,6 +388,49 @@ function changementCanonique(){
 
 	   anim1=p3.moveTo([p3.X(), p1.Y()], 1500);
 	   anim2=p1.moveTo([1, (sliderB.Value()+sliderC.Value())], 1500);
+	   
+	   
+	     point1=board.create('point', [0, (sliderB.Value()+sliderC.Value())], {style:6,trace:false,strokeWidth:0.1,visible: false});
+		 point2=board.create('point', [1, (sliderB.Value()+sliderC.Value())], {style:6,  trace:false,strokeWidth:0.1,visible: false});
+		 point3=board.create('point', [0, (sliderC.Value()+0)], {style:6,trace:false,strokeWidth:0.1,visible: false});
+
+	   
+	   // affichage de l'équation dans la bulle informative. Elle est dynamique, elle se modifie si on bouge la courbe
+	board.on('update', function(){
+		document.getElementById('equationEntree').innerHTML= "y = "+sliderB.Value()
+		+ 'x + ' + sliderC.Value();
+	});
+
+	// Affichage de deux points dynamiques qui servent à illustrer comment calculer la pente à partir de 2 points de la courbe
+	board.on('update', function(){
+		document.getElementById('penteDeuxPoints').innerHTML= "P1(" +point2.X().toFixed(2)+"," + point2.Y().toFixed(2)+")"+ " et P2("+ point3.X().toFixed(2)+","+ point3.Y().toFixed(2)+")";
+	});
+
+	// affichage dynamique de la pente de l'équation en se basant uniquement sur le paramètre a de l'équation entrée ou modifiée.
+	board.on('update', function(){
+		document.getElementById('penteEquation').innerHTML= "La pente = " + sliderB.Value();
+	});
+
+	// Affichage dynamique du numérateur de la formule de calcul de la pente à partir de deux points
+	// si le point 2 est négatif, le mettre entre parenthèses: ex. 5 - (-2)
+	board.on('update', function(){
+		if(p3.Y() < 0){
+			document.getElementById('numerateur').innerHTML= point2.Y().toFixed()+"-("+point3.Y().toFixed(2)+")";
+		}else{
+			document.getElementById('numerateur').innerHTML= point2.Y().toFixed()+"-"+point3.Y().toFixed(2);
+		}
+	});
+
+	// Affichage dynamique du dénominateur de la formule de calcul de la pente à partir de deux points
+	//si le point 2 est négatif, le mettre entre parenthèses: ex. 5 - (-2)
+	
+	board.on('update', function(){
+		if(p3.X() < 0){
+			document.getElementById('denominateur').innerHTML= point2.X().toFixed()+"-(" + point3.X().toFixed(2)+")";
+		}else{
+			document.getElementById('denominateur').innerHTML= point2.X().toFixed()+"-"+point3.X().toFixed(2);
+		}
+	});
 
  } else {
  	  var bullePente= board.create('text', [-2, 0, "&nbsp&nbspÉquation quadratique: aucune pente! Le curseur A doit être à zéro.&nbsp&nbsp"],

@@ -62,13 +62,13 @@
 	<div class="row">
 		<div class="container col-lg-1">
 			<div class="btn-group-vertical" role="group" id="btnGroup">
-				<button type="button" class="btn btn-pente btn-lg" id="btnpente" onClick="animerPente()"disabled="true">Pente</button>
+				<button type="button" class="btn btn-pente btn-lg" id="btnpente" onClick="animerPente(); textPente()"disabled="true">Pente</button>
 				<button type="button" class="btn btn-pente btn-lg" id="canonique" onClick="changementCanonique()"disabled="true">Canonique</button>
 				
 				<button type="button" class="btn btn-pente btn-lg" id="btnresetter" onClick="resetGraph()"disabled="true">Reset</button>
-				<button type="button" class="btn btn-pente btn-lg" id="btnAfficOrd" onClick= "afficherOrdonnee()" disabled="true">Ordonnee</button>
-				<button type="button" class="btn btn-pente btn-lg" id="btnAxeStm" onClick="  axeDeSymetrie()"disabled="true" >Axe symétrie </button>
-				<button type="button" class="btn btn-pente btn-lg" id="btnAfficZero" onClick=" afficherLesZeros()"disabled="true">Les zéros </button>
+				<button type="button" class="btn btn-pente btn-lg" id="btnAfficOrd" onClick= textOrd(); "afficherOrdonnee()" disabled="true">Ordonnee</button>
+				<button type="button" class="btn btn-pente btn-lg" id="btnAxeStm" onClick="  textAxe(); axeDeSymetrie()"disabled="true" >Axe symétrie </button>
+				<button type="button" class="btn btn-pente btn-lg" id="btnAfficZero" onClick=" textZeros(); afficherLesZeros()"disabled="true">Les zéros </button>
 			</div>
 		</div>
 		<div class="container col-lg-8" id="containerJxBox">
@@ -99,10 +99,71 @@
 		</div>
 	</div>
 	<div class="container col-lg-3" id="textPourJxBox">
-		<div id="textPedaCurs">
-			<p>
-			</p>
-		</div>
+		<div class="panel panel-default" id="textPeda">
+				<div id="textPentePeda" class= "css-typing">
+					<p> Calculer la pente:</p>
+					<p>1) à partir de l'équation</p>
+					<p id="equationEntree"> y = Ax + B </p>
+					<p id="penteEquation"> La pente = le paramètre A </p>
+					<p>2) à partir de 2 points: </p>
+					<p id ="penteDeuxPoints"> p1(x1, y1) et p2(x2, y2) </p>
+					<p> la pente a se calcule: </p>
+					<p id="formuleDeuxPoints"><span class='numer' id="numerateur">y2 - y1</span> <span class='denom' id="denominateur">x2 - x1</span></p>
+				 </br>
+			   </br>
+			   </br>
+					<p>qui représente la formule:</p>
+					<p> <span class='numer'> Variation sur Y</span> <span class='denom'>Variation sur X</span></p>
+				</div>
+				
+				<div id="textOrdoPeda" class= "css-typing">
+					<p> Calculer l'ordonnée à l'origine</p>
+					<p> 1)Équation linéaire:</p>
+					<p id="ordonneeEquation"> y = ax + b</p>
+					<p id="ordonneeFormule"> b = y - ax</p>
+					<br>
+					<p> 2)Équation quadratique:</p>
+					<p id="ordonneeEquationQuadratique"> y = ax + b + c</p>
+					<p id="ordonneeFormuleQuadratique"> ordonnée = c </p>
+					</div>
+
+					<!-- affichage du texte de l'axe de symétrie -->
+					<div id="textAxeSym" class = "css-typing">
+					<p> L'axe de symétrie d'une parabole est la droite </p>
+					<p> verticale qui passe par le sommet de cette parabole </p>
+					<p id="axeDeSymetrie" class= "css-typing"> x = <span class='numer' id="numerateur">-b</span> <span class='denom' id="denominateur">2a</span> </p>
+					</div>
+
+					<!-- affichage du texte des zéros -->
+				<div id="textLesZeros" class= "css-typing">
+					<p> Les zéros représentent les points de rencontre de la parabole avec l'axe des x </p>
+					<p> C'est-à-dire les valeurs de la variable x lorsque y = 0</p>
+					<p> Pour calculer les zéros: </p>
+					<p> Il faut résoudre l'équation ax&#178+ bx +c= 0</p>
+					<p> soit par la méthode de factorisation </p>
+					<p> soit par la formule quadratique: </p>
+
+					<!-- affichage du texte de  la formule quadratique-->
+				<table style="font-family:verdana;">
+  					<tr>
+    				<td><span id="paraB">&minus;b &plusmn;</span>
+    			 	&radic;<span style="text-decoration:overline"><span id="paraB2">&nbsp;
+   				 	b</span><span style="font-size: 10px;vertical-align:+25%;">2</span> &minus;
+    				4<span id="paraA">a</span><span id="paraC">c&nbsp;</span></span></td>
+  					</tr>
+ 					 <tr>
+   					 <td style="text-align:center;">
+    				<span style="text-decoration:overline;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+    				2<span id="paraA2">a</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>
+   				 </td>
+ 				 </tr>
+				</table>
+			<br>
+
+				<p id="lesZeros">Les zéros sont: </p>
+			</div>
+			</div>
+	</div>
 	</div>
 </div>
 <br>
@@ -137,3 +198,4 @@
 </script>
 <script type="text/javascript" src="JS/indexScript.js"></script>
 <script type="text/javascript" src="JS/clavierVirtuel.js"></script>
+<script type="text/javascript" src="JS/textpedagogique.js"></script>
