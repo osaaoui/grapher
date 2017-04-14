@@ -480,7 +480,27 @@ function afficherOrdonnee(){
 		bulleOrdonnee.setAttribute({visible:false});
 	});
 	
+	if(sliderA.Value()==0){
+	board.on('update', function(){
+		document.getElementById('ordonneeEquation').innerHTML= "y = "+sliderB.Value()
+		+ 'x + ' + sliderC.Value();
+	});
+
+	board.on('update', function(){
+		document.getElementById('ordonneeFormule').innerHTML= "Ordonnée = "+sliderC.Value();
+	});
 	
+}else if(sliderA.Value()!=0){
+	board.on('update', function(){
+		document.getElementById('ordonneeEquationQuadratique').innerHTML= "y = "+sliderA.Value()
+		+ 'x + ' + sliderB.Value()+ sliderC.Value();
+	});
+	board.on('update', function(){
+		document.getElementById('ordonneeFormuleQuadratique').innerHTML= "Ordonnée = "+sliderC.Value();
+	});
+	
+	
+ }
  }
 	
 

@@ -52,10 +52,27 @@ function traceAvecP(){
 		
 		// affichage dynamique de l'ordonnée dans la bulle externe
 		if (typeEquation==1){
-		board.on('update', function(){
+			if(dynamiqueB()< 0 && dynamiqueC() < 0){
+				board.on('update', function(){
 		document.getElementById('ordonneeEquationQuadratique').innerHTML= "y = "+dynamiqueA()
-		+ 'x + ' + dynamiqueB()+ dynamiqueC();
+		+ 'x² - ' + dynamiqueB()+ "- " + dynamiqueC();
 	});
+			}else if(dynamiqueB()< 0){
+				board.on('update', function(){
+		document.getElementById('ordonneeEquationQuadratique').innerHTML= "y = "+dynamiqueA()
+		+ 'x² - ' + dynamiqueB()+ dynamiqueC();
+	});
+			} else if(dynamiqueC()< 0){
+				board.on('update', function(){
+		document.getElementById('ordonneeEquationQuadratique').innerHTML= "y = "+dynamiqueA()
+		+ 'x² + ' + dynamiqueB()+ "- " + dynamiqueC();
+	});
+			}else{
+				board.on('update', function(){
+		document.getElementById('ordonneeEquationQuadratique').innerHTML= "y = "+dynamiqueA()
+		+ 'x² + ' + dynamiqueB() + dynamiqueC();
+	});
+			}
 
 	board.on('update', function(){
 		document.getElementById('ordonneeFormuleQuadratique').innerHTML= "Ordonnée = "+dynamiqueC();
