@@ -558,10 +558,11 @@ function axeDeSymetrie(){
 	pointHaut.setAttribute({strokeColor: 'black', fillColor: 'red', size: 4});
 	var li2 = board.create('line',[pointBas,pointHaut],
 	{straightFirst:false, straightLast:false, strokeWidth:2, dash:2});
-
-	//board.on('update', function(){
-	//	document.getElementById('axeDeSymetrie').innerHTML= "x= "+x.toFixed(2);
-	//});
+	
+	document.getElementById('axeDeSymetrie').innerHTML= "x= "+x.toFixed(2);
+	board.on('update', function(){
+		document.getElementById('axeDeSymetrie').innerHTML= "x= "+x.toFixed(2);
+	});
 
 	board.on('move', function () {
 		if (typeof pointBas != "undefined") { //si l'object existe on le detruis.
