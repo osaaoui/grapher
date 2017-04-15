@@ -353,7 +353,87 @@ function changementCanonique(){
 		h=-sliderB.Value()/2*sliderA.Value();
 		k=((4*sliderA.Value()*sliderC.Value())-(sliderB.Value()*sliderB.Value()))/(4*sliderA.Value());
 		slidesCanonique (sliderA.Value(), h,k);
-	}
+		afficherFormeCanonique();
+}
+function afficherFormeCanonique(){
+if(sliderB.Value()< 0 && sliderC.Value() < 0){
+		document.getElementById('formeGenerale').innerHTML= "y = "+sliderA.Value()
+		+ 'x² +(' + sliderB.Value()+ ')' + '+('+ sliderC.Value()+ ')';
+		
+				board.on('update', function(){
+		document.getElementById('formeGenerale').innerHTML= "y = "+sliderA.Value()
+		+ 'x² +(' + sliderB.Value()+ ')' + '+('+ sliderC.Value()+ ')';
+	});
+			}else if(sliderB.Value()< 0 && sliderC.Value() >= 0 ){
+				
+				document.getElementById('formeGenerale').innerHTML= "y = "+sliderA.Value()
+		+ 'x² +(' + sliderB.Value()+')' + "+ " + sliderC.Value();
+		
+				board.on('update', function(){
+		document.getElementById('formeGenerale').innerHTML= "y = "+sliderA.Value()
+		+ 'x² +(' + sliderB.Value()+')' + "+ " + sliderC.Value();
+	});
+			} else if(sliderC.Value()< 0 && sliderB.Value() >= 0){
+				
+				document.getElementById('formeGenerale').innerHTML= "y = "+sliderA.Value()
+		+ 'x² + ' + sliderB.Value()+ "+(" + sliderC.Value()+')';
+		
+				board.on('update', function(){
+		document.getElementById('formeGenerale').innerHTML= "y = "+sliderA.Value()
+		+ 'x² + ' + sliderB.Value()+ "+(" + sliderC.Value()+')';
+	});
+			}else{
+				document.getElementById('formeGenerale').innerHTML= "y = "+sliderA.Value()
+		+ 'x² + ' + sliderB.Value() + sliderC.Value();
+		
+				board.on('update', function(){
+		document.getElementById('formeGenerale').innerHTML= "y = "+sliderA.Value()
+		+ 'x² + ' + sliderB.Value() + sliderC.Value();
+	});
+			}
+			
+	// Affichage de la forme canonique
+	//h=-sliderB.Value()/2*sliderA.Value();
+	//	k=((4*sliderA.Value()*sliderC.Value())-(sliderB.Value()*sliderB.Value()))/(4*sliderA.Value());
+	//	slidesCanonique (sliderA.Value(), h,k);
+	
+	document.getElementById('formeCanonique').innerHTML= "y = "+sliderA.Value()
+	+ '(x- +' + h + ')' + k;
+		
+		
+				board.on('update', function(){
+		document.getElementById('formeCanonique').innerHTML= "y = "+sliderA.Value()
+			+ '(x- +' + h + ')' + k;
+	});
+	
+	// les valeurs des paramètres a, h et k
+	
+	document.getElementById('paraA').innerHTML= "Le paramètre a qui vaut ici " + "("+ sliderA.Value()+")" + " indique le facteur de  dilatation verticale de la courbe";
+		
+		
+				board.on('update', function(){
+		document.getElementById('paraA').innerHTML= "Le paramètre a qui vaut ici: " + "("+ sliderA.Value()+")" + "indique le facteur de dilatation verticale de la courbe";
+	});
+	
+	// paramètre h
+	document.getElementById('paraH').innerHTML= "Le paramètre h, ici il vaut" + "("+ (-sliderB.Value()/2*sliderA.Value())+")" + ", indique la valeur de x au sommet de la courbe";
+		
+		
+				board.on('update', function(){
+		document.getElementById('paraH').innerHTML= "Le paramètre h, ici il vaut" + "("+ (-sliderB.Value()/2*sliderA.Value()) +")" + ", indique la valeur de x au sommet de la courbe";
+	});
+	
+	// paramètre k
+	document.getElementById('paraK').innerHTML= "Le paramètre k, ici il vaut" + "("+ ((4*sliderA.Value()*sliderC.Value())-(sliderB.Value()*sliderB.Value()))/(4*sliderA.Value()) +")" + ", indique la valeur de y au sommet de la courbe";
+		
+		
+				board.on('update', function(){
+		document.getElementById('paraK').innerHTML= "Le paramètre k, ici il vaut" + "("+ ((4*sliderA.Value()*sliderC.Value())-(sliderB.Value()*sliderB.Value()))/(4*sliderA.Value()) +")" + ", indique la valeur de y au sommet de la courbe";
+	});
+	
+	
+}
+
 
 /*Function pour animer la pente avec les sliders.
  */
@@ -397,10 +477,18 @@ function changementCanonique(){
 
 
 	   // affichage de l'équation dans la bulle informative. Elle est dynamique, elle se modifie si on bouge la courbe
-	board.on('update', function(){
+	if(sliderC.Value() <0){
+	   	board.on('update', function(){
+		document.getElementById('equationEntree').innerHTML= "y = "+sliderB.Value()
+		+ 'x + (' + sliderC.Value()+')';
+	});
+	   }else {
+	   	board.on('update', function(){
 		document.getElementById('equationEntree').innerHTML= "y = "+sliderB.Value()
 		+ 'x + ' + sliderC.Value();
 	});
+	   	
+	   }
 
 	// Affichage de deux points dynamiques qui servent à illustrer comment calculer la pente à partir de 2 points de la courbe
 	board.on('update', function(){
@@ -482,20 +570,66 @@ function afficherOrdonnee(){
 	});
 
 	if(sliderA.Value()==0){
-	board.on('update', function(){
+		if(sliderC.Value() < 0){
+			document.getElementById('ordonneeEquation').innerHTML= "y = "+sliderB.Value()
+		+ 'x + (' + sliderC.Value()+ ')';
+			board.on('update', function(){
+		document.getElementById('ordonneeEquation').innerHTML= "y = "+sliderB.Value()
+		+ 'x + (' + sliderC.Value()+ ')';
+	});
+	}else{
+		document.getElementById('ordonneeEquation').innerHTML= "y = "+sliderB.Value()
+		+ 'x + ' + sliderC.Value();
+		
+		board.on('update', function(){
 		document.getElementById('ordonneeEquation').innerHTML= "y = "+sliderB.Value()
 		+ 'x + ' + sliderC.Value();
 	});
-
+	}
+	
 	board.on('update', function(){
 		document.getElementById('ordonneeFormule').innerHTML= "Ordonnée = "+sliderC.Value();
 	});
 
 }else if(sliderA.Value()!=0){
-	board.on('update', function(){
+	if(sliderB.Value()< 0 && sliderC.Value() < 0){
 		document.getElementById('ordonneeEquationQuadratique').innerHTML= "y = "+sliderA.Value()
-		+ 'x + ' + sliderB.Value()+ sliderC.Value();
+		+ 'x² +(' + sliderB.Value()+ ')' + '+('+ sliderC.Value()+ ')';
+		
+				board.on('update', function(){
+		document.getElementById('ordonneeEquationQuadratique').innerHTML= "y = "+sliderA.Value()
+		+ 'x² +(' + sliderB.Value()+ ')' + '+('+ sliderC.Value()+ ')';
 	});
+			}else if(sliderB.Value()< 0 && sliderC.Value() >= 0 ){
+				
+				document.getElementById('ordonneeEquationQuadratique').innerHTML= "y = "+sliderA.Value()
+		+ 'x² +(' + sliderB.Value()+')' + "+ " + sliderC.Value();
+		
+				board.on('update', function(){
+		document.getElementById('ordonneeEquationQuadratique').innerHTML= "y = "+sliderA.Value()
+		+ 'x² +(' + sliderB.Value()+')' + "+ " + sliderC.Value();
+	});
+			} else if(sliderC.Value()< 0 && sliderB.Value() >= 0){
+				
+				document.getElementById('ordonneeEquationQuadratique').innerHTML= "y = "+sliderA.Value()
+		+ 'x² + ' + sliderB.Value()+ "+(" + sliderC.Value()+')';
+		
+				board.on('update', function(){
+		document.getElementById('ordonneeEquationQuadratique').innerHTML= "y = "+sliderA.Value()
+		+ 'x² + ' + sliderB.Value()+ "+(" + sliderC.Value()+')';
+	});
+			}else if(sliderC.Value() >= 0 && sliderB.Value() >= 0){
+				document.getElementById('ordonneeEquationQuadratique').innerHTML= "y = "+sliderA.Value()
+		+ 'x² + ' + sliderB.Value() + sliderC.Value();
+		
+				board.on('update', function(){
+		document.getElementById('ordonneeEquationQuadratique').innerHTML= "y = "+sliderA.Value()
+		+ 'x² + ' + sliderB.Value() + sliderC.Value();
+	});
+			}
+			
+	document.getElementById('ordonneeFormuleQuadratique').innerHTML= "Ordonnée = "+sliderC.Value();
+
 	board.on('update', function(){
 		document.getElementById('ordonneeFormuleQuadratique').innerHTML= "Ordonnée = "+sliderC.Value();
 	});
@@ -525,10 +659,11 @@ function axeDeSymetrie(){
 	pointHaut.setAttribute({strokeColor: 'black', fillColor: 'red', size: 4});
 	var li2 = board.create('line',[pointBas,pointHaut],
 	{straightFirst:false, straightLast:false, strokeWidth:2, dash:2});
-
-	//board.on('update', function(){
-	//	document.getElementById('axeDeSymetrie').innerHTML= "x= "+x.toFixed(2);
-	//});
+	
+	document.getElementById('axeDeSymetrie').innerHTML= "x= "+x.toFixed(2);
+	board.on('update', function(){
+		document.getElementById('axeDeSymetrie').innerHTML= "x= "+x.toFixed(2);
+	});
 
 	board.on('move', function () {
 		if (typeof pointBas != "undefined") { //si l'object existe on le detruis.
@@ -555,46 +690,57 @@ function afficherLesZeros(){
 	}
 
 	ordZer = board.create('point', [0,(sliderC.Value())], {style:6, name:'', fixed:true});
-	ordZer.setAttribute({strokeColor: 'black', fillColor: 'red', size: 4});
 	var discriminant= sliderB.Value()*sliderB.Value() - (4 * sliderA.Value() * sliderC.Value());
 	var valDiscriminant= Math.sqrt(discriminant);
-	if (discriminant >= 0){
+	if (discriminant > 0){
 		var premierZero= ((- sliderB.Value() + valDiscriminant)/(2*sliderA.Value())).toFixed(2);
 		var deuxiemeZero= ((- sliderB.Value() - valDiscriminant)/(2*sliderA.Value())).toFixed(2);
+
 		zero1 = board.create('point', [premierZero,0], {style:6, name: premierZero, fixed:true});
-		zero1.setAttribute({strokeColor: 'black', fillColor: 'red', size: 4});
 		zero2 = board.create('point', [deuxiemeZero,0], {style:6, name:deuxiemeZero, fixed:true});
-		zero2.setAttribute({strokeColor: 'black', fillColor: 'red', size: 4});
+		
+		// Afficher les 2 zéros
+		board.on('update', function(){
+		document.getElementById('lesZeros').innerHTML= "Les zéros sont: " + premierZero + " et " + deuxiemeZero;
+	});
+	
 	} else if(discriminant < 0){
 		var bulleAucuneSolution= board.create('text', [-2, 0, " L'équation n'a aucune solution "],
 		{anchor: ordZer,strokeColor: "#fff", cssClass:'mytext'});    //  équation test: x²- 3x+4
+		
+		// Afficher que l'équation n'a pas de zéros
+		board.on('update', function(){
+		document.getElementById('lesZeros').innerHTML= "L'équation n'a pas de zéros";
+	});
+	
+	}else if(discriminant == 0){
+		var seulZero= -sliderB.Value()/(2*sliderA.Value());
+		// Afficher le seul zéro de l'équation
+		board.on('update', function(){
+		document.getElementById('lesZeros').innerHTML= "Il y a un seul zéro: "+ seulZero;
+	});
+	
 	}
-
+	
 	/* injecter les valeurs des paramètres a, b et c dans la formule quadratique pour
 	 * qu'ils s'affichent de façon dynamique
-
-
+	 */
+	
 	board.on('update', function(){
-		document.getElementById('paraB').innerHTML= dynamiqueB();
+		document.getElementById('paraB').innerHTML= sliderB.Value();
 	});
 	board.on('update', function(){
-		document.getElementById('paraB2').innerHTML= dynamiqueB();
+		document.getElementById('paraB2').innerHTML= sliderB.Value();
 	});
 	board.on('update', function(){
-		document.getElementById('paraA').innerHTML= "(" + dynamiqueA()+ ")";
+		document.getElementById('paraA').innerHTML= "(" + sliderA.Value()+ ")";
 		});
 	board.on('update', function(){
-		document.getElementById('paraC').innerHTML= "(" + dynamiqueC()+ ")";
+		document.getElementById('paraC').innerHTML= "(" + sliderC.Value()+ ")";
 	});
 	board.on('update', function(){
-		document.getElementById('paraA2').innerHTML= "(" + dynamiqueA()+ ")";
+		document.getElementById('paraA2').innerHTML= "(" + sliderA.Value()+ ")";
 	});
-
-	board.on('update', function(){
-		document.getElementById('lesZeros').innerHTML= "Les zéros sont: " + premierZero + " et " + deuxiemeZero;
-	});
-	*/
-
 
 	board.on('move', function () {             //function pour cacher le bulles avec un event.
 		if (typeof ordZer != "undefined") { //si l'object existe on le detruis.

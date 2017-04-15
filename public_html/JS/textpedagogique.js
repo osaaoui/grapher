@@ -22,7 +22,15 @@ function textAxe(){
   document.getElementById('textLesZeros').style.display = 'none';
     misajour();
 }
-
+function textCanonique(){
+	
+  document.getElementById('textFormCanonique').style.display = 'block';
+  document.getElementById('textAxeSym').style.display = 'none';
+  document.getElementById('textPentePeda').style.display = 'none';
+  document.getElementById('textOrdoPeda').style.display = 'none';
+  document.getElementById('textLesZeros').style.display = 'none';
+  
+}
 function textZeros(){
 	document.getElementById('textLesZeros').style.display = 'block';
 	document.getElementById('textAxeSym').style.display = 'none';
@@ -30,3 +38,7 @@ function textZeros(){
   document.getElementById('textOrdoPeda').style.display = 'none';
   afficherLesZeros();
 }
+
+
+
+
