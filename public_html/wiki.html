@@ -35,7 +35,7 @@
 	<script type="text/javascript" src="http://jsxgraph.uni-bayreuth.de/distrib/jquery-ui.min.js"></script>
 </head>
 
-<body id="apropos">
+<body>
 	<div id="custom-bootstrap-menu" class="navbar navbar-default " role="navigation">
 		<div class="container-fluid">
 			<div class="navbar-header">
@@ -59,35 +59,19 @@
 		</div>
 	</div>
 
-	<div class="row">
-		<div class="container col-lg-6">
-			<h1>Conception, design et création</h1>
-			<div class="panel aproposText">
-			<p><h3>Marco Antonelli</h3><h5>code permanent : ANTM14077907</h5></p>
-			<p><h3>Étienne Beauchemin-Lachapelle</h3><h5>code permanent : </h5></p>
-			<p><h3>Omar Saaoui</h3><h5>code permanent : </h5></p>
-			</div>
-	    </div>
-	</div>
-	<div class="row">
-	<div class="container col-lg-6 col-lg-push-6">
-			<h1>Librairies</h1>
-			<div class="panel aproposText">
-			<p><h3>JSXGraph</h3></p>
-			<p><h5><a href="https://jsxgraph.uni-bayreuth.de/wp/index.html" class = "lien">Site web</a></p>
-			<p><h3>Bootstrap</h3></p>
-			<p><h5><a href="http://getbootstrap.com" class = "lien">Site web</a></p>
-			</div>
-	    </div>
-	</div>
-	<div class="row">
-	    <div class="container col-lg-6">
-			<h1>Pour plus d'informations</h1>
-			<div class="panel aproposText">
-			<p><h3>GitHub</h3></p>
-			<p><h5><a href="https://github.com/osaaoui/grapher" class = "lien">Projet</a></p>
-			<p><h3>Développé dans le cadre du cours : </h3></p>
-			<p><h5>INM5001 - Prof. Normand Seguin</p>
-	    </div>
-	</div>
+<div class="panel wiki col-lg-8 col-lg-push-2">
+<h1 class="wikitit">Les caractéristiques des équations acceptées :</h1>
+<br><br>
+<dt class="wikides">Les validations des limites de notre application :</dt>
+<dl>Les opérateurs qui ne sont pas encore prient en compte par l’application seront relevés. Soit  ‘*/ (  )’. (exemple : 9*2x+3)</dl>
+<dt class="wikides">Les validations des caractères acceptés.</dt>
+<dl>Tous les caractères hors ‘²x+-0- 9,. ‘ seront relevés un a la fois. (exemple : f4x+4)</dl>
+<dt class="wikides">Les validations des anomalies</dt>
+<dl>Si dans l’équation, l’une des anomalies suivantes est détectée elle sera relevée :</dl>
+<dd>-Plusieurs variables consécutives sans operateur (ex: 2xx)</dd>
+<dd>-Un nombre qui suit une variable (ex : x3)</dd>
+<dd>-Un nombre avec plusieurs points de décimal (23.34.45)</dd>
+<dd>-un nombre sans chiffre avant la virgule (ex : .75)</dd>
+</div>
+
 </body>

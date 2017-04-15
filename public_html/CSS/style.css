@@ -4,7 +4,7 @@ body {
    background-color: #c5cdd3!important;
    padding-top: 10px;
  }
- 
+
 #apropos {
   background-color: whitesmoke!important;
   color: slateGray!important;
@@ -433,4 +433,15 @@ fieldset[disabled] .btn-pente.active {
 .popover{
 	max-width: 400px;
 	border-radius: 30px;
+}
+
+.wiki {
+  color: slategray!important;
+  height: 100vw!important;
+  text-align: left;
+}
+
+.wikides{
+  text-emphasis: bold;
+  font-size: 18px!important;
 }
