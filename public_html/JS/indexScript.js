@@ -502,16 +502,33 @@ function afficherOrdonnee(){
 	});
 	}
 	
-
 	board.on('update', function(){
 		document.getElementById('ordonneeFormule').innerHTML= "Ordonnée = "+sliderC.Value();
 	});
 
 }else if(sliderA.Value()!=0){
-	board.on('update', function(){
+	if(sliderB.Value()< 0 && sliderC.Value() < 0){
+				board.on('update', function(){
 		document.getElementById('ordonneeEquationQuadratique').innerHTML= "y = "+sliderA.Value()
-		+ 'x + ' + sliderB.Value()+ sliderC.Value();
+		+ 'x² +(' + sliderB.Value()+ ')' + '+('+ sliderC.Value()+ ')';
 	});
+			}else if(sliderB.Value()< 0 && sliderC.Value() >= 0 ){
+				board.on('update', function(){
+		document.getElementById('ordonneeEquationQuadratique').innerHTML= "y = "+sliderA.Value()
+		+ 'x² +(' + sliderB.Value()+')' + "+ " + sliderC.Value();
+	});
+			} else if(sliderC.Value()< 0 && sliderB.Value() >= 0){
+				board.on('update', function(){
+		document.getElementById('ordonneeEquationQuadratique').innerHTML= "y = "+sliderA.Value()
+		+ 'x² + ' + sliderB.Value()+ "+(" + sliderC.Value()+')';
+	});
+			}else if(sliderC.Value() >= 0 && sliderB.Value() >= 0){
+				board.on('update', function(){
+		document.getElementById('ordonneeEquationQuadratique').innerHTML= "y = "+sliderA.Value()
+		+ 'x² + ' + sliderB.Value() + sliderC.Value();
+	});
+			}
+
 	board.on('update', function(){
 		document.getElementById('ordonneeFormuleQuadratique').innerHTML= "Ordonnée = "+sliderC.Value();
 	});
