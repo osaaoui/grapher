@@ -353,7 +353,71 @@ function changementCanonique(){
 		h=-sliderB.Value()/2*sliderA.Value();
 		k=((4*sliderA.Value()*sliderC.Value())-(sliderB.Value()*sliderB.Value()))/(4*sliderA.Value());
 		slidesCanonique (sliderA.Value(), h,k);
-	}
+		afficherFormeCanonique();
+}
+function afficherFormeCanonique(){
+if(sliderB.Value()< 0 && sliderC.Value() < 0){
+		document.getElementById('formeGenerale').innerHTML= "y = "+sliderA.Value()
+		+ 'x² +(' + sliderB.Value()+ ')' + '+('+ sliderC.Value()+ ')';
+		
+				board.on('update', function(){
+		document.getElementById('formeGenerale').innerHTML= "y = "+sliderA.Value()
+		+ 'x² +(' + sliderB.Value()+ ')' + '+('+ sliderC.Value()+ ')';
+	});
+			}else if(sliderB.Value()< 0 && sliderC.Value() >= 0 ){
+				
+				document.getElementById('formeGenerale').innerHTML= "y = "+sliderA.Value()
+		+ 'x² +(' + sliderB.Value()+')' + "+ " + sliderC.Value();
+		
+				board.on('update', function(){
+		document.getElementById('formeGenerale').innerHTML= "y = "+sliderA.Value()
+		+ 'x² +(' + sliderB.Value()+')' + "+ " + sliderC.Value();
+	});
+			} else if(sliderC.Value()< 0 && sliderB.Value() >= 0){
+				
+				document.getElementById('formeGenerale').innerHTML= "y = "+sliderA.Value()
+		+ 'x² + ' + sliderB.Value()+ "+(" + sliderC.Value()+')';
+		
+				board.on('update', function(){
+		document.getElementById('formeGenerale').innerHTML= "y = "+sliderA.Value()
+		+ 'x² + ' + sliderB.Value()+ "+(" + sliderC.Value()+')';
+	});
+			}else{
+				document.getElementById('formeGenerale').innerHTML= "y = "+sliderA.Value()
+		+ 'x² + ' + sliderB.Value() + sliderC.Value();
+		
+				board.on('update', function(){
+		document.getElementById('formeGenerale').innerHTML= "y = "+sliderA.Value()
+		+ 'x² + ' + sliderB.Value() + sliderC.Value();
+	});
+			}
+			
+	// Affichage de la forme canonique
+	//h=-sliderB.Value()/2*sliderA.Value();
+	//	k=((4*sliderA.Value()*sliderC.Value())-(sliderB.Value()*sliderB.Value()))/(4*sliderA.Value());
+	//	slidesCanonique (sliderA.Value(), h,k);
+	
+	document.getElementById('formeCanonique').innerHTML= "y = "+sliderA.Value()
+	+ '(x- +' + h + ')' + k;
+		
+		
+				board.on('update', function(){
+		document.getElementById('formeCanonique').innerHTML= "y = "+sliderA.Value()
+			+ '(x- +' + h + ')' + k;
+	});
+	
+	// les valeurs des paramètres a, h et k
+	
+	document.getElementById('paraA').innerHTML= "Le paramètre a qui est" + "("+ sliderA.Value()+")" + " indique le facteur de  dilatation verticale de la courbe";
+		
+		
+				board.on('update', function(){
+		document.getElementById('paraA').innerHTML= "Le paramètre a: " + "("+ sliderA.Value()+")" + " dilatation verticale de la courbe";
+	});
+	
+	
+}
+
 
 /*Function pour animer la pente avec les sliders.
  */

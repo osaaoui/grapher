@@ -63,7 +63,7 @@
 		<div class="container col-lg-1">
 			<div class="btn-group-vertical" role="group" id="btnGroup">
 				<button type="button" class="btn btn-pente btn-lg" id="btnpente" onClick="animerPente(); textPente()"disabled="true">Pente</button>
-				<button type="button" class="btn btn-pente btn-lg" id="canonique" onClick="changementCanonique()"disabled="true">Canonique</button>
+				<button type="button" class="btn btn-pente btn-lg" id="canonique" onClick=" textCanonique(); changementCanonique()"disabled="true">Canonique</button>
 
 				<button type="button" class="btn btn-pente btn-lg" id="btnresetter" onClick="resetGraph()"disabled="true">Reset</button>
 				<button type="button" class="btn btn-pente btn-lg" id="btnAfficOrd" onClick= "afficherOrdonnee(); textOrd()" disabled="true">Ordonnee</button>
@@ -115,6 +115,20 @@
 					<p>qui représente la formule:</p>
 					<p> <span class='numer'> Variation sur Y</span> <span class='denom'>Variation sur X</span></p>
 				</div>
+				
+				<div id="textFormCanonique" class = "css-typing">
+					<p> Une fonction quadratique a deux formes: </p>
+					<p> 1) La forme générale: y= ax&#178+ bx +c</p>
+					<p id="formeGenerale"></p>
+					<p> 2) La forme canonique: y= a(x-h)&#178+ k</p>
+					<p id="formeCanonique"></p>
+					<p>Le rôle des paramètres a, h et k: </p>
+					<p id="paraA">Le paramètre a: dilatation verticale de la courbe </p>
+					<p id="paraA">plus la valeur de a se rapproche de 0, plus la parabole est évasée; </p>
+					<p id="paraA">plus la valeur de a s'éloigne de 0, plus la parabole est étroite. </p>
+					<p id="paraH">Le paramètre h: indique la valeur de x au sommet de la courbe </p>
+					<p id="paraH">Le paramètre k: indique la valeur de y au sommet de la courbe </p>
+					</div>
 
 				<div id="textOrdoPeda" class= "css-typing">
 					<p> Calculer l'ordonnée à l'origine</p>
