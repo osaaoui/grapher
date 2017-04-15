@@ -388,14 +388,14 @@ function changementCanonique(){
 
 	     anim1=p3.moveTo([p3.X(), p1.Y()], 1500);
 	     anim2=p1.moveTo([1, (sliderB.Value()+sliderC.Value())], 1500);
-	   
-	   	
+
+
 	   	// Points supplémentaires à rattacher au texte dynamique affiché dans les bulles externes
 	     point1=board.create('point', [0, (sliderB.Value()+sliderC.Value())], {style:6,trace:false,strokeWidth:0.1,visible: false});
 		 point2=board.create('point', [1, (sliderB.Value()+sliderC.Value())], {style:6,  trace:false,strokeWidth:0.1,visible: false});
 		 point3=board.create('point', [0, (sliderC.Value()+0)], {style:6,trace:false,strokeWidth:0.1,visible: false});
 
-	   
+
 	   // affichage de l'équation dans la bulle informative. Elle est dynamique, elle se modifie si on bouge la courbe
 	board.on('update', function(){
 		document.getElementById('equationEntree').innerHTML= "y = "+sliderB.Value()
@@ -424,7 +424,7 @@ function changementCanonique(){
 
 	// Affichage dynamique du dénominateur de la formule de calcul de la pente à partir de deux points
 	//si le point 2 est négatif, le mettre entre parenthèses: ex. 5 - (-2)
-	
+
 	board.on('update', function(){
 		if(p3.X() < 0){
 			document.getElementById('denominateur').innerHTML= point2.X().toFixed()+"-(" + point3.X().toFixed(2)+")";
@@ -432,7 +432,7 @@ function changementCanonique(){
 			document.getElementById('denominateur').innerHTML= point2.X().toFixed()+"-"+point3.X().toFixed(2);
 		}
 	});
-	
+
 
  } else {
  	  var bullePente= board.create('text', [-2, 0, "&nbsp&nbspÉquation quadratique: aucune pente! Le curseur A doit être à zéro.&nbsp&nbsp"],
@@ -473,13 +473,14 @@ function afficherOrdonnee(){
 		board.removeObject(bulleOrdonnee);
 	}
  	ord = board.create('point', [0,sliderC.Value()], {style:6, fixed:true});
+	ord.setAttribute({strokeColor: 'black', fillColor: 'red', size: 4});
      bulleOrdonnee= board.create('text', [-2, 0, "ordonnee= " + sliderC.Value()],
 	{anchor: ord,strokeColor: "#fff", cssClass:'mytext', visible:true});
 	bulleOrdonnee.on('move', function () {          //function pour cacher le bulles avec un event.
 		ord.setAttribute({visible:false});
 		bulleOrdonnee.setAttribute({visible:false});
 	});
-	
+
 	if(sliderA.Value()==0){
 	board.on('update', function(){
 		document.getElementById('ordonneeEquation').innerHTML= "y = "+sliderB.Value()
@@ -489,7 +490,7 @@ function afficherOrdonnee(){
 	board.on('update', function(){
 		document.getElementById('ordonneeFormule').innerHTML= "Ordonnée = "+sliderC.Value();
 	});
-	
+
 }else if(sliderA.Value()!=0){
 	board.on('update', function(){
 		document.getElementById('ordonneeEquationQuadratique').innerHTML= "y = "+sliderA.Value()
@@ -498,14 +499,14 @@ function afficherOrdonnee(){
 	board.on('update', function(){
 		document.getElementById('ordonneeFormuleQuadratique').innerHTML= "Ordonnée = "+sliderC.Value();
 	});
-	
-	
- }
- }
-	
 
 
-	
+ }
+ }
+
+
+
+
 function axeDeSymetrie(){
 	if (typeof pointBas != "undefined") { //si l'object existe on le detruis.
 		board.removeObject(pointBas);
@@ -519,10 +520,12 @@ function axeDeSymetrie(){
 	var x = -sliderB.Value()/(2*sliderA.Value());//-b/2a
 	var y = (4*sliderA.Value()*sliderC.Value()-(sliderB.Value()*sliderB.Value()))/(4*sliderA.Value()); //(4ac-b²)/4a
 	pointBas= board.create('point', [x, (y-6)], {style:6, name:"x= " + x.toFixed(2)});// point sommet
-	pointHaut= board.create('point', [x, (y +10)], {style:6, name:"x= " + x.toFixed(2)});// point sommet
+	pointBas.setAttribute({strokeColor: 'black', fillColor: 'red', size: 4});
+	pointHaut= board.create('point', [x, (y +10)], {style:6, name:"x= " + x.toFixed(2)});
+	pointHaut.setAttribute({strokeColor: 'black', fillColor: 'red', size: 4});
 	var li2 = board.create('line',[pointBas,pointHaut],
 	{straightFirst:false, straightLast:false, strokeWidth:2, dash:2});
-	
+
 	//board.on('update', function(){
 	//	document.getElementById('axeDeSymetrie').innerHTML= "x= "+x.toFixed(2);
 	//});
@@ -552,23 +555,25 @@ function afficherLesZeros(){
 	}
 
 	ordZer = board.create('point', [0,(sliderC.Value())], {style:6, name:'', fixed:true});
+	ordZer.setAttribute({strokeColor: 'black', fillColor: 'red', size: 4});
 	var discriminant= sliderB.Value()*sliderB.Value() - (4 * sliderA.Value() * sliderC.Value());
 	var valDiscriminant= Math.sqrt(discriminant);
 	if (discriminant >= 0){
 		var premierZero= ((- sliderB.Value() + valDiscriminant)/(2*sliderA.Value())).toFixed(2);
 		var deuxiemeZero= ((- sliderB.Value() - valDiscriminant)/(2*sliderA.Value())).toFixed(2);
-
 		zero1 = board.create('point', [premierZero,0], {style:6, name: premierZero, fixed:true});
+		zero1.setAttribute({strokeColor: 'black', fillColor: 'red', size: 4});
 		zero2 = board.create('point', [deuxiemeZero,0], {style:6, name:deuxiemeZero, fixed:true});
+		zero2.setAttribute({strokeColor: 'black', fillColor: 'red', size: 4});
 	} else if(discriminant < 0){
 		var bulleAucuneSolution= board.create('text', [-2, 0, " L'équation n'a aucune solution "],
 		{anchor: ordZer,strokeColor: "#fff", cssClass:'mytext'});    //  équation test: x²- 3x+4
 	}
-	
+
 	/* injecter les valeurs des paramètres a, b et c dans la formule quadratique pour
 	 * qu'ils s'affichent de façon dynamique
-	 
-	 
+
+
 	board.on('update', function(){
 		document.getElementById('paraB').innerHTML= dynamiqueB();
 	});
@@ -584,13 +589,13 @@ function afficherLesZeros(){
 	board.on('update', function(){
 		document.getElementById('paraA2').innerHTML= "(" + dynamiqueA()+ ")";
 	});
-	
+
 	board.on('update', function(){
 		document.getElementById('lesZeros').innerHTML= "Les zéros sont: " + premierZero + " et " + deuxiemeZero;
 	});
 	*/
-	
-	
+
+
 	board.on('move', function () {             //function pour cacher le bulles avec un event.
 		if (typeof ordZer != "undefined") { //si l'object existe on le detruis.
 			ordZer.setAttribute({visible:false});

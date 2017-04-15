@@ -64,11 +64,11 @@
 			<div class="btn-group-vertical" role="group" id="btnGroup">
 				<button type="button" class="btn btn-pente btn-lg" id="btnpente" onClick="animerPente(); textPente()"disabled="true">Pente</button>
 				<button type="button" class="btn btn-pente btn-lg" id="canonique" onClick="changementCanonique()"disabled="true">Canonique</button>
-				
+
 				<button type="button" class="btn btn-pente btn-lg" id="btnresetter" onClick="resetGraph()"disabled="true">Reset</button>
-				<button type="button" class="btn btn-pente btn-lg" id="btnAfficOrd" onClick= "textOrd(); afficherOrdonnee()" disabled="true">Ordonnee</button>
-				<button type="button" class="btn btn-pente btn-lg" id="btnAxeStm" onClick="  textAxe(); axeDeSymetrie()"disabled="true" >Axe symétrie </button>
-				<button type="button" class="btn btn-pente btn-lg" id="btnAfficZero" onClick=" textZeros(); afficherLesZeros()"disabled="true">Les zéros </button>
+				<button type="button" class="btn btn-pente btn-lg" id="btnAfficOrd" onClick= "afficherOrdonnee(); textOrd()" disabled="true">Ordonnee</button>
+				<button type="button" class="btn btn-pente btn-lg" id="btnAxeStm" onClick="axeDeSymetrie(); textAxe()"disabled="true" >Axe symétrie </button>
+				<button type="button" class="btn btn-pente btn-lg" id="btnAfficZero" onClick=" afficherLesZeros(); textZeros();"disabled="true">Les zéros </button>
 			</div>
 		</div>
 		<div class="container col-lg-8" id="containerJxBox">
@@ -115,7 +115,7 @@
 					<p>qui représente la formule:</p>
 					<p> <span class='numer'> Variation sur Y</span> <span class='denom'>Variation sur X</span></p>
 				</div>
-				
+
 				<div id="textOrdoPeda" class= "css-typing">
 					<p> Calculer l'ordonnée à l'origine</p>
 					<p> 1)Équation linéaire:</p>

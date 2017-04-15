@@ -92,7 +92,9 @@ function traceAvecP(){
 */
 function pointLineaire(){
 	point1 = board.create('point', [1,(ordonnee+pente)], {style:6, name:'p1'});
+	point1.setAttribute({strokeColor: 'blue', fillColor: 'yellow', size: 4});
 	point2 = board.create('point', [(ordonnee/-pente), 0], {style:6, name:'p2'});
+	point2.setAttribute({strokeColor: 'blue', fillColor: 'yellow', size: 4});
 	point3 = board.create('point', [0,(ordonnee)], {visible: false, style:6});
 	var ligne = board.create('line', [point1,point2]);
 	// affichage dynamique de l'équation à l'extérieur du graphe
@@ -213,7 +215,9 @@ function pointQuadratique() {
 	var yPoint = (4*exp*ordonnee-(pente*pente))/(4*exp); //(4ac-b²)/4a
 	var depP2= (exp*(hPoint+1)*(hPoint+1))+(pente*(hPoint+1))+ordonnee;// nouveau point de depart pour "p2"
 	point1 = board.create('point', [hPoint, yPoint], {style:6, name:'p1'});// point sommet
+	point1.setAttribute({strokeColor: 'blue', fillColor: 'yellow', size: 4});
 	point2 = board.create('point', [(hPoint+1), depP2], {style:6, name:'p2'}); //le "p2" est placer sur la courbe à 1 de distance par rapport au sommet(ceci évite les conflits 0/0)
+	point2.setAttribute({strokeColor: 'blue', fillColor: 'yellow', size: 4});
 	var text = String.fromCharCode(178);
 	document.getElementById("equationGraph").innerHTML= " Équation quadratique: y = ax"+text+ " + bx + c";
 	var ligne = board.create('functiongraph', function(x) {
@@ -302,12 +306,14 @@ function afficherOrdonnee(){
 	// Afficher l'ordonnée à l'origine si l'équation est linéaire
 	if (typeEquation==0){
 	ord = board.create('point', [0,dynamiqueB()], {style:6, fixed:true});
+	ord.setAttribute({strokeColor: 'black', fillColor: 'red', size: 4});
   bulleOrdonnee= board.create('text', [-2, 0, "ordonnee= " + dynamiqueB()],
 	{anchor: ord,strokeColor: "#fff", cssClass:'mytext', visible:true});
 
 	// Afficher l'ordonnée à l'origine si l'équation est quadratique'
  }else if(typeEquation==1){
  	ord = board.create('point', [0,dynamiqueC()], {style:6, fixed:true});
+	ord.setAttribute({strokeColor: 'black', fillColor: 'red', size: 4});
   bulleOrdonnee= board.create('text', [-2, 0, "ordonnee= " + dynamiqueC()],
 	{anchor: ord,strokeColor: "#fff", cssClass:'mytext', visible:true});
  }
@@ -333,7 +339,9 @@ function axeDeSymetrie(){
 	var x = -dynamiqueB()/(2*dynamiqueA());//-b/2a
 	var y = (4*dynamiqueA()*dynamiqueC()-(dynamiqueB()*dynamiqueB()))/(4*dynamiqueA()); //(4ac-b²)/4a
 	pointBas= board.create('point', [x, (y-6)], {style:6, name:"x = " + x.toFixed(2)});// point sommet
+	pointBas.setAttribute({strokeColor: 'black', fillColor: 'red', size: 4});
 	pointHaut= board.create('point', [x, (y +10)], {style:6, name:"x = " + x.toFixed(2)});// point sommet
+	pointHaut.setAttribute({strokeColor: 'black', fillColor: 'red', size: 4});
 	var li2 = board.create('line',[pointBas,pointHaut],
 	{straightFirst:false, straightLast:false, strokeWidth:2, dash:2});
 
@@ -395,13 +403,16 @@ function afficherLesZeros(){
 		board.removeObject(zero2);
 	}
 	ordZer = board.create('point', [0,(dynamiqueC())], {style:6, name:'', fixed:true});
+	ordZer.setAttribute({strokeColor: 'black', fillColor: 'red', size: 4});
 	var discriminant= dynamiqueB()*dynamiqueB() - (4 * dynamiqueA() * dynamiqueC());
 	var valDiscriminant= Math.sqrt(discriminant);
 	if (discriminant > 0){
 		var premierZero= ((- dynamiqueB() + valDiscriminant)/(2*dynamiqueA())).toFixed(2);
 		var deuxiemeZero= ((- dynamiqueB() - valDiscriminant)/(2*dynamiqueA())).toFixed(2);
 		zero1 = board.create('point', [premierZero,0], {style:6, name: premierZero, fixed:true});
+		zero1.setAttribute({strokeColor: 'black', fillColor: 'red', size: 4});
 		zero2 = board.create('point', [deuxiemeZero,0], {style:6, name:deuxiemeZero, fixed:true});
+		zero2.setAttribute({strokeColor: 'black', fillColor: 'red', size: 4});
 		// Afficher les 2 zéros
 		board.on('update', function(){
 		document.getElementById('lesZeros').innerHTML= "Les zéros sont: " + premierZero + " et " + deuxiemeZero;
@@ -471,10 +482,8 @@ function afficherLesZeros(){
 	});
 }
 
-/* La fonction animerPente appelle la fonction animerVariationEnY qui, à son tour, fait appel à la fonction animerVariationEnX
-* Le tout pour animer la pente d'une équation linéaire.
+/*Fonction pour montrer le triangle de la pente.
 */
-
 function animerPente(){
 	triangle.setAttribute({visible:true});
 	if (typeof bullePente != "undefined") { //si l'object existe on le detruis.
