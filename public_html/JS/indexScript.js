@@ -397,10 +397,18 @@ function changementCanonique(){
 
 
 	   // affichage de l'équation dans la bulle informative. Elle est dynamique, elle se modifie si on bouge la courbe
-	board.on('update', function(){
+	if(sliderC.Value() <0){
+	   	board.on('update', function(){
+		document.getElementById('equationEntree').innerHTML= "y = "+sliderB.Value()
+		+ 'x + (' + sliderC.Value()+')';
+	});
+	   }else {
+	   	board.on('update', function(){
 		document.getElementById('equationEntree').innerHTML= "y = "+sliderB.Value()
 		+ 'x + ' + sliderC.Value();
 	});
+	   	
+	   }
 
 	// Affichage de deux points dynamiques qui servent à illustrer comment calculer la pente à partir de 2 points de la courbe
 	board.on('update', function(){
@@ -482,10 +490,18 @@ function afficherOrdonnee(){
 	});
 
 	if(sliderA.Value()==0){
-	board.on('update', function(){
+		if(sliderC.Value() < 0){
+			board.on('update', function(){
+		document.getElementById('ordonneeEquation').innerHTML= "y = "+sliderB.Value()
+		+ 'x + (' + sliderC.Value()+ ')';
+	});
+	}else{
+		board.on('update', function(){
 		document.getElementById('ordonneeEquation').innerHTML= "y = "+sliderB.Value()
 		+ 'x + ' + sliderC.Value();
 	});
+	}
+	
 
 	board.on('update', function(){
 		document.getElementById('ordonneeFormule').innerHTML= "Ordonnée = "+sliderC.Value();

@@ -160,16 +160,29 @@ function misajour(){
 
 	// affichage ordonne dans la boite pedagogique/
 	if(typeEquation==0){
-		document.getElementById('ordonneeEquation').innerHTML= "y = "+dynamiqueA()
+		if(dynamiqueB() < 0){
+			document.getElementById('ordonneeEquation').innerHTML= "y = "+dynamiqueA()
+		+ 'x + ( ' + dynamiqueB()+ ')';
+		board.on('update', function(){
+			document.getElementById('ordonneeEquation').innerHTML= "y = "+dynamiqueA()
+			+ 'x + ( ' + dynamiqueB()+ ')';
+		});
+			
+		}else{
+			document.getElementById('ordonneeEquation').innerHTML= "y = "+dynamiqueA()
 		+ 'x + ' + dynamiqueB();
 		board.on('update', function(){
 			document.getElementById('ordonneeEquation').innerHTML= "y = "+dynamiqueA()
 			+ 'x + ' + dynamiqueB();
 		});
+		}
+		
 		document.getElementById('ordonneeFormule').innerHTML= "Ordonnée = "+dynamiqueB();
 		board.on('update', function(){
 			document.getElementById('ordonneeFormule').innerHTML= "Ordonnée = "+dynamiqueB();
 		});
+		
+		
 	} else if(typeEquation==1){
 		if(dynamiqueB()< 0 && dynamiqueC() < 0){
 			document.getElementById('ordonneeEquationQuadratique').innerHTML= "y = "+dynamiqueA()
