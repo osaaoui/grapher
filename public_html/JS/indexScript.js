@@ -408,11 +408,27 @@ if(sliderB.Value()< 0 && sliderC.Value() < 0){
 	
 	// les valeurs des paramètres a, h et k
 	
-	document.getElementById('paraA').innerHTML= "Le paramètre a qui est" + "("+ sliderA.Value()+")" + " indique le facteur de  dilatation verticale de la courbe";
+	document.getElementById('paraA').innerHTML= "Le paramètre a qui vaut ici " + "("+ sliderA.Value()+")" + " indique le facteur de  dilatation verticale de la courbe";
 		
 		
 				board.on('update', function(){
-		document.getElementById('paraA').innerHTML= "Le paramètre a: " + "("+ sliderA.Value()+")" + " dilatation verticale de la courbe";
+		document.getElementById('paraA').innerHTML= "Le paramètre a qui vaut ici: " + "("+ sliderA.Value()+")" + "indique le facteur de dilatation verticale de la courbe";
+	});
+	
+	// paramètre h
+	document.getElementById('paraH').innerHTML= "Le paramètre h, ici il vaut" + "("+ (-sliderB.Value()/2*sliderA.Value())+")" + ", indique la valeur de x au sommet de la courbe";
+		
+		
+				board.on('update', function(){
+		document.getElementById('paraH').innerHTML= "Le paramètre h, ici il vaut" + "("+ (-sliderB.Value()/2*sliderA.Value()) +")" + ", indique la valeur de x au sommet de la courbe";
+	});
+	
+	// paramètre k
+	document.getElementById('paraK').innerHTML= "Le paramètre k, ici il vaut" + "("+ ((4*sliderA.Value()*sliderC.Value())-(sliderB.Value()*sliderB.Value()))/(4*sliderA.Value()) +")" + ", indique la valeur de y au sommet de la courbe";
+		
+		
+				board.on('update', function(){
+		document.getElementById('paraK').innerHTML= "Le paramètre k, ici il vaut" + "("+ ((4*sliderA.Value()*sliderC.Value())-(sliderB.Value()*sliderB.Value()))/(4*sliderA.Value()) +")" + ", indique la valeur de y au sommet de la courbe";
 	});
 	
 	
