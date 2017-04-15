@@ -589,46 +589,57 @@ function afficherLesZeros(){
 	}
 
 	ordZer = board.create('point', [0,(sliderC.Value())], {style:6, name:'', fixed:true});
-	ordZer.setAttribute({strokeColor: 'black', fillColor: 'red', size: 4});
 	var discriminant= sliderB.Value()*sliderB.Value() - (4 * sliderA.Value() * sliderC.Value());
 	var valDiscriminant= Math.sqrt(discriminant);
-	if (discriminant >= 0){
+	if (discriminant > 0){
 		var premierZero= ((- sliderB.Value() + valDiscriminant)/(2*sliderA.Value())).toFixed(2);
 		var deuxiemeZero= ((- sliderB.Value() - valDiscriminant)/(2*sliderA.Value())).toFixed(2);
+
 		zero1 = board.create('point', [premierZero,0], {style:6, name: premierZero, fixed:true});
-		zero1.setAttribute({strokeColor: 'black', fillColor: 'red', size: 4});
 		zero2 = board.create('point', [deuxiemeZero,0], {style:6, name:deuxiemeZero, fixed:true});
-		zero2.setAttribute({strokeColor: 'black', fillColor: 'red', size: 4});
+		
+		// Afficher les 2 zéros
+		board.on('update', function(){
+		document.getElementById('lesZeros').innerHTML= "Les zéros sont: " + premierZero + " et " + deuxiemeZero;
+	});
+	
 	} else if(discriminant < 0){
 		var bulleAucuneSolution= board.create('text', [-2, 0, " L'équation n'a aucune solution "],
 		{anchor: ordZer,strokeColor: "#fff", cssClass:'mytext'});    //  équation test: x²- 3x+4
+		
+		// Afficher que l'équation n'a pas de zéros
+		board.on('update', function(){
+		document.getElementById('lesZeros').innerHTML= "L'équation n'a pas de zéros";
+	});
+	
+	}else if(discriminant == 0){
+		var seulZero= -sliderB.Value()/(2*sliderA.Value());
+		// Afficher le seul zéro de l'équation
+		board.on('update', function(){
+		document.getElementById('lesZeros').innerHTML= "Il y a un seul zéro: "+ seulZero;
+	});
+	
 	}
-
+	
 	/* injecter les valeurs des paramètres a, b et c dans la formule quadratique pour
 	 * qu'ils s'affichent de façon dynamique
-
-
+	 */
+	
 	board.on('update', function(){
-		document.getElementById('paraB').innerHTML= dynamiqueB();
+		document.getElementById('paraB').innerHTML= sliderB.Value();
 	});
 	board.on('update', function(){
-		document.getElementById('paraB2').innerHTML= dynamiqueB();
+		document.getElementById('paraB2').innerHTML= sliderB.Value();
 	});
 	board.on('update', function(){
-		document.getElementById('paraA').innerHTML= "(" + dynamiqueA()+ ")";
+		document.getElementById('paraA').innerHTML= "(" + sliderA.Value()+ ")";
 		});
 	board.on('update', function(){
-		document.getElementById('paraC').innerHTML= "(" + dynamiqueC()+ ")";
+		document.getElementById('paraC').innerHTML= "(" + sliderC.Value()+ ")";
 	});
 	board.on('update', function(){
-		document.getElementById('paraA2').innerHTML= "(" + dynamiqueA()+ ")";
+		document.getElementById('paraA2').innerHTML= "(" + sliderA.Value()+ ")";
 	});
-
-	board.on('update', function(){
-		document.getElementById('lesZeros').innerHTML= "Les zéros sont: " + premierZero + " et " + deuxiemeZero;
-	});
-	*/
-
 
 	board.on('move', function () {             //function pour cacher le bulles avec un event.
 		if (typeof ordZer != "undefined") { //si l'object existe on le detruis.
