@@ -43,8 +43,12 @@ var b = 0;
 var c = 0;
 var enterPr = false;
 
+
+
 /*Fonction pour créer la courbe. Les attributs sont passés en tant que paramètres.
 *La courbe est dessinée à l'aide de la fonction de curseur.
+* @param: board, func, atts
+* @return: f
 */
 function addCurve(board, func, atts){
 	var f= board.create('functiongraph', [func], atts,{fixed: false});
@@ -58,6 +62,8 @@ function plot(func, atts){
 		return addCurve(board, func, atts);
 	}
 }
+
+
 
 /*Function pour la soummision avec Enter*/
 $(document).keypress(function(e) {
