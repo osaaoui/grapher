@@ -10,8 +10,7 @@ $(function(){
       text2 = "x";
       text = text2.concat(text);
     } else if (saisie == "y2") {
-      text2 = "y";
-      text = text2.concat(text);
+      text = "x";
     }
     var inputText= document.getElementById('input').value;
 

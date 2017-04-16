@@ -22,15 +22,7 @@ function textAxe(){
   document.getElementById('textLesZeros').style.display = 'none';
     misajour();
 }
-function textCanonique(){
-	
-  document.getElementById('textFormCanonique').style.display = 'block';
-  document.getElementById('textAxeSym').style.display = 'none';
-  document.getElementById('textPentePeda').style.display = 'none';
-  document.getElementById('textOrdoPeda').style.display = 'none';
-  document.getElementById('textLesZeros').style.display = 'none';
-  
-}
+
 function textZeros(){
 	document.getElementById('textLesZeros').style.display = 'block';
 	document.getElementById('textAxeSym').style.display = 'none';
@@ -39,6 +31,47 @@ function textZeros(){
   afficherLesZeros();
 }
 
+function textCanonique(){
+  document.getElementById('textFormCanonique').style.display = 'block';
+  document.getElementById('textAxeSymSl').style.display = 'none';
+  document.getElementById('textPentePedaSl').style.display = 'none';
+  document.getElementById('textOrdoPedaSl').style.display = 'none';
+  document.getElementById('textLesZerosSl').style.display = 'none';
+}
+
+function textPenteSl(){
+  document.getElementById('textPentePedaSl').style.display = 'block';
+  document.getElementById('textOrdoPedaSl').style.display = 'none';
+  document.getElementById('textAxeSymSl').style.display = 'none';
+  document.getElementById('textLesZerosSl').style.display = 'none';
+  document.getElementById('textFormCanonique').style.display = 'none';
+  misajour();
+}
+
+function textOrdSl(){
+  document.getElementById('textOrdoPedaSl').style.display = 'block';
+  document.getElementById('textPentePedaSl').style.display = 'none';
+  document.getElementById('textAxeSymSl').style.display = 'none';
+  document.getElementById('textLesZerosSl').style.display = 'none';
+  document.getElementById('textFormCanonique').style.display = 'none';
+  misajour();
+}
+
+function textAxeSl(){
+	document.getElementById('textAxeSymSl').style.display = 'block';
+  document.getElementById('textPentePedaSl').style.display = 'none';
+  document.getElementById('textOrdoPedaSl').style.display = 'none';
+  document.getElementById('textLesZerosSl').style.display = 'none';
+    document.getElementById('textFormCanonique').style.display = 'none';
+    misajour();
+}
 
 
-
+function textZerosSl(){
+	document.getElementById('textLesZerosSl').style.display = 'block';
+	document.getElementById('textAxeSymSl').style.display = 'none';
+  document.getElementById('textPentePedaSl').style.display = 'none';
+  document.getElementById('textOrdoPedaSl').style.display = 'none';
+  document.getElementById('textFormCanonique').style.display = 'none';
+  afficherLesZeros();
+}

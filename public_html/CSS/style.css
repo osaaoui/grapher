@@ -146,6 +146,22 @@ background-color: #91adc9!important;
 	display:none;
 }
 
+#textPentePedaSl {
+  display: none;
+}
+
+#textOrdoPedaSl {
+  display: none;
+}
+
+#textAxeSymSl {
+  display: none;
+}
+
+#textLesZerosSl {
+  display: none;
+}
+
 #box {
 width: 800px;
 height: 600px;
@@ -428,7 +444,6 @@ fieldset[disabled] .btn-pente.active {
 .denom {
   display:inline-block; clear:left; float:left
 }
-
 
 ::selection{
   background: black;

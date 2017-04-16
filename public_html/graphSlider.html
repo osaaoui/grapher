@@ -62,13 +62,12 @@
 	<div class="row">
 		<div class="container col-lg-1">
 			<div class="btn-group-vertical" role="group" id="btnGroup">
-				<button type="button" class="btn btn-pente btn-lg" id="btnpente" onClick="animerPente(); textPente()"disabled="true">Pente</button>
+				<button type="button" class="btn btn-pente btn-lg" id="btnpente" onClick="animerPente(); textPenteSl()" disabled="true">Pente</button>
 				<button type="button" class="btn btn-pente btn-lg" id="canonique" onClick=" textCanonique(); changementCanonique()"disabled="true">Canonique</button>
-
-				<button type="button" class="btn btn-pente btn-lg" id="btnresetter" onClick="resetGraph()"disabled="true">Reset</button>
-				<button type="button" class="btn btn-pente btn-lg" id="btnAfficOrd" onClick= "afficherOrdonnee(); textOrd()" disabled="true">Ordonnee</button>
-				<button type="button" class="btn btn-pente btn-lg" id="btnAxeStm" onClick="axeDeSymetrie(); textAxe()"disabled="true" >Axe symétrie </button>
-				<button type="button" class="btn btn-pente btn-lg" id="btnAfficZero" onClick=" afficherLesZeros(); textZeros();"disabled="true">Les zéros </button>
+				<button type="button" class="btn btn-pente btn-lg" id="btnresetter" onClick="resetGraph()" disabled="true">Reset</button>
+				<button type="button" class="btn btn-pente btn-lg" id="btnAfficOrd" onClick= "afficherOrdonnee(); textOrdSl()" disabled="true">Ordonnee</button>
+				<button type="button" class="btn btn-pente btn-lg" id="btnAxeStm" onClick="axeDeSymetrie(); textAxeSl()" disabled="true" >Axe symétrie </button>
+				<button type="button" class="btn btn-pente btn-lg" id="btnAfficZero" onClick=" afficherLesZeros(); textZerosSl();" disabled="true">Les zéros </button>
 			</div>
 		</div>
 		<div class="container col-lg-8" id="containerJxBox">
@@ -100,7 +99,7 @@
 	</div>
 	<div class="container col-lg-3" id="textPourJxBox">
 		<div class="panel panel-default" id="textPeda">
-				<div id="textPentePeda" class= "css-typing">
+				<div id="textPentePedaSl" class= "css-typing">
 					<p> Calculer la pente:</p>
 					<p>1) à partir de l'équation</p>
 					<p id="equationEntree"> y = Ax + B </p>
@@ -115,7 +114,7 @@
 					<p>qui représente la formule:</p>
 					<p> <span class='numer'> Variation sur Y</span> <span class='denom'>Variation sur X</span></p>
 				</div>
-				
+
 				<div id="textFormCanonique" class = "css-typing">
 					<p> Une fonction quadratique a deux formes: </p>
 					<p> 1) La forme générale: y= ax&#178+ bx +c</p>
@@ -130,7 +129,7 @@
 					<p id="paraK">Le paramètre k: indique la valeur de y au sommet de la courbe </p>
 					</div>
 
-				<div id="textOrdoPeda" class= "css-typing">
+				<div id="textOrdoPedaSl" class= "css-typing">
 					<p> Calculer l'ordonnée à l'origine</p>
 					<p> 1)Équation linéaire:</p>
 					<p id="ordonneeEquation"> y = ax + b</p>
@@ -142,14 +141,14 @@
 					</div>
 
 					<!-- affichage du texte de l'axe de symétrie -->
-					<div id="textAxeSym" class = "css-typing">
+					<div id="textAxeSymSl" class = "css-typing">
 					<p> L'axe de symétrie d'une parabole est la droite </p>
 					<p> verticale qui passe par le sommet de cette parabole </p>
 					<p id="axeDeSymetrie" class= "css-typing"> x = <span class='numer' id="numerateur">-b</span> <span class='denom' id="denominateur">2a</span> </p>
 					</div>
 
 					<!-- affichage du texte des zéros -->
-				<div id="textLesZeros" class= "css-typing">
+				<div id="textLesZerosSl" class= "css-typing">
 					<p> Les zéros représentent les points de rencontre de la parabole avec l'axe des x </p>
 					<p> C'est-à-dire les valeurs de la variable x lorsque y = 0</p>
 					<p> Pour calculer les zéros: </p>
@@ -196,7 +195,7 @@
 				x&#178;
 			</button>
 			<button id="y2" class= "clavierbutton">
-				y&#178;
+				x
 			</button>
 		</fieldset>
 	</div>
