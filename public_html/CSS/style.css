@@ -142,6 +142,9 @@ background-color: #91adc9!important;
 #textLesZeros {
   display: none;
 }
+#textFormCanonique{
+	display:none;
+}
 
 #box {
 width: 800px;
