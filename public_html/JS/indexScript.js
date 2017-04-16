@@ -83,20 +83,24 @@ $(document).keypress(function(e) {
 */
 function trace(){
 	var equation=document.getElementById('input').value;
-      equation=equation.replace(/,/g,'.'); // rempalce les "," par "."
-		var erreur=validation(equation);
-                document.getElementById('btnresetter').disabled=false;//activation du bouton Reset
+	equation=equation.replace(/,/g,'.'); // rempalce les "," par "."
+	var erreur=validation(equation);
+	document.getElementById('btnresetter').disabled=false;//activation du bouton Reset
 	if(erreur<0){
-            pente= parametreA(tokenize(equation));
-            ordonnee= parametreB(tokenize(equation));
-            exp = exposant(tokenize(equation));
-            zoomPlan(exp,pente ,ordonnee );
-            document.getElementById('btnAfficOrd').disabled=false;//activation du bouton Ordonnee
-            document.getElementById('btnAxeStm').disabled=false;//activation du bouton  Axe symétrie
-            document.getElementById('btnAfficZero').disabled=false;//activation du bouton Les zéros
-            document.getElementById('btnpente').disabled=false;//activation du bouton Pente
-            document.getElementById('canonique').disabled=false;//activation du bouton canonique
-            slidesGenerique (pente, ordonnee, exp);
+		pente= parametreA(tokenize(equation));
+		ordonnee= parametreB(tokenize(equation));
+		exp = exposant(tokenize(equation));
+		zoomPlan(exp,pente ,ordonnee );
+		if (exp == 0) {
+			document.getElementById('btnAfficOrd').disabled=false;//activation du bouton Ordonnee
+			document.getElementById('btnpente').disabled=false;//activation du bouton Pente
+		} else {
+			document.getElementById('btnAxeStm').disabled=false;//activation du bouton  Axe symétrie
+			document.getElementById('btnAfficZero').disabled=false;//activation du bouton Les zéros
+			document.getElementById('btnAfficOrd').disabled=false;//activation du bouton Ordonnee
+			document.getElementById('canonique').disabled=false;//activation du bouton canonique
+		}
+		slidesGenerique (pente, ordonnee, exp);
 	}else{
 		var input=document.getElementById('input');
 		input.selectionStart = erreur;
@@ -158,6 +162,17 @@ function sliderFunction() {
 			sliderA.setValue(a);
 			board.updateQuality = board.BOARD_QUALITY_HIGH;
 			board.update();
+			if (sliderA.Value() != 0) {
+				document.getElementById('btnAxeStm').disabled=false;//activation du bouton  Axe symétrie
+				document.getElementById('btnAfficZero').disabled=false;//activation du bouton Les zéros
+				document.getElementById('btnAfficOrd').disabled=false;//activation du bouton Ordonnee
+				document.getElementById('canonique').disabled=false;//activation du bouton canonique
+			} else {
+				document.getElementById('btnAxeStm').disabled=true;//activation du bouton  Axe symétrie
+				document.getElementById('btnAfficZero').disabled=true;//activation du bouton Les zéros
+				document.getElementById('btnAfficOrd').disabled=true;//activation du bouton Ordonnee
+				document.getElementById('canonique').disabled=true;//activation du bouton canonique
+			}
 		}
 	});
 	$("#aSlideInput").val($("#sliderA1").slider("value"));
