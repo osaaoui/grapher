@@ -6,28 +6,28 @@ Copyright 2008-2016
            Bianca Valentin,
            Alfred Wassermann,
            Peter Wilfahrt
-   
+
       This file is part of JSXGraph.
-  
+
       JSXGraph is free software dual licensed under the GNU LGPL or MIT License.
-  
+
       You can redistribute it and/or modify it under the terms of the
-  
+
         * GNU Lesser General Public License as published by
           the Free Software Foundation, either version 3 of the License, or
           (at your option) any later version
         OR
         * MIT License: https://github.com/jsxgraph/jsxgraph/blob/master/LICENSE.MIT
-  
+
       JSXGraph is distributed in the hope that it will be useful,
       but WITHOUT ANY WARRANTY; without even the implied warranty of
       MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
       GNU Lesser General Public License for more details.
-  
+
       You should have received a copy of the GNU Lesser General Public License and
       the MIT License along with JSXGraph. If not, see <http://www.gnu.org/licenses/>
       and <http://opensource.org/licenses/MIT/>.
-   
+
 */
 
 
@@ -42,7 +42,6 @@ var a = 0.1;
 var b = 0;
 var c = 0;
 var enterPr = false;
-
 
 
 /*Fonction pour créer la courbe. Les attributs sont passés en tant que paramètres.
@@ -62,7 +61,6 @@ function plot(func, atts){
 		return addCurve(board, func, atts);
 	}
 }
-
 
 
 /*Function pour la soummision avec Enter*/
@@ -104,6 +102,7 @@ function trace(){
 		input.selectionStart = erreur;
 		input.selectionEnd=++erreur;
 		input.focus();
+		enterPr = false;
 	}
 }
 
@@ -397,25 +396,25 @@ function afficherFormeCanonique(){
 if(sliderB.Value()< 0 && sliderC.Value() < 0){
 		document.getElementById('formeGenerale').innerHTML= "y = "+sliderA.Value()
 		+ 'x² +(' + sliderB.Value()+ ')' + '+('+ sliderC.Value()+ ')';
-		
+
 				board.on('update', function(){
 		document.getElementById('formeGenerale').innerHTML= "y = "+sliderA.Value()
 		+ 'x² +(' + sliderB.Value()+ ')' + '+('+ sliderC.Value()+ ')';
 	});
 			}else if(sliderB.Value()< 0 && sliderC.Value() >= 0 ){
-				
+
 				document.getElementById('formeGenerale').innerHTML= "y = "+sliderA.Value()
 		+ 'x² +(' + sliderB.Value()+')' + "+ " + sliderC.Value();
-		
+
 				board.on('update', function(){
 		document.getElementById('formeGenerale').innerHTML= "y = "+sliderA.Value()
 		+ 'x² +(' + sliderB.Value()+')' + "+ " + sliderC.Value();
 	});
 			} else if(sliderC.Value()< 0 && sliderB.Value() >= 0){
-				
+
 				document.getElementById('formeGenerale').innerHTML= "y = "+sliderA.Value()
 		+ 'x² + ' + sliderB.Value()+ "+(" + sliderC.Value()+')';
-		
+
 				board.on('update', function(){
 		document.getElementById('formeGenerale').innerHTML= "y = "+sliderA.Value()
 		+ 'x² + ' + sliderB.Value()+ "+(" + sliderC.Value()+')';
@@ -423,54 +422,54 @@ if(sliderB.Value()< 0 && sliderC.Value() < 0){
 			}else{
 				document.getElementById('formeGenerale').innerHTML= "y = "+sliderA.Value()
 		+ 'x² + ' + sliderB.Value() + sliderC.Value();
-		
+
 				board.on('update', function(){
 		document.getElementById('formeGenerale').innerHTML= "y = "+sliderA.Value()
 		+ 'x² + ' + sliderB.Value() + sliderC.Value();
 	});
 			}
-			
+
 	// Affichage de la forme canonique
 	//h=-sliderB.Value()/2*sliderA.Value();
 	//	k=((4*sliderA.Value()*sliderC.Value())-(sliderB.Value()*sliderB.Value()))/(4*sliderA.Value());
 	//	slidesCanonique (sliderA.Value(), h,k);
-	
+
 	document.getElementById('formeCanonique').innerHTML= "y = "+sliderA.Value()
 	+ '(x- +' + h + ')' + k;
-		
-		
+
+
 				board.on('update', function(){
 		document.getElementById('formeCanonique').innerHTML= "y = "+sliderA.Value()
 			+ '(x- +' + h + ')' + k;
 	});
-	
+
 	// les valeurs des paramètres a, h et k
 
-	
+
 	document.getElementById('paraA').innerHTML= "Le paramètre a qui vaut ici " + "("+ sliderA.Value()+")" + " indique le facteur de  dilatation verticale de la courbe";
-		
-		
+
+
 				board.on('update', function(){
 		document.getElementById('paraA').innerHTML= "Le paramètre a qui vaut ici: " + "("+ sliderA.Value()+")" + "indique le facteur de dilatation verticale de la courbe";
 	});
-	
+
 	// paramètre h
 	document.getElementById('paraH').innerHTML= "Le paramètre h, ici il vaut" + "("+ (-sliderB.Value()/2*sliderA.Value())+")" + ", indique la valeur de x au sommet de la courbe";
-		
-		
+
+
 				board.on('update', function(){
 		document.getElementById('paraH').innerHTML= "Le paramètre h, ici il vaut" + "("+ (-sliderB.Value()/2*sliderA.Value()) +")" + ", indique la valeur de x au sommet de la courbe";
 	});
-	
+
 	// paramètre k
 	document.getElementById('paraK').innerHTML= "Le paramètre k, ici il vaut" + "("+ ((4*sliderA.Value()*sliderC.Value())-(sliderB.Value()*sliderB.Value()))/(4*sliderA.Value()) +")" + ", indique la valeur de y au sommet de la courbe";
-		
-		
+
+
 				board.on('update', function(){
 		document.getElementById('paraK').innerHTML= "Le paramètre k, ici il vaut" + "("+ ((4*sliderA.Value()*sliderC.Value())-(sliderB.Value()*sliderB.Value()))/(4*sliderA.Value()) +")" + ", indique la valeur de y au sommet de la courbe";
 	});
-	
-	
+
+
 }
 
 
@@ -526,7 +525,7 @@ if(sliderB.Value()< 0 && sliderC.Value() < 0){
 		document.getElementById('equationEntree').innerHTML= "y = "+sliderB.Value()
 		+ 'x + ' + sliderC.Value();
 	});
-	   	
+
 	   }
 
 	// Affichage de deux points dynamiques qui servent à illustrer comment calculer la pente à partir de 2 points de la courbe
@@ -619,13 +618,13 @@ function afficherOrdonnee(){
 	}else{
 		document.getElementById('ordonneeEquation').innerHTML= "y = "+sliderB.Value()
 		+ 'x + ' + sliderC.Value();
-		
+
 		board.on('update', function(){
 		document.getElementById('ordonneeEquation').innerHTML= "y = "+sliderB.Value()
 		+ 'x + ' + sliderC.Value();
 	});
 	}
-	
+
 	board.on('update', function(){
 		document.getElementById('ordonneeFormule').innerHTML= "Ordonnée = "+sliderC.Value();
 	});
@@ -634,25 +633,25 @@ function afficherOrdonnee(){
 	if(sliderB.Value()< 0 && sliderC.Value() < 0){
 		document.getElementById('ordonneeEquationQuadratique').innerHTML= "y = "+sliderA.Value()
 		+ 'x² +(' + sliderB.Value()+ ')' + '+('+ sliderC.Value()+ ')';
-		
+
 				board.on('update', function(){
 		document.getElementById('ordonneeEquationQuadratique').innerHTML= "y = "+sliderA.Value()
 		+ 'x² +(' + sliderB.Value()+ ')' + '+('+ sliderC.Value()+ ')';
 	});
 			}else if(sliderB.Value()< 0 && sliderC.Value() >= 0 ){
-				
+
 				document.getElementById('ordonneeEquationQuadratique').innerHTML= "y = "+sliderA.Value()
 		+ 'x² +(' + sliderB.Value()+')' + "+ " + sliderC.Value();
-		
+
 				board.on('update', function(){
 		document.getElementById('ordonneeEquationQuadratique').innerHTML= "y = "+sliderA.Value()
 		+ 'x² +(' + sliderB.Value()+')' + "+ " + sliderC.Value();
 	});
 			} else if(sliderC.Value()< 0 && sliderB.Value() >= 0){
-				
+
 				document.getElementById('ordonneeEquationQuadratique').innerHTML= "y = "+sliderA.Value()
 		+ 'x² + ' + sliderB.Value()+ "+(" + sliderC.Value()+')';
-		
+
 				board.on('update', function(){
 		document.getElementById('ordonneeEquationQuadratique').innerHTML= "y = "+sliderA.Value()
 		+ 'x² + ' + sliderB.Value()+ "+(" + sliderC.Value()+')';
@@ -660,13 +659,13 @@ function afficherOrdonnee(){
 			}else if(sliderC.Value() >= 0 && sliderB.Value() >= 0){
 				document.getElementById('ordonneeEquationQuadratique').innerHTML= "y = "+sliderA.Value()
 		+ 'x² + ' + sliderB.Value() + sliderC.Value();
-		
+
 				board.on('update', function(){
 		document.getElementById('ordonneeEquationQuadratique').innerHTML= "y = "+sliderA.Value()
 		+ 'x² + ' + sliderB.Value() + sliderC.Value();
 	});
 			}
-			
+
 	document.getElementById('ordonneeFormuleQuadratique').innerHTML= "Ordonnée = "+sliderC.Value();
 
 	board.on('update', function(){
@@ -698,7 +697,7 @@ function axeDeSymetrie(){
 	pointHaut.setAttribute({strokeColor: 'black', fillColor: 'red', size: 4});
 	var li2 = board.create('line',[pointBas,pointHaut],
 	{straightFirst:false, straightLast:false, strokeWidth:2, dash:2});
-	
+
 	document.getElementById('axeDeSymetrie').innerHTML= "x= "+x.toFixed(2);
 	board.on('update', function(){
 		document.getElementById('axeDeSymetrie').innerHTML= "x= "+x.toFixed(2);
@@ -737,34 +736,34 @@ function afficherLesZeros(){
 
 		zero1 = board.create('point', [premierZero,0], {style:6, name: premierZero, fixed:true});
 		zero2 = board.create('point', [deuxiemeZero,0], {style:6, name:deuxiemeZero, fixed:true});
-		
+
 		// Afficher les 2 zéros
 		board.on('update', function(){
 		document.getElementById('lesZeros').innerHTML= "Les zéros sont: " + premierZero + " et " + deuxiemeZero;
 	});
-	
+
 	} else if(discriminant < 0){
 		var bulleAucuneSolution= board.create('text', [-2, 0, " L'équation n'a aucune solution "],
 		{anchor: ordZer,strokeColor: "#fff", cssClass:'mytext'});    //  équation test: x²- 3x+4
-		
+
 		// Afficher que l'équation n'a pas de zéros
 		board.on('update', function(){
 		document.getElementById('lesZeros').innerHTML= "L'équation n'a pas de zéros";
 	});
-	
+
 	}else if(discriminant == 0){
 		var seulZero= -sliderB.Value()/(2*sliderA.Value());
 		// Afficher le seul zéro de l'équation
 		board.on('update', function(){
 		document.getElementById('lesZeros').innerHTML= "Il y a un seul zéro: "+ seulZero;
 	});
-	
+
 	}
-	
+
 	/* injecter les valeurs des paramètres a, b et c dans la formule quadratique pour
 	 * qu'ils s'affichent de façon dynamique
 	 */
-	
+
 	board.on('update', function(){
 		document.getElementById('paraB').innerHTML= sliderB.Value();
 	});

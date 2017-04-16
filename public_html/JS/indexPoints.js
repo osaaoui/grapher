@@ -134,10 +134,9 @@ function traceAvecP(){
 		input.selectionStart = erreur;
 		input.selectionEnd=++erreur;
 		input.focus();
+		enterPr = false;
 	}
 }
-
-
 
 /*Cette function trace une droite. On trace la droite en utilisent les deux points
 *@param: aucun
