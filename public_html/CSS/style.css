@@ -194,6 +194,7 @@ height: 600px;
     border-color: slategray!important;
     border-width: thick;
     border-style: double;
+    overflow-y: scroll;
 }
 
 #ptext {
