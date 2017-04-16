@@ -1,3 +1,10 @@
+/* Ce script va gerer la fonctionnalite des points de la librarie JSXGraph.
+*  
+*/
+
+
+
+// VARIABLES GLOBALES
 var board = JXG.JSXGraph.initBoard('box', {boundingbox:[-5,8,8,-5], axis:true, zoomfactor: 0.8, showCopyright: false});
 var ordonnee;
 var pente;
@@ -7,12 +14,17 @@ var exp;
 var typeEquation;
 var enterPr = false;
 
+
+/* fonction pour dessiner la courbe. Elle retourne un graphique de la courbe
+*@param board, func, atts
+*@return: f
+*/
 function addCurve(board, func, atts){
 	var f= board.create('functiongraph', [func], atts,{fixed: false});
 	return f;
 }
 
-/*Function pour la soummision avec Enter*/
+// accepter de soumettre une entree en tapant ENTER
 $(document).keypress(function(e) {
 	if(e.which == 13) {
 		 if (enterPr == false) {
@@ -25,7 +37,12 @@ $(document).keypress(function(e) {
 	}
 });
 
-/*Function pour tracer la courbe avec des points mouvables*/
+
+
+/*Fonction pour tracer la courbe avec des points mobiles
+*@param: aucun
+@return: aucun
+*/
 function traceAvecP(){
 	var equation = document.getElementById('input').value;
 	equation=equation.replace(/,/g,'.'); // rempalce les "," par "."
@@ -53,7 +70,7 @@ function traceAvecP(){
 
 		// affichage dynamique de l'ordonnée dans la bulle externe
 		if (typeEquation==1){
-			if(dynamiqueB()< 0 && dynamiqueC() < 0){
+			if(dynamiqueB()< 0 && dynamiqueC() < 0){// si l'ordonnee ou la pente est une valeur negative, les mettre entre ()
 				board.on('update', function(){
 		document.getElementById('ordonneeEquationQuadratique').innerHTML= "y = "+dynamiqueA()
 		+ 'x² +(' + dynamiqueB()+ ')' + '+('+ dynamiqueC()+ ')';
@@ -87,8 +104,11 @@ function traceAvecP(){
 	}
 }
 
+
+
 /*Cette function trace une droite. On trace la droite en utilisent les deux points
-*
+*@param: aucun
+*@return: aucun
 */
 function pointLineaire(){
 	point1 = board.create('point', [1,(ordonnee+pente)], {style:6, name:'p1'});
@@ -102,15 +122,21 @@ function pointLineaire(){
 		document.getElementById('equationGraph').innerHTML= "y = "+dynamiqueA()
 		+ 'x + ' + dynamiqueB();
 	});
-//creation triangle de la pente pour equation de premier degree/
-triangle= board.create('slopetriangle', [ligne, point1], {visible: false});
-triangle.label.setAttribute({visible: false});
-affichageEquationLineairePoint(point1,point2);
-document.getElementById("equationGraph").innerHTML= " Équation linéaire: y = " + pente + "x" + " + " + ordonnee;
-misajour();
-}
+	//creation triangle de la pente pour equation de premier degree/
+	triangle= board.create('slopetriangle', [ligne, point1], {visible: false});
+	triangle.label.setAttribute({visible: false});
+	affichageEquationLineairePoint(point1,point2);
+	document.getElementById("equationGraph").innerHTML= " Équation linéaire: y = " + pente + "x" + " + " + ordonnee;
+	misajour();
+	}
 
-/*Function pour mettre a jour le text dans la boite pedagogique.*/
+
+
+
+/*Fonction pour mettre a jour le text dans la boite pedagogique.
+*@param: aucun
+*@return: aucun
+*/
 function misajour(){
 	// affichage de l'équation dans la bulle informative. Elle est dynamique, elle se modifie si on bouge la courbe
 	board.on('update', function(){
@@ -220,8 +246,11 @@ function misajour(){
 	}
 }
 
-/*
-* Cette fonction trace une courbe en utilisant les trois paramètres de l'équation d'entrée.
+
+
+/* Cette fonction trace une courbe en utilisant les trois paramètres d'une equation quadratique.
+*@param: aucun
+*@return: aucun
 */
 function pointQuadratique() {
 	var hPoint = -pente/(2*exp);//-b/2a
@@ -245,7 +274,12 @@ function pointQuadratique() {
 	ligne.addParents([point1, point2]);
 }
 
-// ajustement le zoom du plan cartésien selon l'équation entré y=ax²+bx+c ou y=bx+c
+
+
+/* Fonction pour ajuster le zoom du plan cartésien selon l'équation entré y=ax²+bx+c ou y=bx+c
+*@param: a, b, c (Les 3 parametres d'une equation lineaire ou quadratique)
+*@return: aucun
+*/
 function zoomPlan(a,b,c){
 	var xPos=8;
 	var xNeg=-5;
@@ -307,9 +341,13 @@ function zoomPlan(a,b,c){
 	board.setBoundingBox([xNeg,yPos,xPos,yNeg]);
 }
 }
-// Fonction qui affiche l'ordonnée à l'origine d'une équation quadratique.
-// L'affichage est placée dans une bulle
 
+
+
+/*Fonction qui affiche l'ordonnée à l'origine d'une équation quadratique.L'affichage est placée dans une bulle
+*@param: aucun
+@return: aucun
+*/
 function afficherOrdonnee(){
   if (typeof ord != "undefined") { //si l'object existe on le detruis.
 		board.removeObject(ord);
@@ -336,11 +374,17 @@ function afficherOrdonnee(){
 	});
 }
 
-// Fonction pour afficher l'axe de symétrie.
-// Pour le moment on se contentera d'afficher l'équation de l'axe x= ...   à côté du point et sans bulle
-// une fois qu'on a trouvé un affichage approprié de la bulle, on remettra le code qui est commenté ci-bas
+
+
+
+/*Fonction pour afficher l'axe de symétrie.
+*Pour le moment on se contentera d'afficher l'équation de l'axe x= ...   à côté du point et sans bulle
+*une fois qu'on a trouvé un affichage approprié de la bulle, on remettra le code qui est commenté ci-bas
+*@param:aucun
+@return:aucun
+*/
 function axeDeSymetrie(){
-	if (typeof pointBas != "undefined") { //si l'object existe on le detruis.
+	if (typeof pointBas != "undefined") { //si l'object existe, on le retire.
 		board.removeObject(pointBas);
 	}
 	if (typeof pointHaut != "undefined") {
@@ -364,7 +408,7 @@ function axeDeSymetrie(){
 	});
 
 	point1.on('move', function () {
-		if (typeof pointBas != "undefined") { //si l'object existe on le detruis.
+		if (typeof pointBas != "undefined") { //si l'object existe deja, on le retire.
 			board.removeObject(pointBas);
 		}
 		if (typeof pointHaut != "undefined") {
@@ -376,7 +420,7 @@ function axeDeSymetrie(){
 	});
 
 	point2.on('move', function () {
-		if (typeof pointBas != "undefined") { //si l'object existe on le detruis.
+		if (typeof pointBas != "undefined") { //si l'object existe deja, on le retire.
 			board.removeObject(pointBas);
 		}
 		if (typeof pointHaut != "undefined") {
@@ -388,7 +432,7 @@ function axeDeSymetrie(){
 	});
 
 	li2.on('move', function () {
-		if (typeof pointBas != "undefined") { //si l'object existe on le detruis.
+		if (typeof pointBas != "undefined") { //si l'object existe, on le retire.
 			board.removeObject(pointBas);
 		}
 		if (typeof pointHaut != "undefined") {
@@ -398,15 +442,17 @@ function axeDeSymetrie(){
 			board.removeObject(li2);
 		}
 	});
-
-	//var bulleAxeBas= board.create('text', [-2, 0, "x= " + x.toFixed(2) ],
-	//{anchor: pointBas,strokeColor: "#fff", cssClass:'mytext'});
-	//var bulleAxeHaut= board.create('text', [-2, 0, "x= " + x.toFixed(2) ],
-	//{anchor: pointHaut,strokeColor: "#fff", cssClass:'mytext'});
 }
 
+
+
+/*Fonction qui affiche les zeros d'une equation quadratique dans une bulle informative externe.
+*@param: aucun
+*@return:aucun
+*/
+
 function afficherLesZeros(){
-	if (typeof ordZer != "undefined") { //si l'object existe on le detruis.
+	if (typeof ordZer != "undefined") { //si l'object existe on le retire.
 		board.removeObject(ordZer);
 	}
 	if (typeof zero1 != "undefined") {
@@ -434,22 +480,23 @@ function afficherLesZeros(){
 		var bulleAucuneSolution= board.create('text', [-2, 0, " L'équation n'a aucune solution "],
 		{anchor: ordZer,strokeColor: "#fff", cssClass:'mytext'});    //  équation test: x²- 3x+4
 
-		// Afficher que l'équation n'a pas de zéros
+		// si le discriminant est < 0, Afficher que l'équation n'a pas de zéros
 		board.on('update', function(){
 		document.getElementById('lesZeros').innerHTML= "L'équation n'a pas de zéros";
 	});
 
 	}else if(discriminant == 0){
 		var seulZero= point1.X();
-		// Afficher le seul zéro de l'équation
+		// si le discriminant ==0, Afficher le seul zéro de l'équation
 		board.on('update', function(){
 		document.getElementById('lesZeros').innerHTML= "Il y a un seul zéro: "+ seulZero;
 	});
 
 	}
-	/* injecter les valeurs des paramètres a, b et c dans la formule quadratique pour
-	 * qu'ils s'affichent de façon dynamique
-	 */
+	
+	//injecter les valeurs des paramètres a, b et c dans la formule quadratique pour
+	//qu'ils s'affichent de façon dynamique
+	 
 	board.on('update', function(){
 		document.getElementById('paraB').innerHTML= dynamiqueB();
 	});
@@ -480,7 +527,7 @@ function afficherLesZeros(){
 		}
 	});
 	point2.on('move', function () {             //function pour cacher la bulle et les zeros avec un event.
-		if (typeof ordZer != "undefined") { //si l'object existe on le detruis.
+		if (typeof ordZer != "undefined") { //si l'object existe on le retire.
 			ordZer.setAttribute({visible:false});
 		}
 		if (typeof zero1 != "undefined") {
@@ -495,7 +542,12 @@ function afficherLesZeros(){
 	});
 }
 
+
+
+
 /*Fonction pour montrer le triangle de la pente.
+*@param:aucun
+@return:aucun
 */
 function animerPente(){
 	triangle.setAttribute({visible:true});
@@ -511,17 +563,28 @@ function animerPente(){
  });
 }
 
+
+
+
+/* Fonction qui efface les graphiques
+@param: board (le tableau graph)
+@return : board (un nouveau tableau graph vierge)
+*/
 function clearAll(board){
 	JXG.JSXGraph.freeBoard(board);
 	board = JXG.JSXGraph.initBoard('box', {boundingbox:[-5,8,8,-5], axis:true, showCopyright: false});
 	return board;
 }
 
+
+
 /* La fonction tokenize retourne un tableau de chaines de caractères
 * elle prend en paramètre une chaine String (l'équation à traiter)
 * Toutes les fonctions sont déclarées avec const dans un style fonctionnel
 * pour éviter des effets de bord (side effects).
 * On fera appel à la composition de fonctions pour retourner les valeurs
+*@param: code (l'equation entree par l'utilisateur)
+@return: results (un tableau de caracteres)
 */
 const tokenize= function (code) {
 	var results = [];
@@ -535,6 +598,13 @@ const tokenize= function (code) {
 	return results;
 };
 
+
+
+
+/*Fonction qui retourne le permier parametre(avec exposant) d'une equation quadratique
+*@param: code, type: String
+@return: exp, type: String
+*/
 const exposant = function(code){
 	var tok=code;
 	var exp=0;
@@ -560,6 +630,7 @@ const exposant = function(code){
 /*
 * fonction qui retourne le paramètre A de l'équation
 * Param: code   type: String
+*@return: lePente    type:String
 */
 const parametreA = function(code){
 	var tok = code;
@@ -586,7 +657,8 @@ const parametreA = function(code){
 
 /*
 * fonction qui retourne le paramètre b d'une équation
-* Param: code type: String
+*@Param: code type: String
+*@return: ordonnee  type: String
 */
 const parametreB = function(code){
 	var tok = code;
@@ -610,11 +682,19 @@ const parametreB = function(code){
 * le parametre 'b' ce resout de en en isolant le b de l'équation linéraire b=y-ax
 * Puisque nous devons garder les points pour maintenir le dynamisme de la fonction et puisque a=(y2-y1/x2-x1)
 * nous obtenons  b=y1-(y2-y1/x2-x1)*x1 (2)
+*@param: p, t  deux points quelconques
+*@return: aucun
 */
 function affichageEquationLineairePoint(p,t){
 	var stringEquation= board.create('text', [4,-1, function(){return 'y= '+dynamiqueA() //(1)
 	+ 'x +' + dynamiqueB()}], {visible: false})//(2)
 };
+
+
+
+
+
+
 
 /*
 * fonction qui forme le String formant l'équation quadratique y=ax²+bx+c
@@ -687,9 +767,13 @@ function affichageEquationQuadratiquePoint (p1,p2){
 	}
 }
 
-// methode qui valide l'équation entre en 'input'
-//return -1 si aucune erreur detecter lors des tests
-//return la position de la premiere erreur sinon.
+
+
+
+/*Fonction qui valide l'équation entre en 'input'
+*return -1 si aucune erreur detecter lors des tests
+*return la position de la premiere erreur sinon.
+*/
 function validation(equation){
 	var valide= -1; // on présume aucune erreur
 	var test;
@@ -701,8 +785,14 @@ function validation(equation){
 	}
 	return valide;
 }
-// permet la detection de caractère qui ne sont ' pas encore prie en compte par le logiciel .
-// notamment '*' et '/'
+
+
+
+
+
+/*permet la detection de caractère qui ne sont ' pas encore prie en compte par le logiciel .
+*notamment '*' et '/'
+*/
 function valLimit(equation){
 	var evaluation= equation.search(/[\*\/\(\)]+/);
 	if (evaluation>=0){
@@ -710,7 +800,14 @@ function valLimit(equation){
 	}
 	return evaluation;
 }
-// permet la detection de caractère non valide
+
+
+
+
+/*permet la detection de caractère non valide
+*@param: equation
+@return: evaluation
+*/
 function valCaractere(equation){
 	var evaluation = equation.search(/[^²x\+\-0-9,.]/);
 	if(evaluation>=0){
@@ -719,11 +816,16 @@ function valCaractere(equation){
 	return evaluation;
 }
 
-// detecte quelque anomalie d'écriture non prie en compte par le logiciel
-// plusieur variables consécutives sans operateur  (ex: 2xx)
-// nombre apres la variable (ex:x73)
-// un nombre avec  plus de un '.' (ex:23.43.68)
-// un nombre sans chiffre avant la virgule (ex:.75)
+
+
+
+
+/* detecte quelque anomalie d'écriture non prie en compte par le logiciel
+*plusieur variables consécutives sans operateur  (ex: 2xx)
+*nombre apres la variable (ex:x73)
+*un nombre avec  plus de un '.' (ex:23.43.68)
+*un nombre sans chiffre avant la virgule (ex:.75)
+*/
 function valRepetition(equation){
 	var evaluation = equation.search(/xx|x²x²|x[0-9]+|x²[0-9]+|[0-9]+\.[0-9]+\.|[^0-9]\.[0-9]+|^\./);
 	if(evaluation>=0){
@@ -732,12 +834,16 @@ function valRepetition(equation){
 	return evaluation;
 }
 
-// retourne le parametre 'a' dynamiquement avec les changements de la courbe
-// pour  ax+b (quand typeEquation==0):
-// le parametre 'a', correspondant à la pente, est former grâce à l'équation usuelle (y2-y1/x2-x1)
-// Pour ax²+bx+c(quand type Equation==1):
-// la courbe utilise la fonction canonique  y= a(x-h)²+k
-// le parametre 'a', correspondant à l'ouverture , est former grâce à l'equation a=(y2-y1/(x2-x1)²)
+
+
+
+/*retourne le parametre 'a' dynamiquement avec les changements de la courbe
+*pour  ax+b (quand typeEquation==0):
+*le parametre 'a', correspondant à la pente, est former grâce à l'équation usuelle (y2-y1/x2-x1)
+*Pour ax²+bx+c(quand type Equation==1):
+*la courbe utilise la fonction canonique  y= a(x-h)²+k
+*le parametre 'a', correspondant à l'ouverture , est former grâce à l'equation a=(y2-y1/(x2-x1)²)
+*/
 function dynamiqueA(){
 	var valA;
 	if(typeEquation==0){
@@ -748,15 +854,22 @@ function dynamiqueA(){
 	}
 	return valA;
 }
-// return le parametre 'b' dynamiquement avec les changements de la courbe
-// // pour  ax+b (quand typeEquation==0):
-// le parametre 'b' ce resout de en en isolant le b de l'équation linéraire b=y-ax
-// Puisque nous devons garder les points pour maintenir le dynamisme de la fonction et puisque a=(y2-y1/x2-x1)
-// nous obtenons  b=y1-(y2-y1/x2-x1)*x1
-// Pour ax²+bx+c(quand type Equation==1):
-// la courbe utilise la forme canonique  y= a(x-h)²+k
-// le parametre 'b' ce resout en isolant b de l'equation  h=-b/2a => b=-2ah =>b=-2*(y2-y1/(x2-x1)²)*h
-// Sachant que  h et k corresponde au coordonnée du sommet on peu remplacer respectivement h par x1 et k par y1
+
+
+
+
+
+
+/*return le parametre 'b' dynamiquement avec les changements de la courbe
+*pour  ax+b (quand typeEquation==0):
+*le parametre 'b' ce resout de en en isolant le b de l'équation linéraire b=y-ax
+*Puisque nous devons garder les points pour maintenir le dynamisme de la fonction et puisque a=(y2-y1/x2-x1)
+*nous obtenons  b=y1-(y2-y1/x2-x1)*x1
+*Pour ax²+bx+c(quand type Equation==1):
+*la courbe utilise la forme canonique  y= a(x-h)²+k
+*le parametre 'b' ce resout en isolant b de l'equation  h=-b/2a => b=-2ah =>b=-2*(y2-y1/(x2-x1)²)*h
+*Sachant que  h et k corresponde au coordonnée du sommet on peu remplacer respectivement h par x1 et k par y1
+*/
 function dynamiqueB(){
 	var valB;
 	if(typeEquation==0){
@@ -768,13 +881,18 @@ function dynamiqueB(){
 	return valB;
 }
 
-// return le parametre 'c' dynamiquement avec les changements de la courbe
-// peu etre utile pour extraire 'c' des fonctions  ax²+bx+c:
-// la courbe utilise la forme canonique  y= a(x-h)²+k
-// Le parametre 'c' ce resout en isolant c de l'equation k=4ac-b²/4a=> c=4ak-b²/4a
-// en remplaçant b par (-2*(y2-y1/(x2-x1)²)*h) et a par (y2-y1/(x2-x1)²)
-// on obtient c=((4*(y2-y1/(x2-x1)²)*k)-(-2*(y2-y1/(x2-x1)²)*h)²)/(4*(y2-y1/(x2-x1)²))
-// Sachant que  h et k corresponde au coordonnée du sommet on peu remplacer respectivement h par x1 et k par y1
+
+
+
+
+/*return le parametre 'c' dynamiquement avec les changements de la courbe
+*peu etre utile pour extraire 'c' des fonctions  ax²+bx+c:
+*la courbe utilise la forme canonique  y= a(x-h)²+k
+*Le parametre 'c' ce resout en isolant c de l'equation k=4ac-b²/4a=> c=4ak-b²/4a
+*en remplaçant b par (-2*(y2-y1/(x2-x1)²)*h) et a par (y2-y1/(x2-x1)²)
+*on obtient c=((4*(y2-y1/(x2-x1)²)*k)-(-2*(y2-y1/(x2-x1)²)*h)²)/(4*(y2-y1/(x2-x1)²))
+*Sachant que  h et k corresponde au coordonnée du sommet on peu remplacer respectivement h par x1 et k par y1
+*/
 function dynamiqueC(){
 	var valC;
 	if(typeEquation==1){
@@ -786,13 +904,24 @@ function dynamiqueC(){
 	return valC;
 }
 
+
+
+
+/*Fonction qui re-initialise le graphe
+*@param: aucun
+*@return: aucun
+*/
+
 function resetGraph(){
 	JXG.JSXGraph.freeBoard(board);
 	board = JXG.JSXGraph.initBoard('box', {boundingbox:[-5,8,8,-5], axis:true, zoomfactor: 0.8, showCopyright: false});
 	traceAvecP();
 }
 
-/*La function recharge la page avec location.reload() aprés avoir mis la table a 0*/
+/*La function recharge la page avec location.reload() aprés avoir mis la table a 0
+*@param: aucun
+*@return: aucun
+*/
 function erase () {
     document.getElementById('btnrnd').disabled = false;
     document.getElementById('btnresetter').disabled=true;//deactivation du bouton Reset
