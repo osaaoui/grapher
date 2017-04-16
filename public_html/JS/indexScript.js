@@ -439,6 +439,7 @@ if(sliderB.Value()< 0 && sliderC.Value() < 0){
 	});
 	
 	// les valeurs des paramètres a, h et k
+
 	
 	document.getElementById('paraA').innerHTML= "Le paramètre a qui vaut ici " + "("+ sliderA.Value()+")" + " indique le facteur de  dilatation verticale de la courbe";
 		

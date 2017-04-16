@@ -448,3 +448,6 @@ fieldset[disabled] .btn-pente.active {
   text-emphasis: bold;
   font-size: 18px!important;
 }
+#valeurDeA{
+	color: red;
+}
