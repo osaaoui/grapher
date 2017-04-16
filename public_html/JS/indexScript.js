@@ -132,11 +132,11 @@ function slidesGenerique (pente, ordonnee, exp) {
 
 function slidesCanonique (a, h,k){
 	sliderA=board.create('slider',[[4,-3],[6,-3],[a-4,a,a+4]],{name:'a', visible:true});
-	sliderA.visible(true);
+	sliderA.visible(false);
 	sliderB=board.create('slider',[[4,-3.5],[6,-3.5], [h -4, h,h+4]],{visible:true});
-	sliderB.visible(true);
+	sliderB.visible(false);
 	sliderC=board.create('slider',[[4,-4],[6,-4],[k-4,k,k+4]],{visible:true});
-	sliderC.visible(true);
+	sliderC.visible(false);
 	function f(x){
 		return sliderA.Value()*Math.pow(x-Number(sliderB.Value()),2)+sliderC.Value();
 		}
@@ -694,41 +694,63 @@ function afficherOrdonnee(){
 
 
 
-function axeDeSymetrie(){
+ function axeDeSymetrie(){
+	 if (typeof pointBas != "undefined") { //si l'object existe on le detruis.
+	 board.removeObject(pointBas);
+ }
+ if (typeof pointHaut != "undefined") {
+	 board.removeObject(pointHaut);
+ }
+ if (typeof li2 != "undefined") {
+	 board.removeObject(li2);
+ }
+ var x = -sliderB.Value()/(2*sliderA.Value());//-b/2a
+ var y = (4*sliderA.Value()*sliderC.Value()-(sliderB.Value()*sliderB.Value()))/(4*sliderA.Value()); //(4ac-b²)/4a
+ pointBas= board.create('point', [x, (y-6)], {style:6, name:"x= " + x.toFixed(2)});// point sommet
+ pointBas.setAttribute({strokeColor: 'black', fillColor: 'red', size: 4});
+ pointHaut= board.create('point', [x, (y +10)], {style:6, name:"x= " + x.toFixed(2)});
+ pointHaut.setAttribute({strokeColor: 'black', fillColor: 'red', size: 4});
+ var li2 = board.create('line',[pointBas,pointHaut],
+ {straightFirst:false, straightLast:false, strokeWidth:2, dash:2});
+
+ document.getElementById('axeDeSymetrie').innerHTML= "x= "+x.toFixed(2);
+ board.on('update', function(){
+	 document.getElementById('axeDeSymetrie').innerHTML= "x= "+x.toFixed(2);
+ });
+
+ pointBas.on('move', function () {
+	 if (typeof pointBas != "undefined") { //si l'object existe on le detruis.
+	 board.removeObject(pointBas);
+ }
+ if (typeof pointHaut != "undefined") {
+	 board.removeObject(pointHaut);
+ }
+ if (typeof li2 != "undefined") {
+	 board.removeObject(li2);
+ }
+});
+pointHaut.on('move', function () {
 	if (typeof pointBas != "undefined") { //si l'object existe on le detruis.
-		board.removeObject(pointBas);
-	}
-	if (typeof pointHaut != "undefined") {
-		board.removeObject(pointHaut);
-	}
-	if (typeof li2 != "undefined") {
-		board.removeObject(li2);
-	}
-	var x = -sliderB.Value()/(2*sliderA.Value());//-b/2a
-	var y = (4*sliderA.Value()*sliderC.Value()-(sliderB.Value()*sliderB.Value()))/(4*sliderA.Value()); //(4ac-b²)/4a
-	pointBas= board.create('point', [x, (y-6)], {style:6, name:"x= " + x.toFixed(2)});// point sommet
-	pointBas.setAttribute({strokeColor: 'black', fillColor: 'red', size: 4});
-	pointHaut= board.create('point', [x, (y +10)], {style:6, name:"x= " + x.toFixed(2)});
-	pointHaut.setAttribute({strokeColor: 'black', fillColor: 'red', size: 4});
-	var li2 = board.create('line',[pointBas,pointHaut],
-	{straightFirst:false, straightLast:false, strokeWidth:2, dash:2});
-
-	document.getElementById('axeDeSymetrie').innerHTML= "x= "+x.toFixed(2);
-	board.on('update', function(){
-		document.getElementById('axeDeSymetrie').innerHTML= "x= "+x.toFixed(2);
-	});
-
-	board.on('move', function () {
-		if (typeof pointBas != "undefined") { //si l'object existe on le detruis.
-			board.removeObject(pointBas);
-		}
-		if (typeof pointHaut != "undefined") {
-			board.removeObject(pointHaut);
-		}
-		if (typeof li2 != "undefined") {
-			board.removeObject(li2);
-		}
-	});
+	board.removeObject(pointBas);
+}
+if (typeof pointHaut != "undefined") {
+	board.removeObject(pointHaut);
+}
+if (typeof li2 != "undefined") {
+	board.removeObject(li2);
+}
+});
+li2.on('move', function () {
+	if (typeof pointBas != "undefined") { //si l'object existe on le detruis.
+	board.removeObject(pointBas);
+ }
+ if (typeof pointHaut != "undefined") {
+	board.removeObject(pointHaut);
+ }
+ if (typeof li2 != "undefined") {
+	board.removeObject(li2);
+ }
+ });
 }
 
 function afficherLesZeros(){

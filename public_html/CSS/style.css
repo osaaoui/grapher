@@ -467,3 +467,9 @@ fieldset[disabled] .btn-pente.active {
 #valeurDeA{
 	color: red;
 }
+
+@media (min-width: 1600px) {
+ #containerJxBoxP {
+   padding-left: 40px;
+ }
+}
