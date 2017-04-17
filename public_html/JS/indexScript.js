@@ -410,52 +410,52 @@ function changementCanonique(){
 function afficherFormeCanonique(){
 if(sliderB.Value()< 0 && sliderC.Value() < 0){
 		document.getElementById('formeGenerale').innerHTML= "y = "+sliderA.Value()
-		+ 'x² +(' + sliderB.Value()+ ')' + '+('+ sliderC.Value()+ ')';
+		+ 'x² +(' + sliderB.Value()+ ')' + 'x' + '+('+ sliderC.Value()+ ')';
 
 				board.on('update', function(){
 		document.getElementById('formeGenerale').innerHTML= "y = "+sliderA.Value()
-		+ 'x² +(' + sliderB.Value()+ ')' + '+('+ sliderC.Value()+ ')';
+		+ 'x² +(' + sliderB.Value()+ ')' + 'x' + '+('+ sliderC.Value()+ ')';
 	});
 			}else if(sliderB.Value()< 0 && sliderC.Value() >= 0 ){
 
 				document.getElementById('formeGenerale').innerHTML= "y = "+sliderA.Value()
-		+ 'x² +(' + sliderB.Value()+')' + "+ " + sliderC.Value();
+		+ 'x² +(' + sliderB.Value()+')' + 'x'+ "+ " + sliderC.Value();
 
 				board.on('update', function(){
 		document.getElementById('formeGenerale').innerHTML= "y = "+sliderA.Value()
-		+ 'x² +(' + sliderB.Value()+')' + "+ " + sliderC.Value();
+		+ 'x² +(' + sliderB.Value()+')' + 'x'+ "+ " + sliderC.Value();
 	});
 			} else if(sliderC.Value()< 0 && sliderB.Value() >= 0){
 
 				document.getElementById('formeGenerale').innerHTML= "y = "+sliderA.Value()
-		+ 'x² + ' + sliderB.Value()+ "+(" + sliderC.Value()+')';
+		+ 'x² + ' + sliderB.Value()+ 'x' +"+(" + sliderC.Value()+')';
 
 				board.on('update', function(){
 		document.getElementById('formeGenerale').innerHTML= "y = "+sliderA.Value()
-		+ 'x² + ' + sliderB.Value()+ "+(" + sliderC.Value()+')';
+		+ 'x² + ' + sliderB.Value()+ 'x'+ "+(" + sliderC.Value()+')';
 	});
 			}else{
 				document.getElementById('formeGenerale').innerHTML= "y = "+sliderA.Value()
-		+ 'x² + ' + sliderB.Value() + sliderC.Value();
+		+ 'x² + ' + sliderB.Value() + 'x'+sliderC.Value();
 
 				board.on('update', function(){
 		document.getElementById('formeGenerale').innerHTML= "y = "+sliderA.Value()
-		+ 'x² + ' + sliderB.Value() + sliderC.Value();
+		+ 'x² + ' + sliderB.Value() + 'x'+sliderC.Value();
 	});
 			}
 
 	// Affichage de la forme canonique
-	//h=-sliderB.Value()/2*sliderA.Value();
+	//  h=-sliderB.Value()/2*sliderA.Value();
 	//	k=((4*sliderA.Value()*sliderC.Value())-(sliderB.Value()*sliderB.Value()))/(4*sliderA.Value());
 	//	slidesCanonique (sliderA.Value(), h,k);
 
 	document.getElementById('formeCanonique').innerHTML= "y = "+sliderA.Value()
-	+ '(x- +' + h + ')' + k;
+	 + '(x- +' + h + ')' + '²' + k;
 
 
 				board.on('update', function(){
 		document.getElementById('formeCanonique').innerHTML= "y = "+sliderA.Value()
-			+ '(x- +' + h + ')' + k;
+			+ '(x- +' + h + ')' +'²'+ k;
 	});
 
 	// les valeurs des paramètres a, h et k
