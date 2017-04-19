@@ -123,9 +123,9 @@ function slidesGenerique (pente, ordonnee, exp) {
 	function f(x) {
 		return sliderA.Value()*(x*x)+ sliderB.Value()*x + sliderC.Value();
 	}
-	var stringEquation=board.create('text', [4,-2,function(){return 'y= '+sliderC.Value().toFixed(2)
-	+ 'x²' + (sliderA.Value()<0?'':'+')+ sliderA.Value().toFixed(2)
-	+ 'x'+(sliderB.Value()<0?'':'+')+sliderB.Value().toFixed(2)}], {fontSize:18, visible:true});
+	var stringEquation=board.create('text', [4,-2,function(){return 'y= '+sliderA.Value().toFixed(2)
+	+ 'x²' + (sliderB.Value()<0?'':'+')+ sliderB.Value().toFixed(2)
+	+ 'x'+(sliderC.Value()<0?'':'+')+sliderC.Value().toFixed(2)}], {fontSize:18, visible:true});
 	c=plot(f);
 	sliderFunction();
 }
