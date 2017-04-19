@@ -125,7 +125,7 @@ function slidesGenerique (pente, ordonnee, exp) {
 	}
 	var stringEquation=board.create('text', [4,-2,function(){return 'y= '+sliderC.Value().toFixed(2)
 	+ 'x²' + (sliderA.Value()<0?'':'+')+ sliderA.Value().toFixed(2)
-	+ 'x'+(sliderB.Value()<0?'':'+')+sliderB.Value().toFixed(2)}], {fontSize:18, visible:false});
+	+ 'x'+(sliderB.Value()<0?'':'+')+sliderB.Value().toFixed(2)}], {fontSize:18, visible:true});
 	c=plot(f);
 	sliderFunction();
 }
@@ -450,14 +450,14 @@ function afficherFormeCanonique(){
 	//k=((4*sliderA.Value()*sliderC.Value())-(sliderB.Value()*sliderB.Value()))/(4*sliderA.Value());
 	//	slidesCanonique (sliderA.Value(), h,k);
 
-	document.getElementById('formeCanonique').innerHTML= "y = "+sliderA.Value()
-	 + '(x- +' + sliderB.Value()+ ')' + '²' + sliderC.Value();
+	//document.getElementById('formeCanonique').innerHTML= "y = "+sliderA.Value()
+	 //+ '(x- +' + sliderB.Value()+ ')' + '²' + sliderC.Value();
 
 
-				board.on('update', function(){
-		document.getElementById('formeCanonique').innerHTML= "y = "+sliderA.Value()
-			+ '(x- +' + sliderB.Value() + ')' +'²'+ sliderC.Value();
-	});
+	//			board.on('update', function(){
+	//	document.getElementById('formeCanonique').innerHTML= "y = "+sliderA.Value()
+	//		+ '(x- +' + sliderB.Value() + ')' +'²'+ sliderC.Value();
+	//});
 
 	// les valeurs des paramètres a, h et k
 
