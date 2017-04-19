@@ -131,11 +131,11 @@ function slidesGenerique (pente, ordonnee, exp) {
 }
 
 function slidesCanonique (a, h,k){
-	sliderA=board.create('slider',[[4,-3],[6,-3],[a-4,a,a+4]],{name:'a', visible:true});
+	sliderA=board.create('slider',[[4,-3],[6,-3],[a-4,a,a+4]],{name:'a', visible:true,snapWidth:1});
 	sliderA.visible(false);
-	sliderB=board.create('slider',[[4,-3.5],[6,-3.5], [h -4, h,h+4]],{visible:true});
+	sliderB=board.create('slider',[[4,-3.5],[6,-3.5], [h -4, h,h+4]],{visible:true,snapWidth:1});
 	sliderB.visible(false);
-	sliderC=board.create('slider',[[4,-4],[6,-4],[k-4,k,k+4]],{visible:true});
+	sliderC=board.create('slider',[[4,-4],[6,-4],[k-4,k,k+4]],{visible:true,snapWidth:1});
 	sliderC.visible(false);
 	function f(x){
 		return sliderA.Value()*Math.pow(x-Number(sliderB.Value()),2)+sliderC.Value();
@@ -407,55 +407,56 @@ function changementCanonique(){
 		slidesCanonique (sliderA.Value(), h,k);
 		afficherFormeCanonique();
 }
+
 function afficherFormeCanonique(){
-if(sliderB.Value()< 0 && sliderC.Value() < 0){
-		document.getElementById('formeGenerale').innerHTML= "y = "+sliderA.Value()
-		+ 'x² +(' + sliderB.Value()+ ')' + 'x' + '+('+ sliderC.Value()+ ')';
+//if(sliderB.Value()< 0 && sliderC.Value() < 0){
+//		document.getElementById('formeGenerale').innerHTML= "y = "+sliderA.Value()
+//		+ 'x² +(' + sliderB.Value()+ ')' + 'x' + '+('+ sliderC.Value()+ ')';
 
-				board.on('update', function(){
-		document.getElementById('formeGenerale').innerHTML= "y = "+sliderA.Value()
-		+ 'x² +(' + sliderB.Value()+ ')' + 'x' + '+('+ sliderC.Value()+ ')';
-	});
-			}else if(sliderB.Value()< 0 && sliderC.Value() >= 0 ){
+//				board.on('update', function(){
+//		document.getElementById('formeGenerale').innerHTML= "y = "+sliderA.Value()
+//		+ 'x² +(' + sliderB.Value()+ ')' + 'x' + '+('+ sliderC.Value()+ ')';
+//	});
+//			}else if(sliderB.Value()< 0 && sliderC.Value() >= 0 ){
 
-				document.getElementById('formeGenerale').innerHTML= "y = "+sliderA.Value()
-		+ 'x² +(' + sliderB.Value()+')' + 'x'+ "+ " + sliderC.Value();
+//				document.getElementById('formeGenerale').innerHTML= "y = "+sliderA.Value()
+//		+ 'x² +(' + sliderB.Value()+')' + 'x + ' + sliderC.Value();
 
-				board.on('update', function(){
-		document.getElementById('formeGenerale').innerHTML= "y = "+sliderA.Value()
-		+ 'x² +(' + sliderB.Value()+')' + 'x'+ "+ " + sliderC.Value();
-	});
-			} else if(sliderC.Value()< 0 && sliderB.Value() >= 0){
+//				board.on('update', function(){
+//		document.getElementById('formeGenerale').innerHTML= "y = "+sliderA.Value()
+//		+ 'x² +(' + sliderB.Value()+')' + 'x + ' + sliderC.Value();
+//	});
+//			} else if(sliderC.Value()< 0 && sliderB.Value() >= 0){
 
-				document.getElementById('formeGenerale').innerHTML= "y = "+sliderA.Value()
-		+ 'x² + ' + sliderB.Value()+ 'x' +"+(" + sliderC.Value()+')';
+//				document.getElementById('formeGenerale').innerHTML= "y = "+sliderA.Value()
+//		+ 'x² + ' + sliderB.Value()+ 'x +(' + sliderC.Value()+')';
 
-				board.on('update', function(){
-		document.getElementById('formeGenerale').innerHTML= "y = "+sliderA.Value()
-		+ 'x² + ' + sliderB.Value()+ 'x'+ "+(" + sliderC.Value()+')';
-	});
-			}else{
-				document.getElementById('formeGenerale').innerHTML= "y = "+sliderA.Value()
-		+ 'x² + ' + sliderB.Value() + 'x'+sliderC.Value();
+//				board.on('update', function(){
+//		document.getElementById('formeGenerale').innerHTML= "y = "+sliderA.Value()
+//		+ 'x² + ' + sliderB.Value()+ 'x +(' + sliderC.Value()+')';
+//	});
+//			}else{
+//				document.getElementById('formeGenerale').innerHTML= "y = "+sliderA.Value()
+//		+ 'x² + ' + sliderB.Value() + 'x +'+sliderC.Value();
 
-				board.on('update', function(){
-		document.getElementById('formeGenerale').innerHTML= "y = "+sliderA.Value()
-		+ 'x² + ' + sliderB.Value() + 'x'+sliderC.Value();
-	});
-			}
+//				board.on('update', function(){
+//		document.getElementById('formeGenerale').innerHTML= "y = "+sliderA.Value()
+//		+ 'x² + ' + sliderB.Value() + 'x'+sliderC.Value();
+//	});
+//			}
 
 	// Affichage de la forme canonique
-	//  h=-sliderB.Value()/2*sliderA.Value();
-	//	k=((4*sliderA.Value()*sliderC.Value())-(sliderB.Value()*sliderB.Value()))/(4*sliderA.Value());
+	//h=-sliderB.Value()/2*sliderA.Value();
+	//k=((4*sliderA.Value()*sliderC.Value())-(sliderB.Value()*sliderB.Value()))/(4*sliderA.Value());
 	//	slidesCanonique (sliderA.Value(), h,k);
 
 	document.getElementById('formeCanonique').innerHTML= "y = "+sliderA.Value()
-	 + '(x- +' + h + ')' + '²' + k;
+	 + '(x- +' + sliderB.Value()+ ')' + '²' + sliderC.Value();
 
 
 				board.on('update', function(){
 		document.getElementById('formeCanonique').innerHTML= "y = "+sliderA.Value()
-			+ '(x- +' + h + ')' +'²'+ k;
+			+ '(x- +' + sliderB.Value() + ')' +'²'+ sliderC.Value();
 	});
 
 	// les valeurs des paramètres a, h et k
@@ -469,19 +470,19 @@ if(sliderB.Value()< 0 && sliderC.Value() < 0){
 	});
 
 	// paramètre h
-	document.getElementById('paraH').innerHTML= "Le paramètre h, ici il vaut" + "("+ (-sliderB.Value()/2*sliderA.Value())+")" + ", indique la valeur de x au sommet de la courbe";
+	document.getElementById('paraH').innerHTML= "Le paramètre h, ici il vaut" + "("+ sliderB.Value()+")" + ", indique la valeur de x au sommet de la courbe";
 
 
 				board.on('update', function(){
-		document.getElementById('paraH').innerHTML= "Le paramètre h, ici il vaut" + "("+ (-sliderB.Value()/2*sliderA.Value()) +")" + ", indique la valeur de x au sommet de la courbe";
+		document.getElementById('paraH').innerHTML= "Le paramètre h, ici il vaut" + "("+ sliderB.Value() +")" + ", indique la valeur de x au sommet de la courbe";
 	});
 
 	// paramètre k
-	document.getElementById('paraK').innerHTML= "Le paramètre k, ici il vaut" + "("+ ((4*sliderA.Value()*sliderC.Value())-(sliderB.Value()*sliderB.Value()))/(4*sliderA.Value()) +")" + ", indique la valeur de y au sommet de la courbe";
+	document.getElementById('paraK').innerHTML= "Le paramètre k, ici il vaut" + "("+ sliderC.Value() +")" + ", indique la valeur de y au sommet de la courbe";
 
 
 				board.on('update', function(){
-		document.getElementById('paraK').innerHTML= "Le paramètre k, ici il vaut" + "("+ ((4*sliderA.Value()*sliderC.Value())-(sliderB.Value()*sliderB.Value()))/(4*sliderA.Value()) +")" + ", indique la valeur de y au sommet de la courbe";
+		document.getElementById('paraK').innerHTML= "Le paramètre k, ici il vaut" + "("+ sliderC.Value()  +")" + ", indique la valeur de y au sommet de la courbe";
 	});
 
 
