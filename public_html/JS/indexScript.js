@@ -30,7 +30,7 @@ Copyright 2008-2016
 
 */
 
-
+// Variables globales
 var board = JXG.JSXGraph.initBoard('box', {boundingbox:[-5,8,8,-5], axis:true, zoomfactor: 0.8, showCopyright: false});
 var sliderA;
 var sliderB;
@@ -76,10 +76,13 @@ $(document).keypress(function(e) {
     }
 });
 
+
 /*Fonction appelée par le bouton Soumettre.
 *L'équation est analysée et on change les virgules avec des points.
 *Ensuite, en utilisant la fonction tokenizer, on analyse l'équation
 *et il y a l'extraction des trois variables.
+*@param: aucun
+*@return: aucun
 */
 function trace(){
 	var equation=document.getElementById('input').value;
@@ -111,7 +114,9 @@ function trace(){
 }
 
 /*La fonction crée les curseurs et les cache, afin qu'ils puissent être utilisés avec des curseurs DOM.
- *Ensuite, une équation dynamique est créée et cachée.
+*Ensuite, une équation dynamique est créée et cachée.
+*@param: pente, ordonnee, exp
+@return: aucun
 */
 function slidesGenerique (pente, ordonnee, exp) {
 	sliderA=board.create('slider',[[4,-3],[6,-3],[exp-4,exp,exp+4]],{name:'a', visible:false});
@@ -130,6 +135,11 @@ function slidesGenerique (pente, ordonnee, exp) {
 	sliderFunction();
 }
 
+
+/*Fonction pour creer les curseurs
+*@param: a, h, k
+*@return: aucun
+*/
 function slidesCanonique (a, h,k){
 	sliderA=board.create('slider',[[4,-3],[6,-3],[a-4,a,a+4]],{name:'a', visible:true,snapWidth:1});
 	sliderA.visible(false);
@@ -200,7 +210,12 @@ function sliderFunction() {
 	$("#cSlideInput").val($("#sliderC1").slider("value"));
 };
 
-// ajustement le zoom du plan cartésien selon l'équation entré y=ax²+bx+c ou y=bx+c
+
+
+/*ajustement le zoom du plan cartésien selon l'équation entré y=ax²+bx+c ou y=bx+c
+*@param: a, b, c
+*@return:aucun
+*/
 function zoomPlan(a,b,c){
 	var xPos=8;
 	var xNeg=-5;
@@ -263,6 +278,12 @@ function zoomPlan(a,b,c){
  }
 }
 
+
+
+/* Fonction qui efface les graphiques
+@param: board (le tableau graph)
+@return : board (un nouveau tableau graph vierge)
+*/
 function clearAll(board){
 	JXG.JSXGraph.freeBoard(board);
 	board = JXG.JSXGraph.initBoard('box', {boundingbox:[-5,8,8,-5], axis:true, zoomfactor: 0.8, showCopyright: false});
@@ -287,6 +308,12 @@ const tokenize= function (code) {
 	return results;
 };
 
+
+
+/*Fonction qui retourne le permier parametre(avec exposant) d'une equation quadratique
+*@param: code, type: String
+@return: exp, type: String
+*/
 const exposant = function(code){
 	var tok=code;
 	var exp=0;
@@ -312,6 +339,7 @@ const exposant = function(code){
 /*
 * fonction qui retourne le paramètre A de l'équation
 * Param: code   type: String
+*@return: lePente    type:String
 */
 const parametreA = function(code){
 	var tok = code;
@@ -339,7 +367,8 @@ const parametreA = function(code){
 
 /*
 * fonction qui retourne le paramètre b d'une équation
-* Param: code type: String
+*@Param: code type: String
+*@return: ordonnee  type: String
 */
 const parametreB = function(code){
 	var tok = code;
@@ -353,9 +382,14 @@ const parametreB = function(code){
 	}
 	return ordonnee;
 };
-// methode qui valide l'équation entre en 'input'
-//return -1 si aucune erreur detecter lors des tests
-//return la position de la premiere erreur sinon.
+
+
+
+
+/*Fonction qui valide l'équation entre en 'input'
+*return -1 si aucune erreur detecter lors des tests
+*return la position de la premiere erreur sinon.
+*/
 function validation(equation){
 	var valide= -1; // on présume aucune erreur
 	var test;
@@ -367,8 +401,15 @@ function validation(equation){
 	}
 	return valide;
 }
-// permet la detection de caractère qui ne sont ' pas encore prie en compte par le logiciel .
-// notamment '*' et '/'
+
+
+
+/*Fonction qui permet la detection de caractère qui ne sont ' pas encore prie en compte par le logiciel .
+*notamment '*' et '/'
+*@param: equation
+@return: evaluation
+*/
+
 function valLimit(equation){
 	var evaluation= equation.search(/[\*\/\(\)]+/);
 	if (evaluation>=0){
@@ -376,7 +417,13 @@ function valLimit(equation){
 	}
 	return evaluation;
 }
-// permet la detection de caractère non valide
+
+
+
+/*Fonction qui permet la detection de caractère non valide
+*@param: equation
+*@return: evaluation
+*/
 function valCaractere(equation){
 	var evaluation = equation.search(/[^²x\+\-0-9,.]/);
 	if(evaluation>=0){
@@ -385,11 +432,14 @@ function valCaractere(equation){
 	return evaluation;
 }
 
-// detecte quelque anomalie d'écriture non prie en compte par le logiciel
-// plusieur variables consécutives sans operateur  (ex: 2xx)
-// nombre apres la variable (ex:x73)
-// un nombre avec plusieur plus de un '.' (ex:23.43.68)
-// un nombre sans chiffre avant la virgule (ex:.75)
+/*Fonction qui detecte quelque anomalie d'écriture non prise en compte par le logiciel
+*plusieur variables consécutives sans operateur  (ex: 2xx)
+*nombre apres la variable (ex:x73)
+*un nombre avec plusieur plus de un '.' (ex:23.43.68)
+*un nombre sans chiffre avant la virgule (ex:.75)
+*@param: equation
+*@return: evaluation
+*/
 function valRepetition(equation){
 	var evaluation = equation.search(/xx|x²x²|x[0-9]+|x²[0-9]+|[0-9]+\.[0-9]+\.|[^0-9]\.[0-9]+|^\./);
 	if(evaluation>=0){
@@ -398,6 +448,12 @@ function valRepetition(equation){
 	return evaluation;
 }
 
+
+
+/*Fonction qui transforme une equation quadratique en forme canonique
+*@param: aucun
+*@return: aucun
+*/
 function changementCanonique(){
 		//effacerGenerique();
 		JXG.JSXGraph.freeBoard(board);
@@ -408,59 +464,14 @@ function changementCanonique(){
 		afficherFormeCanonique();
 }
 
+
+
+
+/*Fonction qui affiche dans le graphe la forme canonique d'une equation quadratique
+*@param: aucun
+*@return: aucun
+*/
 function afficherFormeCanonique(){
-//if(sliderB.Value()< 0 && sliderC.Value() < 0){
-//		document.getElementById('formeGenerale').innerHTML= "y = "+sliderA.Value()
-//		+ 'x² +(' + sliderB.Value()+ ')' + 'x' + '+('+ sliderC.Value()+ ')';
-
-//				board.on('update', function(){
-//		document.getElementById('formeGenerale').innerHTML= "y = "+sliderA.Value()
-//		+ 'x² +(' + sliderB.Value()+ ')' + 'x' + '+('+ sliderC.Value()+ ')';
-//	});
-//			}else if(sliderB.Value()< 0 && sliderC.Value() >= 0 ){
-
-//				document.getElementById('formeGenerale').innerHTML= "y = "+sliderA.Value()
-//		+ 'x² +(' + sliderB.Value()+')' + 'x + ' + sliderC.Value();
-
-//				board.on('update', function(){
-//		document.getElementById('formeGenerale').innerHTML= "y = "+sliderA.Value()
-//		+ 'x² +(' + sliderB.Value()+')' + 'x + ' + sliderC.Value();
-//	});
-//			} else if(sliderC.Value()< 0 && sliderB.Value() >= 0){
-
-//				document.getElementById('formeGenerale').innerHTML= "y = "+sliderA.Value()
-//		+ 'x² + ' + sliderB.Value()+ 'x +(' + sliderC.Value()+')';
-
-//				board.on('update', function(){
-//		document.getElementById('formeGenerale').innerHTML= "y = "+sliderA.Value()
-//		+ 'x² + ' + sliderB.Value()+ 'x +(' + sliderC.Value()+')';
-//	});
-//			}else{
-//				document.getElementById('formeGenerale').innerHTML= "y = "+sliderA.Value()
-//		+ 'x² + ' + sliderB.Value() + 'x +'+sliderC.Value();
-
-//				board.on('update', function(){
-//		document.getElementById('formeGenerale').innerHTML= "y = "+sliderA.Value()
-//		+ 'x² + ' + sliderB.Value() + 'x'+sliderC.Value();
-//	});
-//			}
-
-	// Affichage de la forme canonique
-	//h=-sliderB.Value()/2*sliderA.Value();
-	//k=((4*sliderA.Value()*sliderC.Value())-(sliderB.Value()*sliderB.Value()))/(4*sliderA.Value());
-	//	slidesCanonique (sliderA.Value(), h,k);
-
-	//document.getElementById('formeCanonique').innerHTML= "y = "+sliderA.Value()
-	 //+ '(x- +' + sliderB.Value()+ ')' + '²' + sliderC.Value();
-
-
-	//			board.on('update', function(){
-	//	document.getElementById('formeCanonique').innerHTML= "y = "+sliderA.Value()
-	//		+ '(x- +' + sliderB.Value() + ')' +'²'+ sliderC.Value();
-	//});
-
-	// les valeurs des paramètres a, h et k
-
 
 	document.getElementById('paraA').innerHTML= "Le paramètre a qui vaut ici " + "("+ sliderA.Value()+")" + " indique le facteur de  dilatation verticale de la courbe";
 
@@ -490,8 +501,10 @@ function afficherFormeCanonique(){
 
 
 /*Function pour animer la pente avec les sliders.
- */
-	function animerPente(){
+*@param: aucun
+*@return: aucun
+*/
+function animerPente(){
     if (typeof p1 != 'undefined') {
 			board.removeObject(p1);
 		}
@@ -603,12 +616,13 @@ function afficherFormeCanonique(){
 	});
 }
 
+
+
 /*
  * fonction qui affiche dans une bulle mobile l'ordonnée à l'origine de l'équation
  * @param : aucun
  * @return: aucun
  */
-
 function afficherOrdonnee(){
   if (typeof ord != "undefined") { //si l'object existe on le detruis.
 		board.removeObject(ord);
@@ -694,8 +708,11 @@ function afficherOrdonnee(){
 
 
 
-
- function axeDeSymetrie(){
+/*Fonction qui calcule l'axe de symetrie d'une equation quadratique
+*@param: aucun
+*@return: aucun
+*/
+function axeDeSymetrie(){
 	 if (typeof pointBas != "undefined") { //si l'object existe on le detruis.
 	 board.removeObject(pointBas);
  }
@@ -754,8 +771,14 @@ li2.on('move', function () {
  });
 }
 
+
+
+/*Fonction qui calcule et affiche les zeros d'une equation quadratique
+*@param: aucun
+*@return: aucun
+*/
 function afficherLesZeros(){
-	if (typeof ordZer != "undefined") { //si l'object existe on le detruis.
+	if (typeof ordZer != "undefined") { //si l'object existe on le detruit.
 		board.removeObject(ordZer);
 	}
 	if (typeof zero1 != "undefined") {
@@ -834,13 +857,25 @@ function afficherLesZeros(){
 	});
 }
 
+
+
+/*Fonction qui re-initialise le graphe
+*@param: aucun
+*@return: aucun
+*/
 function resetGraph(){
 	JXG.JSXGraph.freeBoard(board);
 	board = JXG.JSXGraph.initBoard('box', {boundingbox:[-5,8,8,-5], axis:true, zoomfactor: 0.8, showCopyright: false});
 	trace();
 }
 
-/*La function recharge la page avec location.reload() aprés avoir mis la table à 0.*/
+
+
+
+/*La function recharge la page avec location.reload() aprés avoir mis la table a 0
+*@param: aucun
+*@return: aucun
+*/
 function erase () {
     document.getElementById('btnrnd').disabled = false;
 		document.getElementById('btnresetter').disabled=true;//activation du bouton Reset
