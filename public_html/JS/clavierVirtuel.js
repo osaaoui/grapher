@@ -1,4 +1,7 @@
-/*Function pour la saisie de la clavier virtuelle.*/
+/*Fonction pour la saisie du clavier virtuel.
+*@param: aucun
+*@return: aucun
+*/
 $(function(){
   $("#clavier-virtuel").find("button").click(function () {
   	$("input").focus();
