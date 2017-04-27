@@ -3,217 +3,308 @@
 
 <html>
 
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Graph">
-	<meta name="author" content="Marco Antonelli">
-	<meta name="author" content="Étienne Beauchemin-Lachapelle">
-	<meta name="author" content="Omar Saaoui">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="Graph">
+		<meta name="author" content="Marco Antonelli">
+		<meta name="author" content="Étienne Beauchemin-Lachapelle">
+		<meta name="author" content="Omar Saaoui">
 
-	<title>math graph</title>
+		<title>math graph</title>
 
-	<!-- Icon -->
-	<link rel="icon" href="IMAGES/parabola.png">
+		<!-- Icon -->
+		<link rel="icon" href="IMAGES/parabola.png">
 
-	<!-- Bootstrap -->
-	<link rel="stylesheet" type="text/css" href="CSS/bootstrap.min.css">
+		<!-- Bootstrap -->
+		<link rel="stylesheet" type="text/css" href="CSS/bootstrap.min.css">
 
-	<!-- Style (CSS) -->
-	<link rel="stylesheet" type="text/css" href="CSS/style.css">
-	<link rel="stylesheet" type="text/css" href="http://jsxgraph.uni-bayreuth.de/distrib/jsxgraph.css">
-	<link rel="Stylesheet" type="text/css" href="http://jsxgraph.uni-bayreuth.de/distrib/css/ui-lightness/jquery-ui-1.7.2.custom.css"/>
+		<!-- Style (CSS) -->
+		<link rel="stylesheet" type="text/css" href="CSS/style.css">
+		<link rel="stylesheet" type="text/css" href="http://jsxgraph.uni-bayreuth.de/distrib/jsxgraph.css">
+		<link rel="Stylesheet" type="text/css" href="http://jsxgraph.uni-bayreuth.de/distrib/css/ui-lightness/jquery-ui-1.7.2.custom.css"/>
 
-	<!-- Librarie js  -->
-	<script type="text/javascript" src="JS/jquery.min.js"></script>
-	<script type="text/javascript" src="JS/bootstrap.min.js"></script>
-	<script type="text/javascript" src="JS/jsxgraphcore.js"></script>
-	<script type="text/javascript" src="JS/bootstrap-slider.js"></script>
-	<script type="text/javascript" src="JS/jsxgraphcore.js"></script>
-	<script type="text/javascript" src="http://jsxgraph.uni-bayreuth.de/distrib/jquery.min.js"></script>
-	<script type="text/javascript" src="http://jsxgraph.uni-bayreuth.de/distrib/jquery-ui.min.js"></script>
-</head>
+		<!-- Librarie js  -->
+		<script type="text/javascript" src="JS/jquery.min.js"></script>
+		<script type="text/javascript" src="JS/bootstrap.min.js"></script>
+		<script type="text/javascript" src="JS/jsxgraphcore.js"></script>
+		<script type="text/javascript" src="JS/bootstrap-slider.js"></script>
+		<script type="text/javascript" src="JS/jsxgraphcore.js"></script>
+		<script type="text/javascript" src="http://jsxgraph.uni-bayreuth.de/distrib/jquery.min.js"></script>
+		<script type="text/javascript" src="http://jsxgraph.uni-bayreuth.de/distrib/jquery-ui.min.js"></script>
+	</head>
 
-<body onload="sliderFunction();">
-	<div id="custom-bootstrap-menu" class="navbar navbar-default " role="navigation">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-menubuilder"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
-				</button>
-			</div>
-			<div class="collapse navbar-collapse navbar-menubuilder">
-				<ul class="nav navbar-nav navbar-left">
-					<li><a href="index.html">Accueil</a>
-					</li>
-					<li><a href="graphSlider.html">Curseurs</a>
-					</li>
-					<li><a href="graphPoints.html">Points</a>
-					</li>
-					<li><a href="apropos.html">À propos</a>
-					</li>
-					<li><a href="wiki.html" target="_blank">wiki</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</div>
-
-	<div class="row">
-		<div class="container col-lg-1">
-			<div class="btn-group-vertical" role="group" id="btnGroup">
-				<button type="button" class="btn btn-pente btn-lg" id="btnpente" onClick="animerPente(); textPenteSl()" disabled="true">Pente</button>
-				<button type="button" class="btn btn-pente btn-lg" id="canonique" onClick=" textCanonique(); changementCanonique()"disabled="true">Canonique</button>
-				<button type="button" class="btn btn-pente btn-lg" id="btnresetter" onClick="resetGraph()" disabled="true">Reset</button>
-				<button type="button" class="btn btn-pente btn-lg" id="btnAfficOrd" onClick= "afficherOrdonnee(); textOrdSl()" disabled="true">Ordonnee</button>
-				<button type="button" class="btn btn-pente btn-lg" id="btnAxeStm" onClick="axeDeSymetrie(); textAxeSl()" disabled="true" >Axe symétrie </button>
-				<button type="button" class="btn btn-pente btn-lg" id="btnAfficZero" onClick=" afficherLesZeros(); textZerosSl();" disabled="true">Les zéros </button>
-			</div>
-		</div>
-		<div class="container col-lg-8" id="containerJxBox">
-			<div class="container center-block jxgbox jxbox2"  id="box"></div>
-			<div class = "containter center-block col-md-3 col-md-push-4">
-			<style type="text/css">
-			#slider-frame > div.sliders { padding: 10px !important; };
-			</style>
-			<div class="sliders" style="margin:5px">
-				<p>
-					<div class="input-group">
-					<span class="input-group-addon" id="slidera">a</span>
-					<input type="text" id="aSlideInput" aria-describedby="slidera">
-					</div>
-					<div id="sliderA1" style="width:300px;margin:10px;"></div>
-					<div class="input-group">
-					<span class="input-group-addon" id="sliderb">b</span>
-					<input type="text" id="bSlideInput" aria-describedby="sliderb">
-                    </div>
-					<div id="sliderB1" style="width:300px;margin:10px;"></div>
-                    <div class="input-group">
-					<span class="input-group-addon" id="sliderc">c</span>
-					<input type="text" id="cSlideInput" aria-describedby="sliderc">
-					</div>
-					<div id="sliderC1" style="width:300px;margin:10px;"></div>
-				</p>
-			</div>
-		</div>
-	</div>
-	<div class="container col-lg-3" id="textPourJxBox">
-		<div class="panel panel-default" id="textPeda">
-				<!-- affichage du texte de la pente d'une equation -->
-				<div id="textPentePedaSl" class= "css-typing">
-					<p> Calculer la pente:</p>
-					<p>1) à partir de l'équation</p>
-					<p id="equationEntree"> y = Ax + B </p>
-					<p id="penteEquation"> La pente = le paramètre A </p>
-					<p>2) à partir de 2 points: </p>
-					<p id ="penteDeuxPoints"> p1(x1, y1) et p2(x2, y2) </p>
-					<p> la pente a se calcule: </p>
-					<p id="formuleDeuxPoints"><span class='numer' id="numerateur">y2 - y1</span> <span class='denom' id="denominateur">x2 - x1</span></p>
-				 </br>
-			   </br>
-			   </br>
-					<p>qui représente la formule:</p>
-					<p> <span class='numer'> Variation sur Y</span> <span class='denom'>Variation sur X</span></p>
+	<body onload="sliderFunction();">
+		<div id="custom-bootstrap-menu" class="navbar navbar-default " role="navigation">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-menubuilder">
+						<span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+					</button>
 				</div>
-				
-	
-				<!-- affichage du texte de la forme canonique -->
-				<div id="textFormCanonique" class = "css-typing">
-					<p> Une fonction quadratique a deux formes: </p>
-					<p> 1) La forme générale: y= ax&#178+ bx +c</p>
-					<p id="formeGenerale"></p>
-					<p> 2) La forme canonique: y= a(x-h)&#178+ k</p>
-					<p id="formeCanonique"></p>
-					<p>Le rôle des paramètres a, h et k: </p>
-					<p id="paraA">Le paramètre a: dilatation verticale de la courbe </p>
-					<p>plus la valeur de a se rapproche de 0, plus la parabole est évasée; </p>
-					<p>plus la valeur de a s'éloigne de 0, plus la parabole est étroite. </p>
-					<p id="paraH">Le paramètre h: indique la valeur de x au sommet de la courbe </p>
-					<p id="paraK">Le paramètre k: indique la valeur de y au sommet de la courbe </p>
+				<div class="collapse navbar-collapse navbar-menubuilder">
+					<ul class="nav navbar-nav navbar-left">
+						<li>
+							<a href="index.html">Accueil</a>
+						</li>
+						<li>
+							<a href="graphSlider.html">Curseurs</a>
+						</li>
+						<li>
+							<a href="graphPoints.html">Points</a>
+						</li>
+						<li>
+							<a href="apropos.html">À propos</a>
+						</li>
+						<li>
+							<a href="wiki.html" target="_blank">wiki</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="container col-lg-1">
+				<div class="btn-group-vertical" role="group" id="btnGroup">
+					<button type="button" class="btn btn-pente btn-lg" id="btnpente" onClick="animerPente(); textPenteSl()" disabled="true">
+						Pente
+					</button>
+					<button type="button" class="btn btn-pente btn-lg" id="canonique" onClick=" textCanonique(); changementCanonique()"disabled="true">
+						Canonique
+					</button>
+					<button type="button" class="btn btn-pente btn-lg" id="btnresetter" onClick="resetGraph()" disabled="true">
+						Reset
+					</button>
+					<button type="button" class="btn btn-pente btn-lg" id="btnAfficOrd" onClick= "afficherOrdonnee(); textOrdSl()" disabled="true">
+						Ordonnee
+					</button>
+					<button type="button" class="btn btn-pente btn-lg" id="btnAxeStm" onClick="axeDeSymetrie(); textAxeSl()" disabled="true" >
+						Axe symétrie
+					</button>
+					<button type="button" class="btn btn-pente btn-lg" id="btnAfficZero" onClick=" afficherLesZeros(); textZerosSl();" disabled="true">
+						Les zéros
+					</button>
+				</div>
+			</div>
+			<div class="container col-lg-8" id="containerJxBox">
+				<div class="container center-block jxgbox jxbox2"  id="box"></div>
+				<div class = "containter center-block col-md-3 col-md-push-4">
+					<style type="text/css">
+						#slider-frame > div.sliders {
+							padding: 10px !important;
+						};
+					</style>
+					<div class="sliders" style="margin:5px">
+						<p>
+							<div class="input-group">
+								<span class="input-group-addon" id="slidera">a</span>
+								<input type="text" id="aSlideInput" aria-describedby="slidera">
+							</div>
+							<div id="sliderA1" style="width:300px;margin:10px;"></div>
+							<div class="input-group">
+								<span class="input-group-addon" id="sliderb">b</span>
+								<input type="text" id="bSlideInput" aria-describedby="sliderb">
+							</div>
+							<div id="sliderB1" style="width:300px;margin:10px;"></div>
+							<div class="input-group">
+								<span class="input-group-addon" id="sliderc">c</span>
+								<input type="text" id="cSlideInput" aria-describedby="sliderc">
+							</div>
+							<div id="sliderC1" style="width:300px;margin:10px;"></div>
+						</p>
 					</div>
-				
-	
-				<!-- affichage du texte de l'ordonnee  -->
-				<div id="textOrdoPedaSl" class= "css-typing">
-					<p> Calculer l'ordonnée à l'origine</p>
-					<p> 1)Équation linéaire:</p>
-					<p id="ordonneeEquation"> y = ax + b</p>
-					<p id="ordonneeFormule"> b = y - ax</p>
-					<br>
-					<p> 2)Équation quadratique:</p>
-					<p id="ordonneeEquationQuadratique"> y = ax + b + c</p>
-					<p id="ordonneeFormuleQuadratique"> ordonnée = c </p>
+				</div>
+			</div>
+			<div class="container col-lg-3" id="textPourJxBox">
+				<div class="panel panel-default" id="textPeda">
+					<!-- affichage du texte de la pente d'une equation -->
+					<div id="textPentePedaSl" class= "css-typing">
+						<p>
+							Calculer la pente:
+						</p>
+						<p>
+							1) à partir de l'équation
+						</p>
+						<p id="equationEntree">
+							y = Ax + B
+						</p>
+						<p id="penteEquation">
+							La pente = le paramètre A
+						</p>
+						<p>
+							2) à partir de 2 points:
+						</p>
+						<p id ="penteDeuxPoints">
+							p1(x1, y1) et p2(x2, y2)
+						</p>
+						<p>
+							la pente a se calcule:
+						</p>
+						<p id="formuleDeuxPoints">
+							<span class='numer' id="numerateur">y2 - y1</span><span class='denom' id="denominateur">x2 - x1</span>
+						</p>
+						</br>
+						</br>
+						</br>
+						<p>
+							qui représente la formule:
+						</p>
+						<p>
+							<span class='numer'> Variation sur Y</span><span class='denom'>Variation sur X</span>
+						</p>
+					</div>
+
+					<!-- affichage du texte de la forme canonique -->
+					<div id="textFormCanonique" class = "css-typing">
+						<p>
+							Une fonction quadratique a deux formes:
+						</p>
+						<p>
+							1) La forme générale: y= ax&#178+ bx +c
+						</p>
+						<p id="formeGenerale"></p>
+						<p>
+							2) La forme canonique: y= a(x-h)&#178+ k
+						</p>
+						<p id="formeCanonique"></p>
+						<p>
+							Le rôle des paramètres a, h et k:
+						</p>
+						<p id="paraA">
+							Le paramètre a: dilatation verticale de la courbe
+						</p>
+						<p>
+							plus la valeur de a se rapproche de 0, plus la parabole est évasée;
+						</p>
+						<p>
+							plus la valeur de a s'éloigne de 0, plus la parabole est étroite.
+						</p>
+						<p id="paraH">
+							Le paramètre h: indique la valeur de x au sommet de la courbe
+						</p>
+						<p id="paraK">
+							Le paramètre k: indique la valeur de y au sommet de la courbe
+						</p>
+					</div>
+
+					<!-- affichage du texte de l'ordonnee  -->
+					<div id="textOrdoPedaSl" class= "css-typing">
+						<p>
+							Calculer l'ordonnée à l'origine
+						</p>
+						<p>
+							1)Équation linéaire:
+						</p>
+						<p id="ordonneeEquation">
+							y = ax + b
+						</p>
+						<p id="ordonneeFormule">
+							b = y - ax
+						</p>
+						<br>
+						<p>
+							2)Équation quadratique:
+						</p>
+						<p id="ordonneeEquationQuadratique">
+							y = ax + b + c
+						</p>
+						<p id="ordonneeFormuleQuadratique">
+							ordonnée = c
+						</p>
 					</div>
 
 					<!-- affichage du texte de l'axe de symétrie -->
 					<div id="textAxeSymSl" class = "css-typing">
-					<p> L'axe de symétrie d'une parabole est la droite </p>
-					<p> verticale qui passe par le sommet de cette parabole </p>
-					<p id="axeDeSymetrie" class= "css-typing"> x = <span class='numer' id="numerateur">-b</span> <span class='denom' id="denominateur">2a</span> </p>
+						<p>
+							L'axe de symétrie d'une parabole est la droite
+						</p>
+						<p>
+							verticale qui passe par le sommet de cette parabole
+						</p>
+						<p id="axeDeSymetrie" class= "css-typing">
+							x = <span class='numer' id="numerateur">-b</span><span class='denom' id="denominateur">2a</span>
+						</p>
 					</div>
 
 					<!-- affichage du texte des zéros -->
-				<div id="textLesZerosSl" class= "css-typing">
-					<p> Les zéros représentent les points de rencontre de la parabole avec l'axe des x </p>
-					<p> C'est-à-dire les valeurs de la variable x lorsque y = 0</p>
-					<p> Pour calculer les zéros: </p>
-					<p> Il faut résoudre l'équation ax&#178+ bx +c= 0</p>
-					<p> soit par la méthode de factorisation </p>
-					<p> soit par la formule quadratique: </p>
+					<div id="textLesZerosSl" class= "css-typing">
+						<p>
+							Les zéros représentent les points de rencontre de la parabole avec l'axe des x
+						</p>
+						<p>
+							C'est-à-dire les valeurs de la variable x lorsque y = 0
+						</p>
+						<p>
+							Pour calculer les zéros:
+						</p>
+						<p>
+							Il faut résoudre l'équation ax&#178+ bx +c= 0
+						</p>
+						<p>
+							soit par la méthode de factorisation
+						</p>
+						<p>
+							soit par la formule quadratique:
+						</p>
 
-					<!-- affichage du texte de  la formule quadratique-->
-				<table style="font-family:verdana;">
-  					<tr>
-    				<td><span id="paraB">&minus;b &plusmn;</span>
-    			 	&radic;<span style="text-decoration:overline"><span id="paraB2">&nbsp;
-   				 	b</span><span style="font-size: 10px;vertical-align:+25%;">2</span> &minus;
-    				4<span id="paraA">a</span><span id="paraC">c&nbsp;</span></span></td>
-  					</tr>
- 					 <tr>
-   					 <td style="text-align:center;">
-    				<span style="text-decoration:overline;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-    				2<span id="paraA2">a</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>
-   				 </td>
- 				 </tr>
-				</table>
-			<br>
+						<!-- affichage du texte de  la formule quadratique-->
+						<table style="font-family:verdana;">
+							<tr>
+								<td><span id="paraB">&minus;b &plusmn;</span> &radic;<span style="text-decoration:overline"><span id="paraB2">&nbsp;
+										b</span><span style="font-size: 10px;vertical-align:+25%;">2</span> &minus;
+									4<span id="paraA">a</span><span id="paraC">c&nbsp;</span></span></td>
+							</tr>
+							<tr>
+								<td style="text-align:center;"><span style="text-decoration:overline;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+									2<span id="paraA2">a</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span></td>
+							</tr>
+						</table>
+						<br>
 
-				<p id="lesZeros">Les zéros sont: </p>
+						<p id="lesZeros">
+							Les zéros sont:
+						</p>
+					</div>
+				</div>
 			</div>
+		</div>
+		</div>
+		<br>
+		<div class="container-fluid" id="bottom">
+			<div class="container col-lg-7 col-lg-push-1">
+				<fieldset class="form-group form-inline" id="saisie">
+					<br>
+					<label for="input" id="label">Équation :</label>
+					<input type = "text" class="form-control input-lg" id="input" rows="2">
+					</input>
+					<div id="clavier-virtuel">
+						<button id="2" class= "clavierbutton">
+							&#178;
+						</button>
+						<button id="x2"class= "clavierbutton">
+							x&#178;
+						</button>
+						<button id="y2" class= "clavierbutton">
+							x
+						</button>
+				</fieldset>
 			</div>
-	</div>
-	</div>
-</div>
-<br>
-<div class="container-fluid" id="bottom">
-	<div class="container col-lg-7 col-lg-push-1">
-		<fieldset class="form-group form-inline" id="saisie">
 			<br>
-			<label for="input" id="label">Équation :</label>
-			<input type = "text" class="form-control input-lg" id="input" rows="2">
-		</input>
-		<div id="clavier-virtuel">
-			<button id="2" class= "clavierbutton">
-				&#178;
-			</button>
-			<button id="x2"class= "clavierbutton">
-				x&#178;
-			</button>
-			<button id="y2" class= "clavierbutton">
-				x
-			</button>
-		</fieldset>
-	</div>
-	<br>
-	<div class="btn-group btn-group-lg" role="group">
-		<button type="submit" class="btn btn-saisie btn-lg inline" id="btnrnd" onClick="trace(); this.disabled=true">Soumettre</button>
-		<button type="reset" class="btn btn-saisie btn-lg inline" id= "eff" onClick="erase()">Effacer</button>
-	</div>
-</div>
-</div>
-</body>
+			<div class="btn-group btn-group-lg" role="group">
+				<button type="submit" class="btn btn-saisie btn-lg inline" id="btnrnd" onClick="trace(); this.disabled=true">
+					Soumettre
+				</button>
+				<button type="reset" class="btn btn-saisie btn-lg inline" id= "eff" onClick="erase()">
+					Effacer
+				</button>
+			</div>
+		</div>
+		</div>
+	</body>
 
-</script>
-<script type="text/javascript" src="JS/indexScript.js"></script>
-<script type="text/javascript" src="JS/clavierVirtuel.js"></script>
-<script type="text/javascript" src="JS/textpedagogique.js"></script>
+	</script>
+	<script type="text/javascript" src="JS/indexScript.js"></script>
+	<script type="text/javascript" src="JS/clavierVirtuel.js"></script>
+	<script type="text/javascript" src="JS/textpedagogique.js"></script>

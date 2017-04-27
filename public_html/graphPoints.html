@@ -3,191 +3,264 @@
 
 <html>
 
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Graph">
-	<meta name="author" content="Marco Antonelli">
-	<meta name="author" content="Étienne Beauchemin-Lachapelle">
-	<meta name="author" content="Omar Saaoui">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="Graph">
+		<meta name="author" content="Marco Antonelli">
+		<meta name="author" content="Étienne Beauchemin-Lachapelle">
+		<meta name="author" content="Omar Saaoui">
 
-	<title>math graph</title>
+		<title>math graph</title>
 
-	<!-- Icon -->
-	<link rel="icon" href="IMAGES/parabola.png">
-	<!-- Bootstrap -->
-	<link rel="stylesheet" type="text/css" href="CSS/bootstrap.min.css">
+		<!-- Icon -->
+		<link rel="icon" href="IMAGES/parabola.png">
+		<!-- Bootstrap -->
+		<link rel="stylesheet" type="text/css" href="CSS/bootstrap.min.css">
 
-	<!-- Style (CSS) -->
-	<link rel="stylesheet" type="text/css" href="CSS/style.css">
-	<link rel="stylesheet" type="text/css" href="http://jsxgraph.uni-bayreuth.de/distrib/jsxgraph.css">
+		<!-- Style (CSS) -->
+		<link rel="stylesheet" type="text/css" href="CSS/style.css">
+		<link rel="stylesheet" type="text/css" href="http://jsxgraph.uni-bayreuth.de/distrib/jsxgraph.css">
 
-	<!-- Librarie js  -->
-	<script type="text/javascript" src="JS/jquery.min.js"></script>
-	<script type="text/javascript" src="JS/bootstrap.min.js"></script>
-	<script type="text/javascript" src="JS/jsxgraphcore.js"></script>
-	<!-- Librairie MathJax pour l'affichage des symboles mathématiques : fractions, racines carrées...-->
-	<script type="text/x-mathjax-config"> MathJax.Hub.Config({   tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]} });</script>
-	<script type="text/javascript"
-	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-	</script>
+		<!-- Librarie js  -->
+		<script type="text/javascript" src="JS/jquery.min.js"></script>
+		<script type="text/javascript" src="JS/bootstrap.min.js"></script>
+		<script type="text/javascript" src="JS/jsxgraphcore.js"></script>
+		<!-- Librairie MathJax pour l'affichage des symboles mathématiques : fractions, racines carrées...-->
+		<script type="text/x-mathjax-config">
+			MathJax.Hub.Config({   tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]} });
+		</script>
+		<script type="text/javascript"
+		src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-</head>
+	</head>
 
-<body>
-	<!-- navbar custom  -->
-	<div id="custom-bootstrap-menu" class="navbar navbar-default " role="navigation">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-menubuilder"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
-				</button>
-			</div>
-			<div class="collapse navbar-collapse navbar-menubuilder">
-				<ul class="nav navbar-nav navbar-left">
-					<li><a href="index.html">Accueil</a>
-					</li>
-					<li><a href="graphSlider.html">Curseurs</a>
-					</li>
-					<li><a href="graphPoints.html">Points</a>
-					</li>
-					<li><a href="apropos.html">À propos</a>
-					</li>
-					<li><a href="wiki.html" target="_blank">wiki</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</div>
-
-	<div class="row">
-		<div class="container col-lg-1">
-			<div class="btn-group-vertical" role="group" id="btnGroup">
-				<button type="button" class="btn btn-pente btn-lg" id="btnpente" onClick="animerPente(); textPente();" disabled="true">Pente</button>
-				<button type="button" class="btn btn-pente btn-lg" id="btnresetter" onClick="resetGraph()" disabled="true">Reset</button>
-				<button type="button" class="btn btn-pente btn-lg" id="btnAfficOrd" onClick="afficherOrdonnee(); textOrd();" disabled="true">Ordonnee</button>
-				<button type="button" class="btn btn-pente btn-lg" id="btnAxeStm" onClick="axeDeSymetrie(); textAxe();" disabled="true">Axe symétrie </button>
-				<button type="button" class="btn btn-pente btn-lg" id="btnAfficZero" onClick="afficherLesZeros();textZeros()" disabled="true">Les zéros </button>
-			</div>
-		</div>
-		<div class="container col-lg-8" id="containerJxBoxP">
-			<div class="jxgbox jxbox2" id="box"></div>
-		</div>
-		<div class="container col-lg-3" id="textPourJxBox">
-			<div class="panel panel-default" id="textPeda">
-				<div id="textPentePeda" class= "css-typing">
-					<p> Calculer la pente:</p>
-					<p>1) à partir de l'équation</p>
-					<p id="equationEntree"> y = Ax + B </p>
-					<p id="penteEquation"> La pente = le paramètre A </p>
-					<p>2) à partir de 2 points: </p>
-					<p id ="penteDeuxPoints"> p1(x1, y1) et p2(x2, y2) </p>
-					<p> la pente a se calcule: </p>
-					<p id="formuleDeuxPoints"><span class='numer' id="numerateur">y2 - y1</span> <span class='denom' id="denominateur">x2 - x1</span></p>
-				 </br>
-			   </br>
-			   </br>
-					<p>qui représente la formule:</p>
-					<p> <span class='numer'> Variation sur Y</span> <span class='denom'>Variation sur X</span></p>
+	<body>
+		<!-- navbar custom  -->
+		<div id="custom-bootstrap-menu" class="navbar navbar-default " role="navigation">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-menubuilder">
+						<span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+					</button>
 				</div>
+				<div class="collapse navbar-collapse navbar-menubuilder">
+					<ul class="nav navbar-nav navbar-left">
+						<li>
+							<a href="index.html">Accueil</a>
+						</li>
+						<li>
+							<a href="graphSlider.html">Curseurs</a>
+						</li>
+						<li>
+							<a href="graphPoints.html">Points</a>
+						</li>
+						<li>
+							<a href="apropos.html">À propos</a>
+						</li>
+						<li>
+							<a href="wiki.html" target="_blank">wiki</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
 
-				<div id="textOrdoPeda" class= "css-typing">
-					<p> Calculer l'ordonnée à l'origine</p>
-					<p> 1)Équation linéaire:</p>
-					<p id="ordonneeEquation"> y = ax + b</p>
-					<p id="ordonneeFormule"> b = y - ax</p>
-					<br>
-					<p> 2)Équation quadratique:</p>
-					<p id="ordonneeEquationQuadratique"> y = ax + b + c</p>
-					<p id="ordonneeFormuleQuadratique"> ordonnée = c </p>
+		<div class="row">
+			<div class="container col-lg-1">
+				<div class="btn-group-vertical" role="group" id="btnGroup">
+					<button type="button" class="btn btn-pente btn-lg" id="btnpente" onClick="animerPente(); textPente();" disabled="true">
+						Pente
+					</button>
+					<button type="button" class="btn btn-pente btn-lg" id="btnresetter" onClick="resetGraph()" disabled="true">
+						Reset
+					</button>
+					<button type="button" class="btn btn-pente btn-lg" id="btnAfficOrd" onClick="afficherOrdonnee(); textOrd();" disabled="true">
+						Ordonnee
+					</button>
+					<button type="button" class="btn btn-pente btn-lg" id="btnAxeStm" onClick="axeDeSymetrie(); textAxe();" disabled="true">
+						Axe symétrie
+					</button>
+					<button type="button" class="btn btn-pente btn-lg" id="btnAfficZero" onClick="afficherLesZeros();textZeros()" disabled="true">
+						Les zéros
+					</button>
+				</div>
+			</div>
+			<div class="container col-lg-8" id="containerJxBoxP">
+				<div class="jxgbox jxbox2" id="box"></div>
+			</div>
+			<div class="container col-lg-3" id="textPourJxBox">
+				<div class="panel panel-default" id="textPeda">
+					<div id="textPentePeda" class= "css-typing">
+						<p>
+							Calculer la pente:
+						</p>
+						<p>
+							1) à partir de l'équation
+						</p>
+						<p id="equationEntree">
+							y = Ax + B
+						</p>
+						<p id="penteEquation">
+							La pente = le paramètre A
+						</p>
+						<p>
+							2) à partir de 2 points:
+						</p>
+						<p id ="penteDeuxPoints">
+							p1(x1, y1) et p2(x2, y2)
+						</p>
+						<p>
+							la pente a se calcule:
+						</p>
+						<p id="formuleDeuxPoints">
+							<span class='numer' id="numerateur">y2 - y1</span><span class='denom' id="denominateur">x2 - x1</span>
+						</p>
+						</br>
+						</br>
+						</br>
+						<p>
+							qui représente la formule:
+						</p>
+						<p>
+							<span class='numer'> Variation sur Y</span><span class='denom'>Variation sur X</span>
+						</p>
+					</div>
+
+					<div id="textOrdoPeda" class= "css-typing">
+						<p>
+							Calculer l'ordonnée à l'origine
+						</p>
+						<p>
+							1)Équation linéaire:
+						</p>
+						<p id="ordonneeEquation">
+							y = ax + b
+						</p>
+						<p id="ordonneeFormule">
+							b = y - ax
+						</p>
+						<br>
+						<p>
+							2)Équation quadratique:
+						</p>
+						<p id="ordonneeEquationQuadratique">
+							y = ax + b + c
+						</p>
+						<p id="ordonneeFormuleQuadratique">
+							ordonnée = c
+						</p>
 					</div>
 
 					<!-- affichage du texte de l'axe de symétrie -->
 					<div id="textAxeSym" class = "css-typing">
-					<p> L'axe de symétrie d'une parabole est la droite </p>
-					<p> verticale qui passe par le sommet de cette parabole </p>
-					<p id="axeDeSymetrie" class= "css-typing"> x = <span class='numer' id="numerateur">-b</span> <span class='denom' id="denominateur">2a</span> </p>
+						<p>
+							L'axe de symétrie d'une parabole est la droite
+						</p>
+						<p>
+							verticale qui passe par le sommet de cette parabole
+						</p>
+						<p id="axeDeSymetrie" class= "css-typing">
+							x = <span class='numer' id="numerateur">-b</span><span class='denom' id="denominateur">2a</span>
+						</p>
 					</div>
 
 					<!-- affichage du texte des zéros -->
-				<div id="textLesZeros" class= "css-typing">
-					<p> Les zéros représentent les points de rencontre de la parabole avec l'axe des x </p>
-					<p> C'est-à-dire les valeurs de la variable x lorsque y = 0</p>
-					<p> Pour calculer les zéros: </p>
-					<p> Il faut résoudre l'équation ax&#178+ bx +c= 0</p>
-					<p> soit par la méthode de factorisation </p>
-					<p> soit par la formule quadratique: </p>
+					<div id="textLesZeros" class= "css-typing">
+						<p>
+							Les zéros représentent les points de rencontre de la parabole avec l'axe des x
+						</p>
+						<p>
+							C'est-à-dire les valeurs de la variable x lorsque y = 0
+						</p>
+						<p>
+							Pour calculer les zéros:
+						</p>
+						<p>
+							Il faut résoudre l'équation ax&#178+ bx +c= 0
+						</p>
+						<p>
+							soit par la méthode de factorisation
+						</p>
+						<p>
+							soit par la formule quadratique:
+						</p>
 
-					<!-- affichage du texte de  la formule quadratique-->
-					<table style="font-family:verdana;">
-  					<tr>
-    				<td>&minus;b &plusmn;
-    			 	&radic;<span style="text-decoration:overline">&nbsp;
-   				 	b<span style="font-size: 10px;vertical-align:+25%;">2</span> &minus;
-    				4ac&nbsp;</span></td>
-  					</tr>
- 					 <tr>
-   					 <td style="text-align:center;">
-    				<span style="text-decoration:overline;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-    				2a&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>
-   				 </td>
- 				 </tr>
-				</table>
-				
-				<br>
-				<table style="font-family:verdana;">
-  					<tr>
-    				<td><span id="paraB">&minus;b </span> &plusmn;
-    			 	&radic;<span style="text-decoration:overline"><span id="paraB2">&nbsp;
-   				 	b</span><span style="font-size: 10px;vertical-align:+25%;">2</span> &minus;
-    				4<span id="paraA">a</span><span id="paraC">c&nbsp;</span></span></td>
-  					</tr>
- 					 <tr>
-   					 <td style="text-align:center;">
-    				<span style="text-decoration:overline;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-    				2<span id="paraA2">a</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>
-   				 </td>
- 				 </tr>
-				</table>
+						<!-- affichage du texte de  la formule quadratique-->
+						<table style="font-family:verdana;">
+							<tr>
+								<td>&minus;b &plusmn;
+								&radic;<span style="text-decoration:overline">&nbsp;
+									b<span style="font-size: 10px;vertical-align:+25%;">2</span> &minus;
+									4ac&nbsp;</span></td>
+							</tr>
+							<tr>
+								<td style="text-align:center;"><span style="text-decoration:overline;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+									2a&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span></td>
+							</tr>
+						</table>
+
+						<br>
+						<table style="font-family:verdana;">
+							<tr>
+								<td><span id="paraB">&minus;b </span> &plusmn;
+								&radic;<span style="text-decoration:overline"><span id="paraB2">&nbsp;
+										b</span><span style="font-size: 10px;vertical-align:+25%;">2</span> &minus;
+									4<span id="paraA">a</span><span id="paraC">c&nbsp;</span></span></td>
+							</tr>
+							<tr>
+								<td style="text-align:center;"><span style="text-decoration:overline;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+									2<span id="paraA2">a</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span></td>
+							</tr>
+						</table>
+						<br>
+
+						<p id="lesZeros">
+							Les zéros sont:
+						</p>
+					</div>
+				</div>
+			</div>
 			<br>
-
-				<p id="lesZeros">Les zéros sont: </p>
-			</div>
+			<div class = "containter center-block col-md-4 col-md-push-3" id="boxTextEqu">
+				<p id="equationGraph">
+					<span>y = </span><span id="ax"></span><span>ax&#178 + </span><span id="bx"></span><span>bx + </span><span id ="cx">c</span>
+				</p>
 			</div>
 		</div>
 		<br>
-		<div class = "containter center-block col-md-4 col-md-push-3" id="boxTextEqu">
-			<p id="equationGraph"><span>y = </span><span id="ax"></span><span>ax&#178 + </span><span id="bx"></span><span>bx + </span><span id ="cx">c</span></p>
-		</div>
-	</div>
-	<br>
-	<div class="container-fluid" id="bottom">
-		<div class="container col-lg-7 col-lg-push-1">
-			<fieldset class="form-group form-inline" id="saisie">
-				<br>
-				<label for="input" id="label">Équation :</label>
-				<input type = "text" class="form-control input-lg" id="input" rows="2">
-			</input>
-			<div id="clavier-virtuel">
-				<button id="2" class= "clavierbutton">
-					&#178;
+		<div class="container-fluid" id="bottom">
+			<div class="container col-lg-7 col-lg-push-1">
+				<fieldset class="form-group form-inline" id="saisie">
+					<br>
+					<label for="input" id="label">Équation :</label>
+					<input type = "text" class="form-control input-lg" id="input" rows="2">
+					</input>
+					<div id="clavier-virtuel">
+						<button id="2" class= "clavierbutton">
+							&#178;
+						</button>
+						<button id="x2"class= "clavierbutton">
+							x&#178;
+						</button>
+						<button id="y2" class= "clavierbutton">
+							x
+						</button>
+				</fieldset>
+			</div>
+			<br>
+			<div class="btn-group btn-group-lg" role="group">
+				<button type="submit" class="btn btn-saisie btn-lg inline" id="btnrnd" onClick="traceAvecP(); ">
+					Soumettre
 				</button>
-				<button id="x2"class= "clavierbutton">
-					x&#178;
+				<button type="reset" class="btn btn-saisie btn-lg inline" id= "eff" onClick="erase()">
+					Effacer
 				</button>
-				<button id="y2" class= "clavierbutton">
-					x
-				</button>
-			</fieldset>
+			</div>
 		</div>
-		<br>
-		<div class="btn-group btn-group-lg" role="group">
-			<button type="submit" class="btn btn-saisie btn-lg inline" id="btnrnd" onClick="traceAvecP(); ">Soumettre</button>
-			<button type="reset" class="btn btn-saisie btn-lg inline" id= "eff" onClick="erase()">Effacer</button>
 		</div>
-	</div>
-</div>
-</body>
-<script type="text/javascript" src="JS/indexPoints.js"></script>
-<script type="text/javascript" src="JS/clavierVirtuel.js"></script>
-<script type="text/javascript" src="JS/textpedagogique.js"></script>
+	</body>
+	<script type="text/javascript" src="JS/indexPoints.js"></script>
+	<script type="text/javascript" src="JS/clavierVirtuel.js"></script>
+	<script type="text/javascript" src="JS/textpedagogique.js"></script>
